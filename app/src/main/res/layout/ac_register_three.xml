@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <EditText
+            android:id="@+id/user_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40"
+            android:layout_marginTop="@dimen/y10"
+            android:drawableLeft="@drawable/password"
+            android:drawablePadding="@dimen/x10"
+            android:hint="请设置6-16位的登录密码"
+            android:inputType="textPassword"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_marginRight="@dimen/x20"
+            android:textSize="@dimen/x14"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="@color/login_hint_color"
+            android:background="@drawable/edit_bg" />
+
+        <ImageView
+            android:id="@+id/appearpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/x20"
+            android:layout_marginTop="@dimen/x10"
+            android:clickable="true"
+            android:visibility="gone"
+            android:padding="@dimen/x10"
+            android:src="@drawable/hidepwd" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/register_confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/y30"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/y16"
+        android:background="@drawable/login_btn"
+        android:text="@string/register_confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/x16" />
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/spinneritem_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/login_line_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x68" >
+
+        <ImageView
+            android:id="@+id/paytype_img"
+            android:layout_width="@dimen/x40"
+            android:layout_height="@dimen/x40"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x10"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/paytype_arrow"
+            android:layout_width="@dimen/x10"
+            android:layout_height="@dimen/x10"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x10"
+            android:scaleType="fitXY"
+            android:src="@drawable/arrow_right_gray" />
+
+        <TextView
+            android:id="@+id/paytype_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x34"
+            android:layout_toRightOf="@id/paytype_img"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x11"
+            android:paddingTop="@dimen/x5"
+            android:text=""
+            android:textColor="@color/login_title_color"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/paytype_desc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x34"
+            android:layout_below="@id/paytype_title"
+            android:layout_toRightOf="@id/paytype_img"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/x11"
+            android:text=""
+            android:textColor="#B4B4B4"
+            android:textSize="@dimen/x12" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhailr.caipiao.widget.TZCPPullRefresh xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhailr.caipiao.widget.pullableview.PullableScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layou_ssq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_rl"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/x10">
+
+                        <TextView
+                            android:id="@+id/ssq"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="双色球"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/x20" />
+
+                        <TextView
+                            android:id="@+id/ssq_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x70"
+                            android:layout_marginTop="@dimen/x4"
+                            android:textColor="@color/grey_tip"
+                            android:textSize="@dimen/x14" />
+
+                        <TextView
+                            android:id="@+id/ssq_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/x10"
+                            android:layout_marginTop="@dimen/x4"
+                            android:textColor="@color/grey_tip"
+                            android:textSize="@dimen/x14" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/ssq"
+                            android:layout_marginTop="@dimen/x10">
+
+                            <TextView
+                                android:id="@+id/ssq_one"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball" />
+
+                            <TextView
+                                android:id="@+id/ssq_two"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball" />
+
+                            <TextView
+                                android:id="@+id/ssq_three"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball" />
+
+                            <TextView
+                                android:id="@+id/ssq_four"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball" />
+
+                            <TextView
+                                android:id="@+id/ssq_five"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball" />
+
+                            <TextView
+                                android:id="@+id/ssq_six"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball" />
+
+                            <TextView
+                                android:id="@+id/ssq_seven"
+                                style="@style/Ball"
+                                android:background="@drawable/blue_flat_ball" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/right_arrow"
+                            android:contentDescription="@string/content_description" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_line_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layou_3d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_rl"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/x10">
+
+                        <TextView
+                            android:id="@+id/fc3d"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="福彩3D"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/x20" />
+
+                        <TextView
+                            android:id="@+id/fc3d_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x70"
+                            android:textColor="@color/grey_tip"
+                            android:layout_marginTop="@dimen/x4"
+                            android:textSize="@dimen/x14" />
+
+                        <TextView
+                            android:id="@+id/fc3d_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/x10"
+                            android:textColor="@color/grey_tip"
+                            android:layout_marginTop="@dimen/x4"
+                            android:textSize="@dimen/x14" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/fc3d"
+                            android:layout_marginTop="@dimen/x10">
+
+                            <TextView
+                                android:id="@+id/fc3d_one"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball"
+                                android:textSize="@dimen/x18" />
+
+                            <TextView
+                                android:id="@+id/fc3d_two"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball"
+                                android:textSize="@dimen/x18" />
+
+                            <TextView
+                                android:id="@+id/fc3d_three"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball"
+                                android:textSize="@dimen/x18" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/right_arrow"
+                            android:contentDescription="@string/content_description" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/gray_line_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layou_ks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_rl"
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/x10">
+
+                        <TextView
+                            android:id="@+id/k3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="快3"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/x20" />
+
+                        <TextView
+                            android:id="@+id/k3_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/x50"
+                            android:textColor="@color/grey_tip"
+                            android:layout_marginTop="@dimen/x4"
+                            android:textSize="@dimen/x14" />
+
+                        <TextView
+                            android:id="@+id/k3_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/x10"
+                            android:textColor="@color/grey_tip"
+                            android:layout_marginTop="@dimen/x4"
+                            android:textSize="@dimen/x14" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/k3"
+                            android:layout_marginTop="@dimen/x10">
+
+                            <TextView
+                                android:id="@+id/k3_one"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball"
+                                android:textSize="@dimen/x18" />
+
+                            <TextView
+                                android:id="@+id/k3_two"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball"
+                                android:textSize="@dimen/x18" />
+
+                            <TextView
+                                android:id="@+id/k3_three"
+                                style="@style/Ball"
+                                android:background="@drawable/red_flat_ball"
+                                android:textSize="@dimen/x18" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/right_arrow"
+                            android:contentDescription="@string/content_description" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.zhailr.caipiao.widget.pullableview.PullableScrollView>
+</com.zhailr.caipiao.widget.TZCPPullRefresh>

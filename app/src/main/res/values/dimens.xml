@@ -1,0 +1,28 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="line_height">0.1dp</dimen>
+    <dimen name="margin_left">20dp</dimen>
+    <integer name="duration_anim">300</integer>
+
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">16dp</dimen>
+    <dimen name="space_l">24dp</dimen>
+    <dimen name="space_xl">36dp</dimen>
+    <dimen name="space_xxl">48dp</dimen>
+    <dimen name="space_xxxl">72dp</dimen>
+
+    <dimen name="txt_xs">8sp</dimen>
+    <dimen name="txt_s">12sp</dimen>
+    <dimen name="txt_m">16sp</dimen>
+    <dimen name="txt_l">24sp</dimen>
+    <dimen name="txt_xl">32sp</dimen>
+
+    <!--半径-->
+    <dimen name="conner_common">4dp</dimen>
+    <!--分割线高度-->
+    <dimen name="height_divider">1px</dimen>
+
+</resources>

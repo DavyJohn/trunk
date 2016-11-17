@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:id="@+id/rl_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/x14"
+            android:padding="@dimen/x10"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bt_panel_bg">
+
+        <TextView
+            android:id="@+id/tv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x40"
+            android:layout_margin="@dimen/x6"
+            android:background="@drawable/btn_dark"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x12"
+            android:paddingRight="@dimen/x12"
+            android:text="清空"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x20"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/tv_zhu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x16" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/x16" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x40"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/x6"
+            android:background="@drawable/btn_yellow"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x12"
+            android:paddingRight="@dimen/x12"
+            android:text="确定"
+            android:textSize="@dimen/x20"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_time"
+        android:layout_above="@+id/rl_bottem"
+        android:scrollbars="none">
+        <LinearLayout
+            android:id="@+id/layout_ball"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/layout_red_ball_dan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="胆码区：红球，至少选择1个 最多5个"
+                    android:textSize="@dimen/x16"
+                    android:padding="@dimen/x8"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layout_red_ball_tuo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="拖码区：红球，至少选择2个"
+                    android:textSize="@dimen/x16"
+                    android:padding="@dimen/x8"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_blue_ball"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="至少选择1个蓝球"
+                    android:textSize="@dimen/x16"
+                    android:padding="@dimen/x8"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

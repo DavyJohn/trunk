@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="每周二、四、日21:15开奖，点击打开开奖推送"
+            android:textSize="@dimen/x14"
+            android:padding="@dimen/x8"
+            android:visibility="visible"
+            android:background="@color/yellow2"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x6"
+            android:background="@drawable/right_arrow"
+            android:contentDescription="@string/content_description" />
+
+</RelativeLayout>

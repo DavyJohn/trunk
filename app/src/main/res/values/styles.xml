@@ -1,0 +1,76 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="actionMenuTextColor">@color/toolbarTextColor</item>
+    </style>
+
+    <!-- 进度对话框 -->
+    <style name="ProgressDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <!-- 球 -->
+    <!--android:layout_width="@dimen/x30"-->
+    <!--android:layout_height="@dimen/x30"-->
+    <!--android:text="01"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:gravity="center"-->
+    <style name="Ball" >
+        <item name="android:layout_width">@dimen/x36</item>
+        <item name="android:layout_height">@dimen/x36</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/x16</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/x6</item>
+    </style>
+    <style name="SercurityDialogTheme" parent="@android:style/Theme.Dialog">
+        <!-- 设置未浮动窗口 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 设置无边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 设置无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 设置完全透明 -->
+        <item name="android:windowBackground">@color/sc_transparent_background</item>
+        <!-- 设置屏幕变暗 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowAnimationStyle">@style/SercurityAnimation</item>
+    </style>
+    <style name="SercurityAnimation" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/input_method_enter</item>
+        <item name="android:windowExitAnimation">@anim/input_method_exit</item>
+    </style>
+
+    <style name="VerticalSeparationLineStyle">
+        <item name="android:background">#ebeef3</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="HorizontalSeparationLineStyle">
+        <item name="android:background">#ebeef3</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="KeyBroadBtnStyle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/keybroad_btn_selector</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+    </style>
+
+</resources>

@@ -1,0 +1,87 @@
+<resources>
+    <!-- 加密数字键盘 -->
+    <string name="pwd">输入密码</string>
+    <string name="forgot_pwd">忘记密码？</string>
+    <string name="num_1">1</string>
+    <string name="num_2">2</string>
+    <string name="num_3">3</string>
+    <string name="num_4">4</string>
+    <string name="num_5">5</string>
+    <string name="num_6">6</string>
+    <string name="num_7">7</string>
+    <string name="num_8">8</string>
+    <string name="num_9">9</string>
+    <string name="num_0">0</string>
+    <!-- 加密数字键盘 -->
+
+    <string name="app_name">出彩彩票</string>
+    <string name="app_versionName">1.0</string>
+    <string name="tiaozhuan">跳转</string>
+    <string name="ac_second">第二个页面</string>
+    <string name="home">购彩大厅</string>
+    <string name="oneyuan">壹元乐购</string>
+    <string name="result">开奖信息</string>
+    <string name="mine">我的彩票</string>
+    <string name="content_description">图片描述</string>
+    <string name="login">登录</string>
+    <string name="no_account">没有账号？</string>
+    <string name="register_quick">快速注册</string>
+    <string name="register_input_your_tel">请输入手机号</string>
+    <string name="register_input_your_pwd">请输入6-16位的登录密码</string>
+    <string name="register_next">下一步</string>
+    <string name="tel_error">请输入正确的手机号码</string>
+    <string name="register_title">新用户注册</string>
+    <string name="register_input_your_vertificode">请输入短信验证码</string>
+    <string name="register_verification">获取验证码</string>
+    <string name="vertificode_empty">验证码不能为空</string>
+    <string name="send_vertificode">发送短信验证码至:</string>
+    <string name="get_verification_code_title">获取短信验证码</string>
+    <string name="register_right">立即注册</string>
+    <string name="login_forget_pwd">忘记密码？</string>
+    <string name="register_confirm">完成</string>
+    <string name="please_input_login_pwd">请输入登录密码</string>
+    <string name="left">剩余</string>
+    <string name="register_re_verification">重新验证</string>
+    <string name="millions">秒</string>
+    <string name="double_paly_choose">双色球玩法选择</string>
+    <string name="double_normal_play">双色球普通玩法</string>
+    <string name="double_bet">双色球投注</string>
+    <string name="exit_tip">退出提示</string>
+    <string name="message_clear">是否清除本次选号?</string>
+    <string name="cancel_button">取消</string>
+    <string name="clear_button">清除</string>
+    <string name="random_one">机选1注</string>
+    <string name="random_five">机选5注</string>
+    <string name="random_ten">机选10注</string>
+    <string name="double_dan_tuo_play">双色球胆拖投注</string>
+    <string name="fc3d_paly_choose">福彩3D玩法选择</string>
+    <string name="fc3d_select_paly">3D直选</string>
+    <string name="fc3d_group_paly">3D组三单式</string>
+    <string name="k3_play_choose">快3玩法选择</string>
+    <string name="k3_bet">快三投注</string>
+    <string name="setting">设置</string>
+    <string name="about">关于我们</string>
+    <string name="fc3d_zxhz_paly">直选和值</string>
+    <string name="fc3d_bet">3D投注</string>
+    <string name="fc3d_zshz_paly">组三和值</string>
+    <string name="fc3d_zlhz_paly">组六和值</string>
+    <string name="per_info">个人信息</string>
+    <string name="pwd_manage">密码管理</string>
+
+    <string name="request_error">网络出错，请稍后再试</string>
+    <string name="forgot_pwd_title">找回密码</string>
+    <string name="last_min_tips">本期购买已截止，请等待下一期</string>
+    <!--<string name="first_min_tips">为了避免下单失败，前30秒内您将不能下单</string>-->
+    <string name="waiting_for_lottery">即将开奖</string>
+    <string name="being_updat">正在同步，请勿下单</string>
+    <string name="stop_bet">暂停销售</string>
+    <string name="tixian_manager">提现管理</string>
+    <string name="tixian_account_manager">提现账号管理</string>
+    <string name="tixian_account">提现账户</string>
+    <string name="tixian_application">提现申请</string>
+    <string name="bet_error">当前期号已过投注时间，请购买下一期彩票！</string>
+    <string name="login_only_can_input">qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890!@#$%^*()&amp;{}[]|\_-+=`~,.?/</string>
+
+
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.zhailr.caipiao.widget.pullableview.PullableRecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:layout_above="@+id/bottom_layout"
+        />
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x52"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bt_panel_bg">
+
+        <TextView
+            android:id="@+id/tou_zhu_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x40"
+            android:layout_margin="@dimen/x6"
+            android:background="@drawable/login_btn"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x12"
+            android:paddingRight="@dimen/x12"
+            android:text="投注双色球"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x20" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

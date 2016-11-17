@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/topTitle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/home"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x22" />
+
+    </RelativeLayout>
+
+    <com.zhailr.caipiao.widget.TZCPPullRefresh
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.zhailr.caipiao.widget.pullableview.PullableScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:background="@color/gray_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_double_color_ball"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:layout_marginTop="@dimen/y12"
+                android:paddingTop="@dimen/y6"
+                android:paddingBottom="@dimen/y6"
+                android:clickable="true"
+                android:background="@drawable/background_rl">
+
+                <ImageView
+                    android:id="@+id/logo_ssq"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/x60"
+                    android:background="@drawable/logo_ssq"/>
+
+                <TextView
+                    android:id="@+id/tv_ssq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/logo_ssq"
+                    android:text="双色球"
+                    android:textColor="@color/main_text_color_big"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/x26" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/logo_ssq"
+                    android:layout_toRightOf="@+id/logo_ssq"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x20"
+                    android:singleLine="true"
+                    android:textSize="@dimen/x13"/>
+
+                <TextView
+                    android:id="@+id/tv_tips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2元可中1500万"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x20"
+                    android:textSize="@dimen/x16"
+                    android:layout_alignBaseline="@+id/tv_ssq"
+                    android:textColor="@color/main_text_color_small"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/tv_time"
+                    android:background="@drawable/right_arrow"
+                    android:contentDescription="@string/content_description" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_fc3d"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:layout_marginTop="@dimen/y12"
+                android:paddingTop="@dimen/y6"
+                android:paddingBottom="@dimen/y6"
+                android:clickable="true"
+                android:background="@drawable/background_rl">
+
+                <ImageView
+                    android:id="@+id/logo_3dfc"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/x60"
+                    android:background="@drawable/logo_3dfc"/>
+
+                <TextView
+                    android:id="@+id/tv_3dfc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/logo_3dfc"
+                    android:text="福彩3D"
+                    android:textColor="@color/main_text_color_big"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/x26" />
+
+                <TextView
+                    android:id="@+id/fc_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_alignBottom="@+id/logo_3dfc"
+                    android:layout_toRightOf="@+id/logo_3dfc"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x20"
+                    android:singleLine="true"
+                    android:textSize="@dimen/x13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="轻松赢千元"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x20"
+                    android:textSize="@dimen/x16"
+                    android:layout_alignBaseline="@+id/tv_3dfc"
+                    android:textColor="@color/main_text_color_small"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/fc_time"
+                    android:background="@drawable/right_arrow"
+                    android:contentDescription="@string/content_description" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_fast3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/x10"
+                android:paddingRight="@dimen/x10"
+                android:layout_marginTop="@dimen/y12"
+                android:paddingTop="@dimen/y6"
+                android:paddingBottom="@dimen/y6"
+                android:clickable="true"
+                android:layout_marginBottom="@dimen/y12"
+                android:background="@drawable/background_rl">
+
+                <ImageView
+                    android:id="@+id/logo_k3"
+                    android:layout_width="@dimen/x60"
+                    android:layout_height="@dimen/x60"
+                    android:background="@drawable/logo_k3"/>
+
+                <TextView
+                    android:id="@+id/tv_k3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/logo_k3"
+                    android:text="快3"
+                    android:textColor="@color/main_text_color_big"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:textSize="@dimen/x26" />
+
+                <TextView
+                    android:id="@+id/k_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/logo_k3"
+                    android:layout_toRightOf="@+id/logo_k3"
+                    android:layout_marginLeft="@dimen/x10"
+                    android:layout_marginRight="@dimen/x20"
+                    android:singleLine="true"
+                    android:textSize="@dimen/x13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="玩骰子轻松上手"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/x20"
+                    android:textSize="@dimen/x16"
+                    android:layout_alignBaseline="@+id/tv_k3"
+                    android:textColor="@color/main_text_color_small"/>
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/k_time"
+                    android:background="@drawable/right_arrow"
+                    android:contentDescription="@string/content_description" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </com.zhailr.caipiao.widget.pullableview.PullableScrollView>
+</com.zhailr.caipiao.widget.TZCPPullRefresh>
+
+</LinearLayout>

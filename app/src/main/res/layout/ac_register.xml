@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/register_username"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y30"
+        android:text=""
+        android:textColorHint="@color/login_hint_color"
+        android:hint="@string/register_input_your_tel"
+        android:textColor="@color/login_title_color"
+        android:textSize="@dimen/x14"
+        android:drawableLeft="@drawable/username"
+        android:drawablePadding="@dimen/x10"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/y10"
+        android:maxLength="11"
+        android:inputType="number"
+        android:background="@drawable/edit_bg"
+        />
+
+    <Button
+        android:id="@+id/register_one_next"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/y30"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginRight="@dimen/x20"
+        android:layout_marginTop="@dimen/y16"
+        android:background="@drawable/login_btn"
+        android:text="@string/register_next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/x16" />
+
+
+</LinearLayout>

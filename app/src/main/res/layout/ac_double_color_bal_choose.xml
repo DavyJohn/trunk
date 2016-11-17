@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_background">
+
+    <RelativeLayout
+        android:id="@+id/normal_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:layout_marginTop="@dimen/y12"
+        android:paddingTop="@dimen/y12"
+        android:paddingBottom="@dimen/y12"
+        android:clickable="true"
+        android:background="@drawable/background_rl">
+
+        <TextView
+            android:id="@+id/tv_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通投注"
+            android:layout_alignBottom="@+id/logo_ssq"
+            android:layout_toRightOf="@+id/logo_ssq"
+            android:layout_marginLeft="@dimen/x10"
+            android:textColor="@color/grey_tip"
+            android:textSize="@dimen/x18"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/right_arrow"
+            android:contentDescription="@string/content_description" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_line_color"/>
+
+    <RelativeLayout
+        android:id="@+id/dantuo_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/x10"
+        android:paddingRight="@dimen/x10"
+        android:paddingTop="@dimen/y12"
+        android:paddingBottom="@dimen/y12"
+        android:clickable="true"
+        android:background="@drawable/background_rl">
+
+        <TextView
+            android:id="@+id/tv_dantuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="胆拖投注"
+            android:layout_alignBottom="@+id/logo_ssq"
+            android:layout_toRightOf="@+id/logo_ssq"
+            android:layout_marginLeft="@dimen/x10"
+            android:textColor="@color/grey_tip"
+            android:textSize="@dimen/x18"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/right_arrow"
+            android:contentDescription="@string/content_description" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/gray_line_color" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:background="@color/gray_line_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginLeft="@dimen/x10"
+            android:background="@color/gray_line_color" />
+
+        <RelativeLayout
+            android:id="@+id/rl_about"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/x50"
+            android:background="@drawable/background_rl"
+            android:clickable="true"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x10"
+                android:text="官方网站"
+                android:textColor="@color/login_title_color"
+                android:textSize="@dimen/x15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="http：//www.tcclottery.com"
+                android:textColor="@color/login_title_color"
+                android:textSize="@dimen/x15" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray_line_color" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_address"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/x50"
+            android:background="@drawable/background_rl"
+            android:clickable="true"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/x10"
+                android:text="咨询邮箱"
+                android:textColor="@color/login_title_color"
+                android:textSize="@dimen/x15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:text="lottery@dingruiit.com"
+                android:textColor="@color/login_title_color"
+                android:textSize="@dimen/x15" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray_line_color" />
+    </LinearLayout>
+
+</LinearLayout>

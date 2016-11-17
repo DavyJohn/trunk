@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 透明色 -->
+    <color name="transparent">#06000000</color>
+    <color name="colorPrimary">#B61E33</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="line_color">#E6E6E6</color>
+
+    <!-- 首页 -->
+    <color name="main_text_color_big">#FE2953</color>
+    <color name="main_text_color_small">#FFBC4E</color>
+    <color name="gray_background">#e6e6e6</color>
+
+    <color name="tab_text_unselect">#000000</color>
+    <color name="tab_text_selected">#b23a57</color>
+    <color name="gray_line_color">#e6e6e6</color>
+
+    <!-- 注册 -->
+    <color name="login_title_color">#3C3C3C</color>
+    <color name="login_hint_color">#C7C7C7</color>
+    <color name="login_line_color">#E6E6E6</color>
+
+    <color name="toolbarTextColor">#FFFF</color>
+    <color name="white">#FFFF</color>
+    <!-- 灰色-浅-不可点 -->
+    <color name="grey_two">#e6e6e6</color>
+    <color name="grey_three">#C0C0C0</color>
+    <color name="grey_tip">#666666</color>
+    <!-- 红色 -->
+    <color name="red_order">#b23a57</color>
+    <color name="red">#B61E33</color>
+    <color name="red_light">#F94651</color>
+    <!-- 蓝色 -->
+    <color name="blue">#0064B2</color>
+
+    <color name="black">#000000</color>
+    <color name="yellow">#F9AA29</color>
+    <color name="yellow2">#FFFBDB</color>
+    <color name="orange_txt">#D89C37</color>
+
+    <color name="overlay_light">#F8F8F8</color>
+    <color name="dark_gray">#777777</color>
+
+    <color name="sc_transparent_background">#00111111</color>
+</resources>

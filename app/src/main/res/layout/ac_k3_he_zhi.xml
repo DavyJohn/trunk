@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:id="@+id/rl_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:visibility="visible"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="@dimen/x14"
+            android:padding="@dimen/x10"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/x14"
+            android:padding="@dimen/x10"/>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_time"
+        android:scrollbars="none"
+        android:id="@+id/scrollView5">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="猜开奖号码相加的和"
+                    android:textSize="@dimen/x16"
+                    android:padding="@dimen/x8"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_he_zhi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/x10">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="快速选号"
+                    android:textSize="@dimen/x16"
+                    android:padding="@dimen/x8"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_sort_choose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_marginLeft="@dimen/x10">
+                    <TextView
+                        android:id="@+id/tv_da"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/x40"
+                        android:layout_weight="1"
+                        android:text="大"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/x24"
+                        android:gravity="center"
+                        android:background="@drawable/graybutton"/>
+
+                    <TextView
+                        android:id="@+id/tv_xiao"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/x40"
+                        android:layout_weight="1"
+                        android:text="小"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/x24"
+                        android:gravity="center"
+                        android:background="@drawable/graybutton"/>
+                    <TextView
+                        android:id="@+id/tv_dan"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/x40"
+                        android:layout_weight="1"
+                        android:text="单"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/x24"
+                        android:gravity="center"
+                        android:background="@drawable/graybutton"/>
+                    <TextView
+                        android:id="@+id/tv_shuang"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/x40"
+                        android:layout_weight="1"
+                        android:text="双"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/x24"
+                        android:gravity="center"
+                        android:background="@drawable/graybutton"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout4"
+        android:background="@drawable/bt_panel_bg">
+
+        <TextView
+            android:id="@+id/tv_auto_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x40"
+            android:layout_margin="@dimen/x6"
+            android:background="@drawable/btn_dark"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x12"
+            android:paddingRight="@dimen/x12"
+            android:text="机选"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/x20"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/tv_zhu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x16" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/x16" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/x40"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/x6"
+            android:background="@drawable/btn_yellow"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/x12"
+            android:paddingRight="@dimen/x12"
+            android:text="确定"
+            android:textSize="@dimen/x20"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:id="@+id/ac_k3_he_floating_action_button"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/yaoyiyao_icon"
+        android:layout_marginBottom="10dp"
+        app:borderWidth="0dp"
+        android:backgroundTint="#ffffff"
+        app:rippleColor="@android:color/holo_red_light"
+        app:fabSize="normal"
+        android:layout_above="@+id/relativeLayout4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

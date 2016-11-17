@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="@dimen/y42"
+        android:layout_height="@dimen/y42"
+        android:text="160dp"
+        android:textSize="@dimen/txt_xl"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_blue_bright"/>
+    <TextView
+        android:layout_width="@dimen/x160"
+        android:layout_height="wrap_content"
+        android:text="160dp"
+        android:textSize="@dimen/txt_xl"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_blue_bright"/>
+    <TextView
+        android:layout_width="@dimen/x280"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/txt_xl"
+        android:text="280dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_green_light"/>
+    <TextView
+        android:layout_width="@dimen/x320"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/txt_xl"
+        android:text="320dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_orange_light"/>
+    <TextView
+        android:layout_width="@dimen/y360"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/txt_xl"
+        android:text="y360dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_green_light"/>
+    <TextView
+        android:layout_width="@dimen/y400"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/txt_xl"
+        android:text="y400dp"
+        android:gravity="center_horizontal"
+        android:background="@android:color/holo_green_light"/>
+
+</LinearLayout>

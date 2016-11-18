@@ -41,8 +41,6 @@ public class MiddleView extends ViewGroup {
     private ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList = new ArrayList<>();
 
     List<String> datas = new ArrayList<>();//存放红球
-    //定义一个数组
-    List<String> test_data = new ArrayList<>();
 
     public static int cellWitch = 80;
     public static int cellHeight = 80;
@@ -121,40 +119,44 @@ public class MiddleView extends ViewGroup {
         int right = cellWitch;
         int top = 0;
         int bottom = cellHeight;
-
         for (int i = 0; i < 33; i++) {//有33列
-            int start = 0;
-            boolean isMSTOP = false;
-            for (int j = 0; j < mList.size(); j++) {//行
-                if (isRestart == true){
-                    start = 0;
-                    isRestart = false;
-                }
-                datas.clear();
-                datas.add(mList.get(j).getRed_num1());
-                datas.add(mList.get(j).getRed_num2());
-                datas.add(mList.get(j).getRed_num3());
-                datas.add(mList.get(j).getRed_num4());
-                datas.add(mList.get(j).getRed_num5());
-                datas.add(mList.get(j).getRed_num6());
-                System.out.print(datas);
+            int start = 0;//数字
+
+            for (int j = 0; j < mList.size(); j++) { //行
+
                 TextView t = new TextView(mContext);
                 t.setGravity(CENTER);
                 t.setTextSize(12);
                 t.setPadding(0,20,0,0);//没有包裹布局是直接写死  要改
+
+                if (isRestart == true){
+                    start = 0;
+                    isRestart = false;
+                }
+                //先将所有数字排出来
                 start++;
                 t.setText(String.valueOf(start));
-                if (isMSTOP == false){
-                    for (int m = 0;m<6;m++){
-                        //一期里面有多少数字
-                        System.out.print(datas);
-                        if (i+1 == Integer.parseInt(datas.get(m))){
-                            t.setText(datas.get(m));
-                            t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.shape));
-                            isRestart = true;
-                            isMSTOP = true;
+
+                //添加所有期的中奖号码
+                for (int k=0;k<mList.size();k++){//                    boolean isMSTOP = false;
+
+                    datas.clear();
+                    datas.add(mList.get(j).getRed_num1());
+                    datas.add(mList.get(j).getRed_num2());
+                    datas.add(mList.get(j).getRed_num3());
+                    datas.add(mList.get(j).getRed_num4());
+                    datas.add(mList.get(j).getRed_num5());
+                    datas.add(mList.get(j).getRed_num6());
+
+                        //将所有的中奖号码全部拿出来进行对比
+                        for (int m = 0;m<6;m++){
+                            if (i+1 == Integer.parseInt(datas.get(m))){
+                                t.setText(datas.get(m));
+                                t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.shape));
+                                isRestart = true;
+                            }
                         }
-                    }
+
                 }
 
                 t.layout(left, top, right, bottom);
@@ -167,8 +169,9 @@ public class MiddleView extends ViewGroup {
             left +=cellWitch;
             bottom = cellWitch;
         }
+        //边界
         borderRight = 33 * cellWitch;
-        borderBottom = 33 * cellHeight;
+        borderBottom = mList.size() * cellHeight;
     }
 
 //    private void parseJson(String data_json) {

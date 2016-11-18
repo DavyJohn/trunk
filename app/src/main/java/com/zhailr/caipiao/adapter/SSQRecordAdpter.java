@@ -51,12 +51,10 @@ public class SSQRecordAdpter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
-
             SSQRecordResponse.DataBean.HistorySsqListBean bean = mData.get(position);
             if (bean == null) {
                 return;
             }
-
             ((ItemViewHolder) holder).ssqDate.setText("第" + bean.getIssue_num() + "期");
             ((ItemViewHolder) holder).ssqTime.setText(bean.getOpen_time());
             ((ItemViewHolder) holder).ssqOne.setText(bean.getRed_num1());

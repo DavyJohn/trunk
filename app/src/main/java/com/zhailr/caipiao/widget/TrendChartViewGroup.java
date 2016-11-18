@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.model.response.SSQRecordResponse;
 import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.QiShuTools;
 import com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView;
@@ -36,8 +37,9 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
     private MiddleView middleView;
 
     private List<String> data = new ArrayList<>();
-
-    QiShuTools qiShuTools;//定义接口对象
+    private ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList = new ArrayList<>();
+    private int qs =0;
+    QiShuTools qiShuTools;//定义接口对象 未开发完全
 
     public void setQS(QiShuTools qiShuTools){
         this.qiShuTools = qiShuTools;
@@ -59,7 +61,6 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         mContext = context;
         View v = View.inflate(context, R.layout.view_trend_chart, null);
         findById(v);
-        addData();
         addView(v);
     }
 
@@ -85,9 +86,6 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
      * 添加数据 TOP and left and bottom边角数据
      */
     public void addData() {
-        int num = Constant.v_line;
-        System.out.print(num);
-        Log.e("============v_line",Constant.v_line+"");
         top_linearlayout.removeAllViews();
         left_linearlayout.removeAllViews();
         bottom_linearlayout.removeAllViews();
@@ -104,16 +102,15 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         }
 
         //期数
-        for (int i = 0; i < Constant.v_line; i++) {
-
+        for (int i = 0; i < mList.size(); i++) {
             TextView t = new TextView(mContext);
             t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
             t.setGravity(CENTER);
             t.setTextSize(12);
+            t.setPadding(0,15,0,0);
             t.setWidth(MiddleView.cellWitch);
             t.setHeight(MiddleView.cellHeight);
-            int random = i + 1;
-            t.setText(String.valueOf(random)+"期");
+            t.setText("第"+mList.get(i).getIssue_num().substring(4,7)+"期");
             left_linearlayout.addView(t);
         }
         //创建底部
@@ -176,7 +173,13 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             }
         }
     }
-
-
+    //定义一个期数方法 真不想说什么 希望后面的人看到 自己好好修改吧
+    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList){
+        this.mList = mList;
+        if (mList.size() != 0){
+            addData();
+            middleView.setData(mList);
+        }
+    }
 
 }

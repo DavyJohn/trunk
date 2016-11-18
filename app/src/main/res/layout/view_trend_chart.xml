@@ -8,9 +8,9 @@
         android:id="@+id/top_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
         android:background="#606365"
-        android:scrollbars="none"
-        android:layout_marginLeft="40dp">
+        android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/top_linearlayout"
@@ -33,7 +33,7 @@
         <com.zhailr.caipiao.widget.MyScrollView
             android:fadingEdgeLength="0dp"
             android:id="@+id/left_scrollview"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="#606365"
             android:scrollbars="none"

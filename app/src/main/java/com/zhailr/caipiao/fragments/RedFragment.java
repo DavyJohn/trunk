@@ -33,6 +33,7 @@ public class RedFragment extends BaseFragment {
     TrendChartViewGroup mTcv;
     private ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList = new ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean>();
     SSQRecordResponse.DataBean.HistorySsqListBean bean;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class RedFragment extends BaseFragment {
 //        mTcv.setQS(new QiShuTools() {
 //            @Override
 //            public void setQs(int qs) {
-////// TODO: 2016/11/17 数据接口
+        // TODO: 2016/11/17 数据接口
 //            }
 //        });
     }

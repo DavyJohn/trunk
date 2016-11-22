@@ -40,6 +40,7 @@ public class MiddleView extends ViewGroup {
     int tempInitY = 0;
 
     boolean isRestart = false;
+    String isRed = "red";
     private ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList = new ArrayList<>();
 
     List<String> datas = new ArrayList<>();//存放红球
@@ -49,6 +50,7 @@ public class MiddleView extends ViewGroup {
     private int borderRight = 0;  //  右边距  包括没展示区域的总宽度
     private int borderBottom = 0;//   底边距  包括没展示区域的总高度
     private Context mContext;
+    private int s ;
 //测试红球数据
     String[] test = {"4","7","9","12","20","30"};
     /**
@@ -74,7 +76,7 @@ public class MiddleView extends ViewGroup {
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
         removeAllViews();
-        addData(true);
+        addData();
     }
 
     /**
@@ -112,8 +114,12 @@ public class MiddleView extends ViewGroup {
      * "4","7","9","12","20","30"
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private void addData(boolean isRed) {
-
+    private void addData(){
+        if (isRed.equals("red")){
+            s = 33;
+        }else if (isRed.equals("blue")){
+            s = 16;
+        }
 //        String data_json = JsonTools.getJson(mContext,"test_data.json");
 //        parseJson(data_json);
 
@@ -121,9 +127,8 @@ public class MiddleView extends ViewGroup {
         int right = cellWitch;
         int top = 0;
         int bottom = cellHeight;
-        for (int i = 0; i < 33; i++) {//有33列
+        for (int i = 0; i < s; i++) {//有33列
             int start = 0;//数字
-
             for (int j = 0; j < mList.size(); j++) { //行
 
                 TextView t = new TextView(mContext);
@@ -135,7 +140,11 @@ public class MiddleView extends ViewGroup {
                 t.setHeight(MiddleView.cellHeight);
                 t.setWidth(MiddleView.cellWitch);
                 t.setPadding(0,20,0,0);//没有包裹布局是直接写死  要改
-                t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+                if (isRed.equals("red")){
+                    t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+                }else if (isRed.equals("blue")){
+                    t.setTextColor(ContextCompat.getColor(mContext,R.color.blue));
+                }
                 t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
                 if (isRestart == true){
                     start = 0;
@@ -147,16 +156,15 @@ public class MiddleView extends ViewGroup {
 
                 //添加所有期的中奖号码
                 for (int k=0;k<mList.size();k++){//                    boolean isMSTOP = false;
-
                     datas.clear();
-                    if (isRed == true){
+                    if (isRed.equals("red")){
                         datas.add(mList.get(j).getRed_num1());
                         datas.add(mList.get(j).getRed_num2());
                         datas.add(mList.get(j).getRed_num3());
                         datas.add(mList.get(j).getRed_num4());
                         datas.add(mList.get(j).getRed_num5());
                         datas.add(mList.get(j).getRed_num6());
-                    }else if (isRed == false){
+                    }else if (isRed.equals("blue")){
                         datas.add(mList.get(j).getBlue_num());
                     }
                         //将所有的中奖号码全部拿出来进行对比
@@ -164,9 +172,9 @@ public class MiddleView extends ViewGroup {
                             if (i+1 == Integer.parseInt(datas.get(m))){
                                 t.setText(datas.get(m));
                                 t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
-                                if (isRed == true){
+                                if (isRed.equals("red")){
                                     t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.redball));
-                                }else if (isRed == false){
+                                }else if (isRed.equals("blue")){
                                     t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.blueball));
                                 }
                                 isRestart = true;
@@ -186,7 +194,7 @@ public class MiddleView extends ViewGroup {
             bottom = cellWitch;
         }
         //边界
-        borderRight = 33 * cellWitch;
+        borderRight = s * cellWitch;
         borderBottom = mList.size() * cellHeight;
     }
 
@@ -237,11 +245,12 @@ public class MiddleView extends ViewGroup {
         scrollTo(-initX,-initY);
     }
     //给中间部分传递数据
-    public void setData(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList, boolean isRed){
+    public void setData(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList, String Red){
         this.mList = mList;
         System.out.print(mList);
         if (mList.size() != 0){
-            addData(isRed);
+            isRed = Red;
+            addData();
         }
     }
 }

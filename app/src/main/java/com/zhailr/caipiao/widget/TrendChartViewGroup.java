@@ -37,6 +37,8 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
     private MyScrollView left_scrollview;
     private MiddleView middleView;
 
+    private String isRed;
+    private int s;
     private List<String> data = new ArrayList<>();
     private ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList = new ArrayList<>();
     private int qs =0;
@@ -87,10 +89,15 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
      * 添加数据 TOP and left and bottom边角数据
      */
     public void addData() {
+        if (isRed.equals("red")){
+            s = 33;
+        }else if (isRed.equals("blue")){
+            s = 16;
+        }
         top_linearlayout.removeAllViews();
         left_linearlayout.removeAllViews();
         bottom_linearlayout.removeAllViews();
-        for (int i = 0; i < 33; i++) {
+        for (int i = 0; i < s; i++) {
             TextView t = new TextView(mContext);
             t.setGravity(CENTER);
             t.setTextSize(12);
@@ -115,7 +122,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             left_linearlayout.addView(t);
         }
         //创建底部
-        for (int i = 0; i < 33; i++) {
+        for (int i = 0; i < s; i++) {
             final TextView t = new TextView(mContext);
             t.setTag("0");//未点击
             t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
@@ -180,11 +187,12 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         }
     }
     //定义一个期数方法 真不想说什么 希望后面的人看到 自己好好修改吧
-    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList,boolean isRed){
+    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList,String Red){
         this.mList = mList;
         if (mList.size() != 0){
+            isRed = Red;
             addData();
-            middleView.setData(mList,isRed);
+            middleView.setData(mList,Red);
         }
     }
 

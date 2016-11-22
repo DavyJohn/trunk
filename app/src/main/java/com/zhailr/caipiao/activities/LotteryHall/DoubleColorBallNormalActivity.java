@@ -9,6 +9,9 @@ import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -20,6 +23,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.ZouShiTuActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -114,7 +118,6 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                 Intent intent = new Intent(DoubleColorBallNormalActivity.this,ShakeActivity.class);
                 intent.putExtra("data",chooseList);
                 startActivity(intent);
-//                finish();
             }
         });
     }
@@ -380,13 +383,10 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     }
     //点击红球
     private void clickRedBall(TextView view) {
-        Log.e("view.getTag()========",view.getTag()+"");
         if ( view.getTag() == null || view.getTag() == "0" ) {
-            Log.e("mRedList.size ======",mRedList.size()+"");
             if (mRedList.size() < 16) {
                 // 选中
                 view.setTag("1");
-                Log.e("测试=====",view.getTag()+"");
                 view.setTextColor(getResources().getColor(R.color.white));
                 view.setBackground(getResources().getDrawable(R.drawable.redball));
                 mRedList.add(view.getText().toString());
@@ -641,5 +641,19 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.zoushi,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.zoushi){
+            startActivity(new Intent(mContext, ZouShiTuActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

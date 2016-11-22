@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.base.BaseActivity;
+import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.fragments.BlueFragment;
 import com.zhailr.caipiao.fragments.RedFragment;
 import com.zhailr.caipiao.http.SpotsCallBack;
@@ -39,6 +40,8 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyApplication.getInstance().add(this);
+        getToolBar().setTitle("走势图");
         initData();
     }
 
@@ -114,9 +117,11 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
             case 0:
                 mRedBallText.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
                 vp.setCurrentItem(0);
+                mRedBallText.setTextSize(16);
                 break;
             case 1:
                 mBlueBallText.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+                mBlueBallText.setTextSize(16);
                 vp.setCurrentItem(1);
                 break;
         }
@@ -124,7 +129,10 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
 
     private void clean(){
         mRedBallText.setTextColor(ContextCompat.getColor(this,R.color.black));
+        mRedBallText.setTextSize(12);
         mBlueBallText.setTextColor(ContextCompat.getColor(this,R.color.black));
+        mBlueBallText.setTextSize(12);
+
     }
 
     @Override
@@ -137,9 +145,11 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.red_ball:
                 setTab(0);
+//                Constant.isRED = 0;
                 break;
             case R.id.blue_ball:
                 setTab(1);
+//                Constant.isRED =1 ;
                 break;
         }
     }

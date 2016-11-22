@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="#F6F5EF">
     //top部
     <com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView
         android:id="@+id/top_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
+        android:background="#F6F5EF"
         android:layout_marginLeft="50dp"
-        android:background="#606365"
         android:scrollbars="none">
 
         <LinearLayout
@@ -35,7 +35,7 @@
             android:id="@+id/left_scrollview"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="#606365"
+            android:background="#F6F5EF"
             android:scrollbars="none"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
@@ -56,6 +56,7 @@
             android:id="@+id/middle_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/grey_two"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
@@ -102,7 +103,7 @@
             android:id="@+id/bottom_scrollview"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="#693"
+            android:background="#F1F1EB"
             android:scrollbars="none"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/left_scrollview"

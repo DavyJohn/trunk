@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -93,7 +94,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             TextView t = new TextView(mContext);
             t.setGravity(CENTER);
             t.setTextSize(12);
-            t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+            t.setTextColor(ContextCompat.getColor(mContext,R.color.zoushi_text_color));
             t.setWidth(MiddleView.cellWitch);
             t.setHeight(MiddleView.cellHeight);
             int random = i + 1;
@@ -104,7 +105,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         //期数
         for (int i = 0; i < mList.size(); i++) {
             TextView t = new TextView(mContext);
-            t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+            t.setTextColor(ContextCompat.getColor(mContext,R.color.zoushi_text_color));
             t.setGravity(CENTER);
             t.setTextSize(12);
             t.setPadding(0,15,0,0);
@@ -120,8 +121,10 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
             t.setGravity(CENTER);
             t.setTextSize(12);
-            t.setWidth(80);
-            t.setHeight(80);
+            t.setWidth(MiddleView.cellWitch);
+            t.setHeight(MiddleView.cellHeight);
+            t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+            t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
             final int random = i + 1;
             t.setText(String.valueOf(random));
             bottom_linearlayout.addView(t);
@@ -137,13 +140,15 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
                         }else {
                             t.setTag("1");//点击
                             data.add(t.getText().toString());
-                            t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.shape));
+                            t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.redball));
+                            t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
                         }
 
                     }else if (t.getTag().equals("1")){
                         //初始化并删除list里面的这个元素
                         t.setTag("0");
-                        t.setBackground(ContextCompat.getDrawable(mContext, Integer.parseInt(null)));
+                        t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.whiteball));
+                        t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
                         Toast.makeText(mContext,"取消了"+t.getText().toString(), Toast.LENGTH_SHORT).show();
                         removedata(data,t.getText().toString());
                     }
@@ -157,6 +162,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
     public void middleOnTouchEvent(final int initX, final int initY) {
         top_scrollview.scrollTo(-initX, 0);
         left_scrollview.scrollTo(0, -initY);
+        //下面代码是让底部也一起滚动 但是这样会有小bug 当顶部滚动到末端 中间部分也是在最后但是 底部却不再末端 暂时将它注释掉 不跟他们一起滚动
         bottom_scrollview.scrollTo(-initX,0);
     }
 
@@ -174,11 +180,11 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         }
     }
     //定义一个期数方法 真不想说什么 希望后面的人看到 自己好好修改吧
-    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList){
+    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList,boolean isRed){
         this.mList = mList;
         if (mList.size() != 0){
             addData();
-            middleView.setData(mList);
+            middleView.setData(mList,isRed);
         }
     }
 

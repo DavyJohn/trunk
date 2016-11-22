@@ -9,11 +9,13 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.model.response.SSQRecordResponse;
+import com.zhailr.caipiao.utils.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +74,7 @@ public class MiddleView extends ViewGroup {
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
         removeAllViews();
-        addData();
+        addData(true);
     }
 
     /**
@@ -110,7 +112,7 @@ public class MiddleView extends ViewGroup {
      * "4","7","9","12","20","30"
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private void addData() {
+    private void addData(boolean isRed) {
 
 //        String data_json = JsonTools.getJson(mContext,"test_data.json");
 //        parseJson(data_json);
@@ -125,10 +127,16 @@ public class MiddleView extends ViewGroup {
             for (int j = 0; j < mList.size(); j++) { //行
 
                 TextView t = new TextView(mContext);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0,0,8,8);
+                t.setLayoutParams(layoutParams);
                 t.setGravity(CENTER);
                 t.setTextSize(12);
+                t.setHeight(MiddleView.cellHeight);
+                t.setWidth(MiddleView.cellWitch);
                 t.setPadding(0,20,0,0);//没有包裹布局是直接写死  要改
-
+                t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+                t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
                 if (isRestart == true){
                     start = 0;
                     isRestart = false;
@@ -141,18 +149,26 @@ public class MiddleView extends ViewGroup {
                 for (int k=0;k<mList.size();k++){//                    boolean isMSTOP = false;
 
                     datas.clear();
-                    datas.add(mList.get(j).getRed_num1());
-                    datas.add(mList.get(j).getRed_num2());
-                    datas.add(mList.get(j).getRed_num3());
-                    datas.add(mList.get(j).getRed_num4());
-                    datas.add(mList.get(j).getRed_num5());
-                    datas.add(mList.get(j).getRed_num6());
-
+                    if (isRed == true){
+                        datas.add(mList.get(j).getRed_num1());
+                        datas.add(mList.get(j).getRed_num2());
+                        datas.add(mList.get(j).getRed_num3());
+                        datas.add(mList.get(j).getRed_num4());
+                        datas.add(mList.get(j).getRed_num5());
+                        datas.add(mList.get(j).getRed_num6());
+                    }else if (isRed == false){
+                        datas.add(mList.get(j).getBlue_num());
+                    }
                         //将所有的中奖号码全部拿出来进行对比
-                        for (int m = 0;m<6;m++){
+                        for (int m = 0;m<datas.size();m++){
                             if (i+1 == Integer.parseInt(datas.get(m))){
                                 t.setText(datas.get(m));
-                                t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.shape));
+                                t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+                                if (isRed == true){
+                                    t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.redball));
+                                }else if (isRed == false){
+                                    t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.blueball));
+                                }
                                 isRestart = true;
                             }
                         }
@@ -221,11 +237,11 @@ public class MiddleView extends ViewGroup {
         scrollTo(-initX,-initY);
     }
     //给中间部分传递数据
-    public void setData(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList){
+    public void setData(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList, boolean isRed){
         this.mList = mList;
         System.out.print(mList);
         if (mList.size() != 0){
-            addData();
+            addData(isRed);
         }
     }
 }

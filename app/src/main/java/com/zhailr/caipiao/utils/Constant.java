@@ -140,4 +140,6 @@ public class Constant {
 
 
     public static int v_line ;//多少行
+
+    public static int isRED = 0; //当 ==0 时展示 红球走势 当==1 时 展示蓝球走势
 }

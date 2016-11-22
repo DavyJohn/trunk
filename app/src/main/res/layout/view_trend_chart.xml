@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:background="#F6F5EF">
     //top部
+
     <com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView
         android:id="@+id/top_scrollview"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#F6F5EF"
         android:layout_marginLeft="50dp"
@@ -14,8 +15,8 @@
 
         <LinearLayout
             android:id="@+id/top_linearlayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal"></LinearLayout>
 
@@ -66,7 +67,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         android:id="@+id/bottom_div"
         android:layout_alignParentBottom="true"
@@ -74,35 +75,24 @@
         android:layout_alignParentStart="true">
         <LinearLayout
             android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:text="选号"
                 android:textSize="12sp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/colorAccent"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:text="已选"
-                android:visibility="gone"
-                android:layout_weight="1"
-                android:textSize="12sp"
-                android:gravity="center"
-                android:textColor="@color/colorAccent"
-                android:id="@+id/textView" />
+                android:textColor="@color/black"/>
         </LinearLayout>
+
         <com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView
             android:id="@+id/bottom_scrollview"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:background="#F1F1EB"
             android:scrollbars="none"
             android:layout_alignParentBottom="true"
@@ -111,8 +101,8 @@
 
             <LinearLayout
                 android:id="@+id/bottom_linearlayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"></LinearLayout>
 

@@ -55,7 +55,6 @@ public class BlueFragment extends BaseFragment {
                 if (null != data.getData()) {
                     mList = (ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean>) data.getData().getHistorySsqList();
                     mTcv.setQS(mList,"blue");
-//                    Constant.isRED = 1;
                 }
             }
 

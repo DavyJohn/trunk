@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.ZouShiTuActivity;
 import com.zhailr.caipiao.model.response.SSQRecordResponse;
 import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.QiShuTools;
@@ -81,7 +82,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         middleView.setMonTouchEventListener(this);
 
         top_scrollview.setOnHorizontalScrollListener(this);
-        bottom_scrollview.setOnHorizontalScrollListener(this);
+//        bottom_scrollview.setOnHorizontalScrollListener(this);
         left_scrollview.setOnScrollListener(this);
     }
 
@@ -115,7 +116,6 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             t.setTextColor(ContextCompat.getColor(mContext,R.color.zoushi_text_color));
             t.setGravity(CENTER);
             t.setTextSize(12);
-            t.setPadding(0,15,0,0);
             t.setWidth(MiddleView.cellWitch);
             t.setHeight(MiddleView.cellHeight);
             t.setText("第"+mList.get(i).getIssue_num().substring(4,7)+"期");
@@ -130,7 +130,12 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             t.setTextSize(12);
             t.setWidth(MiddleView.cellWitch);
             t.setHeight(MiddleView.cellHeight);
-            t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+            if (isRed.equals("red")){
+                t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+            }else if (isRed.equals("blue")){
+                t.setTextColor(ContextCompat.getColor(mContext,R.color.blue));
+            }
+            //设置背景会导致 宽度高度变化
             t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
             final int random = i + 1;
             t.setText(String.valueOf(random));
@@ -142,12 +147,16 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
                 public void onClick(View view) {
                     if (t.getTag().equals("0")){
                         Toast.makeText(mContext,"点击了"+t.getText().toString(), Toast.LENGTH_SHORT).show();
-                        if (data.size() >= 6){
-                            Toast.makeText(mContext,"超出6个红球", Toast.LENGTH_SHORT).show();
+                        if (data.size() >= 16){
+                            Toast.makeText(mContext,"超出16个红球", Toast.LENGTH_SHORT).show();
                         }else {
                             t.setTag("1");//点击
                             data.add(t.getText().toString());
-                            t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.redball));
+                            if (isRed.equals("red")){
+                                t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.redball));
+                            }else if (isRed.equals("blue")){
+                                t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.blueball));
+                            }
                             t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
                         }
 
@@ -155,7 +164,11 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
                         //初始化并删除list里面的这个元素
                         t.setTag("0");
                         t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.whiteball));
-                        t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+                        if (isRed.equals("red")){
+                            t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+                        }else if (isRed.equals("blue")){
+                            t.setTextColor(ContextCompat.getColor(mContext,R.color.blue));
+                        }
                         Toast.makeText(mContext,"取消了"+t.getText().toString(), Toast.LENGTH_SHORT).show();
                         removedata(data,t.getText().toString());
                     }
@@ -170,7 +183,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         top_scrollview.scrollTo(-initX, 0);
         left_scrollview.scrollTo(0, -initY);
         //下面代码是让底部也一起滚动 但是这样会有小bug 当顶部滚动到末端 中间部分也是在最后但是 底部却不再末端 暂时将它注释掉 不跟他们一起滚动
-        bottom_scrollview.scrollTo(-initX,0);
+//        bottom_scrollview.scrollTo(-initX,0);
     }
 
     @Override

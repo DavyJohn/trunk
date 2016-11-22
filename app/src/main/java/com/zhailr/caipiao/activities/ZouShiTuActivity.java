@@ -21,6 +21,7 @@ import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.widget.NoScrollViewPager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Response;
 
@@ -37,6 +38,8 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
     private TextView mRedBallText,mBlueBallText;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private FragmentPagerAdapter pagerAdapter;
+    private LinearLayout mChooseBall;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
 
     private void initData(){
         getData();
+        mChooseBall = (LinearLayout) findViewById(R.id.chosed_ball);
         redBall = (LinearLayout) findViewById(R.id.red_ball);
         blueBall = (LinearLayout) findViewById(R.id.blue_ball);
         mRedBallText = (TextView) findViewById(R.id.red_ball_text);
@@ -145,12 +149,16 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.red_ball:
                 setTab(0);
-//                Constant.isRED = 0;
                 break;
             case R.id.blue_ball:
                 setTab(1);
-//                Constant.isRED =1 ;
                 break;
         }
+    }
+
+    private void addData(List<Integer> data){
+//        for ()
+        TextView mText = new TextView(mContext);
+
     }
 }

@@ -130,16 +130,12 @@ public class MiddleView extends ViewGroup {
         for (int i = 0; i < s; i++) {//有33列
             int start = 0;//数字
             for (int j = 0; j < mList.size(); j++) { //行
-
                 TextView t = new TextView(mContext);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0,0,8,8);
-                t.setLayoutParams(layoutParams);
                 t.setGravity(CENTER);
                 t.setTextSize(12);
                 t.setHeight(MiddleView.cellHeight);
                 t.setWidth(MiddleView.cellWitch);
-                t.setPadding(0,20,0,0);//没有包裹布局是直接写死  要改
+                t.setPadding(0,15,0,0);//没有包裹布局是直接写死  要改
                 if (isRed.equals("red")){
                     t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
                 }else if (isRed.equals("blue")){

@@ -1,23 +1,17 @@
 package com.zhailr.caipiao.widget;
 
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.zhailr.caipiao.R;
-import com.zhailr.caipiao.activities.ZouShiTuActivity;
 import com.zhailr.caipiao.model.response.SSQRecordResponse;
-import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.QiShuTools;
 import com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView;
 
@@ -33,8 +27,8 @@ import static android.view.Gravity.CENTER;
 public class TrendChartViewGroup extends RelativeLayout implements MiddleView.middleTouchEventListener, MyScrollView.OnScrollListener, MyHorizontalScrollView.OnHorizontalScrollListener {
 
     private Context mContext;
-    private LinearLayout top_linearlayout,bottom_linearlayout,left_linearlayout;
-    private MyHorizontalScrollView top_scrollview,bottom_scrollview;
+    private LinearLayout top_linearlayout,left_linearlayout;
+    private MyHorizontalScrollView top_scrollview;
     private MyScrollView left_scrollview;
     private MiddleView middleView;
 
@@ -70,11 +64,11 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
 
     private void findById(View v) {
         top_linearlayout = (LinearLayout) v.findViewById(R.id.top_linearlayout);
-        bottom_linearlayout = (LinearLayout) v.findViewById(R.id.bottom_linearlayout);
+
         left_linearlayout = (LinearLayout) v.findViewById(R.id.left_linearlayout);
 
         top_scrollview = (MyHorizontalScrollView) v.findViewById(R.id.top_scrollview);
-        bottom_scrollview = (MyHorizontalScrollView) v.findViewById(R.id.bottom_scrollview);
+
         left_scrollview = (MyScrollView) v.findViewById(R.id.left_scrollview);
 
         middleView = (MiddleView) v.findViewById(R.id.middle_view);
@@ -90,6 +84,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
      * 添加数据 TOP and left and bottom边角数据
      */
     public void addData() {
+
         if (isRed.equals("red")){
             s = 33;
         }else if (isRed.equals("blue")){
@@ -97,7 +92,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         }
         top_linearlayout.removeAllViews();
         left_linearlayout.removeAllViews();
-        bottom_linearlayout.removeAllViews();
+
         for (int i = 0; i < s; i++) {
             TextView t = new TextView(mContext);
             t.setGravity(CENTER);
@@ -121,61 +116,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             t.setText("第"+mList.get(i).getIssue_num().substring(4,7)+"期");
             left_linearlayout.addView(t);
         }
-        //创建底部
-        for (int i = 0; i < s; i++) {
-            final TextView t = new TextView(mContext);
-            t.setTag("0");//未点击
-            t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
-            t.setGravity(CENTER);
-            t.setTextSize(12);
-            t.setWidth(MiddleView.cellWitch);
-            t.setHeight(MiddleView.cellHeight);
-            if (isRed.equals("red")){
-                t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
-            }else if (isRed.equals("blue")){
-                t.setTextColor(ContextCompat.getColor(mContext,R.color.blue));
-            }
-            //设置背景会导致 宽度高度变化
-            t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
-            final int random = i + 1;
-            t.setText(String.valueOf(random));
-            bottom_linearlayout.addView(t);
 
-            t.setOnClickListener(new OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                @Override
-                public void onClick(View view) {
-                    if (t.getTag().equals("0")){
-                        Toast.makeText(mContext,"点击了"+t.getText().toString(), Toast.LENGTH_SHORT).show();
-                        if (data.size() >= 16){
-                            Toast.makeText(mContext,"超出16个红球", Toast.LENGTH_SHORT).show();
-                        }else {
-                            t.setTag("1");//点击
-                            data.add(t.getText().toString());
-                            if (isRed.equals("red")){
-                                t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.redball));
-                            }else if (isRed.equals("blue")){
-                                t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.blueball));
-                            }
-                            t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
-                        }
-
-                    }else if (t.getTag().equals("1")){
-                        //初始化并删除list里面的这个元素
-                        t.setTag("0");
-                        t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.whiteball));
-                        if (isRed.equals("red")){
-                            t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
-                        }else if (isRed.equals("blue")){
-                            t.setTextColor(ContextCompat.getColor(mContext,R.color.blue));
-                        }
-                        Toast.makeText(mContext,"取消了"+t.getText().toString(), Toast.LENGTH_SHORT).show();
-                        removedata(data,t.getText().toString());
-                    }
-
-                }
-            });
-        }
     }
 
     @Override
@@ -198,6 +139,7 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
                 --i;
             }
         }
+        Log.e("=====removedata",list+"");
     }
     //定义一个期数方法 真不想说什么 希望后面的人看到 自己好好修改吧
     public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList,String Red){

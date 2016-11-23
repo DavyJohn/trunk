@@ -45,7 +45,7 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
     private TextView mRedBallText,mBlueBallText;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private FragmentPagerAdapter pagerAdapter;
-    private MyHorizontalScrollView myHorizontalScrollView;
+    private MyHorizontalScrollView myHorizontalScrollView ,mChooseScrollView;
     private String isRed ="red";
     private int s = 33;
     private List<String> data = new ArrayList<>();
@@ -68,6 +68,7 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
         mRedBallText = (TextView) findViewById(R.id.red_ball_text);
         mBlueBallText = (TextView) findViewById(R.id.blue_ball_text);
         myHorizontalScrollView = (MyHorizontalScrollView) findViewById(R.id.zoushitu_scrollview);
+        mChooseScrollView = (MyHorizontalScrollView) findViewById(R.id.chosed_scrollview);
         zoushitu = (LinearLayout) findViewById(R.id.zoushitu_linearlayout);
         redBall.setOnClickListener(this);
         blueBall.setOnClickListener(this);
@@ -172,6 +173,7 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
                 break;
         }
     }
+
     //已选数据
     private void addData(List<String> redData,List<String> blueData){
         mChooseBall.removeAllViews();
@@ -295,25 +297,25 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
             });
         }
     }
-    private void removeRedData(List<String> list, String num){
-        for (int i=0;i<list.size();i++){
-            if (num.equals(list.get(i))){
-                list.remove(i);
+    private void removeRedData(List<String> redData, String num){
+        for (int i=0;i<redData.size();i++){
+            if (num.equals(redData.get(i))){
+                redData.remove(i);
                 --i;
             }
         }
-        Log.e("=====removereddata",list+"");
-        addData(list,blueData);
+        Log.e("=====removereddata",redData+"");
+        addData(redData,blueData);
     }
 
-    private void removeBlueData(List<String> list ,String num){
-        for (int i=0;i<list.size();i++){
-            if (num.equals(list.get(i))){
-                list.remove(i);
+    private void removeBlueData(List<String> blueDatas ,String num){
+        for (int i=0;i<blueDatas.size();i++){
+            if (num.equals(blueDatas.get(i))){
+                blueDatas.remove(i);
                 --i;
             }
         }
-        Log.e("=====removebluedata",list+"");
-        addData(list,blueData);
+        Log.e("=====removebluedata",blueDatas+"");
+        addData(data,blueDatas);
     }
 }

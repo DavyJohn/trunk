@@ -6,9 +6,11 @@ package com.zhailr.caipiao.utils;
 public class Constant {
     public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
     // 通用地址
+
 //   public static final String COMMONURL = "http://122.194.107.210:8880/gateway/";//测试环境
     //正式环境
-    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
+    public static final String COMMONURL = "http://192.168.2.4:8807/gateway/";
+//    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
     public static final String UPDATEURL = "http://122.194.107.210:8880/update/update.xml";
     // 登录成功刷新数据广播
     public static final String LOGINRECEIVER = "com.zhailr.caipiao.loginreceiver";

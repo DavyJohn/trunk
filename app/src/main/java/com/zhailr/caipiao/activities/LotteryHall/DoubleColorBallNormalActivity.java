@@ -79,6 +79,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     private TextView redBall;
     private BigInteger price;
     // 点确定后，需要传递的list
+    private ArrayList<BetBean> mList = new ArrayList<BetBean>();
     ArrayList<BetBean> chooseList = new ArrayList<BetBean>();
     private int position = -1;
     private static final int START = 0;
@@ -153,6 +154,8 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     }
 
     private void initView() {
+
+        mList = (ArrayList<BetBean>) getIntent().getSerializableExtra("List");
         int margin = 0;
         int diameter = 0;
         // 3:4:6:8
@@ -402,12 +405,12 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
             mRedList.remove(view.getText().toString());
             mRedClickList.remove(view);
         }
+
         Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
         vibrator.vibrate(new long[]{0, 50}, -1);
         changeZhusuAccount();
         changeChooseBtn();
     }
-
 
     private void changeChooseBtn() {
         if (mRedList.size() != 0 || mBlueList.size() != 0) {
@@ -418,7 +421,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
             autoChoose.setTextColor(getResources().getColor(R.color.yellow));
         }
     }
-
+    //双色球算法
     private void changeZhusuAccount() {
         // 显示共多少注，共多少钱
         BigInteger m = BigInteger.valueOf(mBlueList.size());
@@ -509,10 +512,10 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                         chooseList.add(0, bet);
                     }
                     intent.putExtra("list", chooseList);
+                    intent.putExtra("TAG",TAG);
                     intent.putExtra("currentNum", currentNum);
                     startActivity(intent);
                     finish();
-
                 }
                 break;
         }
@@ -628,6 +631,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
         Intent intent = new Intent(this, DoubleNoramlBetActivity.class);
         intent.putExtra("list", chooseList);
         intent.putExtra("currentNum", currentNum);
+        intent.putExtra("TAG",TAG);
         startActivity(intent);
         finish();
     }
@@ -652,7 +656,9 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.zoushi){
-            startActivity(new Intent(mContext, ZouShiTuActivity.class));
+            Intent intent = new Intent(mContext,ZouShiTuActivity.class);
+            intent.putExtra("List",mList);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

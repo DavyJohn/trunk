@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:layout_height="40dp"
+
+
+    <com.flyco.tablayout.SlidingTabLayout
         android:layout_width="match_parent"
-        layout="@layout/tab_layout"/>
+        android:layout_height="?android:actionBarSize"
+        app:tl_textsize="14sp"
+        app:tl_divider_color="@color/red"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_textAllCaps="true"
+        app:tl_textBold="BOTH"
+        app:tl_tab_space_equal="true"
+        app:tl_divider_width="1dp"
+        app:tl_indicator_color="@color/red"
+        app:tl_textUnselectColor="@color/black"
+        app:tl_textSelectColor="@color/red"
+        android:id="@+id/zoushitu_sliding"/>
+
     <com.zhailr.caipiao.widget.NoScrollViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -91,11 +106,21 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/red">
+            android:background="@android:color/transparent">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:id="@+id/zoushitu_display_text"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:text="够买"
+                android:background="@color/red"
                 android:id="@+id/zoushitu_buy_text"
                 android:textColor="@color/white"
                 android:gravity="center"

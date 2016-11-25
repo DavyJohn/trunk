@@ -16,6 +16,7 @@ import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.ZouShiTuActivity;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
@@ -116,6 +117,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
 //                startActivity(intent);
 //            }
 //        });
+
         mAdapter.setOnCloseClickListener(new BetAdapter.OnCloseClickListener() {
             @Override
             public void onCloseClick(View view, int position) {
@@ -212,11 +214,16 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
 
     @OnClick({R.id.tv_choose, R.id.tv_auto_choose, R.id.tv_clear, R.id.ok})
     public void onClick(View view) {
-        Intent intent;
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.tv_choose:
+                //手动加入
                 if (mList.size() < 20){
-                    intent = new Intent(DoubleNoramlBetActivity.this, DoubleColorBallNormalActivity.class);
+                    if (getIntent().getStringExtra("TAG").equals("DoubleColorBallNormal")){
+                        intent = new Intent(DoubleNoramlBetActivity.this, DoubleColorBallNormalActivity.class);
+                    }else if (getIntent().getStringExtra("TAG").equals("ZouShiTuActivity")){
+                        intent = new Intent(DoubleNoramlBetActivity.this, ZouShiTuActivity.class);
+                    }
                     intent.putExtra("List", mList);
                     startActivity(intent);
                 }else{
@@ -241,6 +248,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 changePriceAndZhu();
                 break;
             case R.id.ok:
+                //支付
                 String timesString = times.getText().toString().equals("") ? "1" : times.getText().toString();
                 if (TextUtils.isEmpty(PreferencesUtils.getString(mContext, Constant.USER.USERID))) {
                     startActivity(new Intent(this, LoginActivity.class));

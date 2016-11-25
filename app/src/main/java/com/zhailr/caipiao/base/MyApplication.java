@@ -7,12 +7,14 @@ import android.os.Looper;
 
 import com.zhailr.caipiao.activities.HomeActivity;
 import com.zhailr.caipiao.utils.NetworkUtils;
+import com.zhailr.caipiao.utils.TestDataTools;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
 public class MyApplication extends Application {
@@ -57,6 +59,12 @@ public class MyApplication extends Application {
 
 		CrashHandler crashHandler = CrashHandler.getInstance();
 		crashHandler.init(getApplicationContext());
+
+
+	 	JPushInterface.setDebugMode(true);
+		JPushInterface.init(this);
+		//test
+
 
 	}
 

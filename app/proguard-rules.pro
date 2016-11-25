@@ -224,3 +224,10 @@
 -dontwarn okio.**
 -keep class okio.**{*;}
 -keep interface okio.**{*;}
+
+#jp
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }

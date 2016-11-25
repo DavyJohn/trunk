@@ -29,8 +29,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:id="@+id/mid_div"
-        android:layout_below="@+id/top_scrollview"
-        android:layout_above="@+id/bottom_div">
+        android:layout_below="@+id/top_scrollview">
         <com.zhailr.caipiao.widget.MyScrollView
             android:fadingEdgeLength="0dp"
             android:id="@+id/left_scrollview"

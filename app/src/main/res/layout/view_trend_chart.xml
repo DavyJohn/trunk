@@ -54,15 +54,12 @@
 
         <com.zhailr.caipiao.widget.MiddleView
             android:id="@+id/middle_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/grey_two"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
-
         </com.zhailr.caipiao.widget.MiddleView>
     </LinearLayout>
-
-
 </RelativeLayout>

@@ -16,7 +16,7 @@ import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
-import com.zhailr.caipiao.activities.ZouShiTuActivity;
+import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
 import com.zhailr.caipiao.base.BaseActivity;

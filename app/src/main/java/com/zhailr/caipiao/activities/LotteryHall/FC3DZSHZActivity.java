@@ -8,6 +8,8 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -555,5 +557,19 @@ public class FC3DZSHZActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.ac_fc3d_zxhz;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.zoushi,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.zoushi){
+//            Intent intent = new Intent(mContext,);
+//            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

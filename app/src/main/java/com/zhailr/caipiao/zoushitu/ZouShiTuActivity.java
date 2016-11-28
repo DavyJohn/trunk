@@ -1,4 +1,4 @@
-package com.zhailr.caipiao.activities;
+package com.zhailr.caipiao.zoushitu;
 
 import android.content.Intent;
 import android.os.Build;
@@ -45,6 +45,7 @@ import static android.view.Gravity.CENTER;
 
 /**
  * Created by 腾翔信息 on 2016/11/17.
+ * 双色球走势图
  */
 
 public class ZouShiTuActivity extends BaseActivity implements View.OnClickListener {

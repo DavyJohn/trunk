@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.model.response.FCSDRecordResponse;
 import com.zhailr.caipiao.model.response.SSQRecordResponse;
 import com.zhailr.caipiao.utils.QiShuTools;
 import com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView;
@@ -31,11 +32,13 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
     private MyHorizontalScrollView top_scrollview;
     private MyScrollView left_scrollview;
     private MiddleView middleView;
-
-    private String isRed;
-    private int s;
+    private String Tag;
+    private int s,q;
     private List<String> data = new ArrayList<>();
+    //双色球
     private ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList = new ArrayList<>();
+    //福彩直选记录
+    private ArrayList<FCSDRecordResponse.DataBean.HistoryFCSdListBean> mFcsdList = new ArrayList<>();
     private int qs =0;
     QiShuTools qiShuTools;//定义接口对象 未开发完全
 
@@ -85,14 +88,19 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
      */
     public void addData() {
 
-        if (isRed.equals("red")){
+        if (Tag.equals("red")){
             s = 33;
-        }else if (isRed.equals("blue")){
+            q = mList.size();
+        }else if (Tag.equals("blue")){
             s = 16;
+            q = mList.size();
+        }else if (Tag.equals("zx")){
+            s = 10;
+            q = mFcsdList.size();
         }
         top_linearlayout.removeAllViews();
         left_linearlayout.removeAllViews();
-
+        //顶部
         for (int i = 0; i < s; i++) {
             TextView t = new TextView(mContext);
             t.setGravity(CENTER);
@@ -100,20 +108,28 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
             t.setTextColor(ContextCompat.getColor(mContext,R.color.zoushi_text_color));
             t.setWidth(MiddleView.cellWitch);
             t.setHeight(MiddleView.cellHeight);
-            int random = i + 1;
-            t.setText(String.valueOf(random));
+            if (Tag.equals("zx")){
+                t.setText(String.valueOf(i));
+            }else{
+                int random = i + 1;
+                t.setText(String.valueOf(random));
+            }
             top_linearlayout.addView(t);
         }
 
         //期数
-        for (int i = 0; i < mList.size(); i++) {
+        for (int i = 0; i < q; i++) {
             TextView t = new TextView(mContext);
             t.setTextColor(ContextCompat.getColor(mContext,R.color.zoushi_text_color));
             t.setGravity(CENTER);
             t.setTextSize(12);
             t.setWidth(MiddleView.cellWitch);
             t.setHeight(MiddleView.cellHeight);
-            t.setText("第"+mList.get(i).getIssue_num().substring(4,7)+"期");
+            if (Tag.equals("zx")){
+                t.setText("第"+mFcsdList.get(i).getIssueNum().substring(4,7)+"期");
+            }else {
+                t.setText("第"+mList.get(i).getIssue_num().substring(4,7)+"期");
+            }
             left_linearlayout.addView(t);
         }
 
@@ -142,13 +158,22 @@ public class TrendChartViewGroup extends RelativeLayout implements MiddleView.mi
         Log.e("=====removedata",list+"");
     }
     //定义一个期数方法 真不想说什么 希望后面的人看到 自己好好修改吧
-    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList,String Red){
+    public void setQS(ArrayList<SSQRecordResponse.DataBean.HistorySsqListBean> mList,String string){
         this.mList = mList;
         if (mList.size() != 0){
-            isRed = Red;
+            Tag = string;
             addData();
-            middleView.setData(mList,Red);
+            middleView.setData(mList,string);
         }
     }
 
+    //传入福彩直选数据和判断条件
+    public void setFZ(ArrayList<FCSDRecordResponse.DataBean.HistoryFCSdListBean> mList,String string,String s){
+        this.mFcsdList = mList;
+        if (mList.size() != 0){
+            Tag = string;
+            addData();
+            middleView.setFcZxData(mFcsdList,string,s);
+        }
+    }
 }

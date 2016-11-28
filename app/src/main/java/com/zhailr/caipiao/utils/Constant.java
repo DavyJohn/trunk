@@ -1,5 +1,8 @@
 package com.zhailr.caipiao.utils;
 
+import android.content.Context;
+import android.view.WindowManager;
+
 /**
  * Created by zhailiangrong on 16/6/11.
  */
@@ -144,4 +147,10 @@ public class Constant {
     public static int v_line ;//多少行
 
     public static int isRED = 0; //当 ==0 时展示 红球走势 当==1 时 展示蓝球走势
+
+    public void display(Context context){
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        int w = wm.getDefaultDisplay().getWidth();
+        int h = wm.getDefaultDisplay().getHeight();
+    }
 }

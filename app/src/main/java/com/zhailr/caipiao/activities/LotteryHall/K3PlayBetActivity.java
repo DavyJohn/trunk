@@ -301,7 +301,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
                     } else {
                         // 先调用订单接口，然后跳转支付方式
                         showDialog();
-                         getIssueData();
+                        getIssueData();
                     }
                 break;
         }

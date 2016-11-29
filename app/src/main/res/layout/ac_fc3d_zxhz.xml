@@ -33,9 +33,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="猜中开奖号相加之和即奖173元"
                 android:textSize="@dimen/x14"
-                android:padding="@dimen/x8"/>
+                android:padding="@dimen/x8"
+                android:id="@+id/ac_fc3d_zxhe_text"/>
             <LinearLayout
                 android:id="@+id/layout_ball"
                 android:layout_width="match_parent"

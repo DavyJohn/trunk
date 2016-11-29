@@ -452,7 +452,7 @@ public class K32BuTongDanActivity extends BaseActivity {
             public void onSuccess(Response response, KSRecordResponse data) {
                 if (null != data.getData().getHitoryQS() && data.getData().getHitoryQS().size() != 0) {
                     KSRecordResponse.DataBean.HitoryQSBean bean = data.getData().getHitoryQS().get(0);
-                    tvNum.setText("上期开奖:" + bean.getWinNumber());
+                    tvNum.setText("上期开奖:" + bean.getLottery_num());
                 }
             }
 

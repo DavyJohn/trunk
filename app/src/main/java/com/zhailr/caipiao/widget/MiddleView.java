@@ -74,17 +74,22 @@ public class MiddleView extends ViewGroup {
         mContext = context;
         setFocusable(true);
     }
-
+    //todo 有个bug TAG 需要调整 一开始TAG 就默认为red  之后才能修改 这就很尴尬了
+    // todo 要是能在layout作出判断就好了
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
         removeAllViews();
-        addData();
+        //添加双色球
+        if (TAG.equals("red")){
+            addData();
+        }else if (TAG.equals("zx")){
+        //添加福彩
+        addFcData();
+        }
     }
 
-    /**
-     * 判断边界
-     */
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -112,10 +117,6 @@ public class MiddleView extends ViewGroup {
         return true;
     }
 
-    /**
-     * 添加测试数据
-     * "4","7","9","12","20","30"
-     */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void addData(){
         if (TAG.equals("red")){
@@ -124,10 +125,8 @@ public class MiddleView extends ViewGroup {
         }else if (TAG.equals("blue")){
             s = 16;
             q = mList.size();
-        }else if (TAG.equals("zx")){
-            s = 10;
-            q = mFcsdList.size();
         }
+
         int left = 0;
         int right = cellWitch;
         int top = 0;
@@ -168,47 +167,6 @@ public class MiddleView extends ViewGroup {
                     }else if (TAG.equals("blue")){
                         datas.add(mList.get(j).getBlue_num());
                     }
-//                    else if (TAG.equals("zx")){
-//                        nums.add(mFcsdList.get(j).getHundredsdigit0());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit1());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit2());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit3());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit4());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit5());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit6());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit7());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit8());
-//                        nums.add(mFcsdList.get(j).getHundredsdigit9());
-//                        nums.add(mFcsdList.get(j).getTendigit0());
-//                        nums.add(mFcsdList.get(j).getTendigit1());
-//                        nums.add(mFcsdList.get(j).getTendigit2());
-//                        nums.add(mFcsdList.get(j).getTendigit3());
-//                        nums.add(mFcsdList.get(j).getTendigit4());
-//                        nums.add(mFcsdList.get(j).getTendigit5());
-//                        nums.add(mFcsdList.get(j).getTendigit6());
-//                        nums.add(mFcsdList.get(j).getTendigit7());
-//                        nums.add(mFcsdList.get(j).getTendigit8());
-//                        nums.add(mFcsdList.get(j).getTendigit9());
-//                        nums.add(mFcsdList.get(j).getSingledigit0());
-//                        nums.add(mFcsdList.get(j).getSingledigit1());
-//                        nums.add(mFcsdList.get(j).getSingledigit2());
-//                        nums.add(mFcsdList.get(j).getSingledigit3());
-//                        nums.add(mFcsdList.get(j).getSingledigit4());
-//                        nums.add(mFcsdList.get(j).getSingledigit5());
-//                        nums.add(mFcsdList.get(j).getSingledigit6());
-//                        nums.add(mFcsdList.get(j).getSingledigit7());
-//                        nums.add(mFcsdList.get(j).getSingledigit8());
-//                        nums.add(mFcsdList.get(j).getSingledigit9());
-
-
-//                        if (TAG2.equals("100")){
-//                            datas.add(mFcsdList.get(j).getNumOne());
-//                        }else if (TAG2.equals("10")){
-//                            datas.add(mFcsdList.get(j).getNumTwo());
-//                        }else if (TAG2.equals("1")){
-//                            datas.add(mFcsdList.get(j).getNumThree());
-//                        }
-//                    }
                         //将所有的中奖号码全部拿出来进行对比
                         for (int m = 0;m<datas.size();m++){
                             if (i+1 == Integer.parseInt(datas.get(m))){
@@ -219,10 +177,6 @@ public class MiddleView extends ViewGroup {
                                 }else if (TAG.equals("blue")){
                                     t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.blueball));
                                 }
-//                                else if (TAG.equals("zx")){
-//                                    t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.redball));
-//
-//                                }
                                 isRestart = true;
                             }
                         }
@@ -257,12 +211,8 @@ public class MiddleView extends ViewGroup {
             q = mFcsdList.size();
         }
 
-
-
-
-        for (int i = 0; i < s; i++) {//行
-            int start = 0;//数字
-            //添加所有期的中奖号码
+        //添加所有期的号码直接绘制 一行一行绘制
+        for (int i = 0; i < q; i++) {//行
                 datas.clear();
                 nums.clear();
                 if (TAG.equals("zx")){
@@ -298,7 +248,7 @@ public class MiddleView extends ViewGroup {
                         nums.add(mFcsdList.get(i).getSingledigit6());
                         nums.add(mFcsdList.get(i).getSingledigit7());
                         nums.add(mFcsdList.get(i).getSingledigit8());
-                        nums.add( mFcsdList.get(i).getSingledigit9());
+                        nums.add(mFcsdList.get(i).getSingledigit9());
                     }
                     System.out.print(nums);
                     if (TAG2.equals("100")){
@@ -308,40 +258,29 @@ public class MiddleView extends ViewGroup {
                     }else if (TAG2.equals("1")){
                         datas.add(mFcsdList.get(i).getNumThree());
                     }
+                    System.out.print(datas);
                 }
-            for (int j = 0; j < q; j++) { //列
-                TextView t = new TextView(mContext);
-                t.setGravity(CENTER);
-                t.setTextSize(12);
-                t.setHeight(MiddleView.cellHeight);
-                t.setWidth(MiddleView.cellWitch);
-                t.setPadding(0,20,0,0);//没有包裹布局是直接写死  要改
-                if (TAG.equals("red")){
-                    t.setTextColor(ContextCompat.getColor(mContext,R.color.red));
-                }else if (TAG.equals("blue")){
-                    t.setTextColor(ContextCompat.getColor(mContext,R.color.blue));
-                }
-                t.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
-                if (isRestart == true){
-                    start = 0;
-                    isRestart = false;
-                }
+            for (int j = 0; j < s; j++) { //列
+                TextView zxt = new TextView(mContext);
+                zxt.setGravity(CENTER);
+                zxt.setTextSize(12);
+                zxt.setHeight(MiddleView.cellHeight);
+                zxt.setWidth(MiddleView.cellWitch);
+                zxt.setPadding(0,20,0,0);//没有包裹布局是直接写死  要改
+                zxt.setBackground(ContextCompat.getDrawable(mContext,R.drawable.whiteball));
                 //先将所有数字排出来
-                t.setText(nums.get(j));
-                for (int m = 0;m<datas.size();m++){
-                    if (0 == Integer.parseInt(datas.get(m))){
-                        t.setText(datas.get(m));
-                        t.setTextColor(ContextCompat.getColor(mContext,R.color.white));
-                        t.setBackground(ContextCompat.getDrawable(mContext, R.drawable.redball));
-                        isRestart = true;
-                    }
+                //数据
+                String testdata = nums.get(j);
+                zxt.setText(testdata);
+                if (testdata.equals("0")){
+                    zxt.setText(datas.get(0));
+                    zxt.setTextColor(ContextCompat.getColor(mContext,R.color.white));
+                    zxt.setBackground(ContextCompat.getDrawable(mContext, R.drawable.redball));
                 }
-
-
-                t.layout(left, top, right, bottom);
+                zxt.layout(left, top, right, bottom);
                 left += cellWitch;
                 right += cellWitch;
-                addView(t);
+                addView(zxt);
             }
             left = 0;
             right = cellWitch;
@@ -414,7 +353,6 @@ public class MiddleView extends ViewGroup {
         if (mList.size() != 0){
             TAG = string;
             TAG2 = s;
-//            addData();
             addFcData();
         }
     }

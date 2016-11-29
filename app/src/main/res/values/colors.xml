@@ -21,7 +21,7 @@
     <color name="login_hint_color">#C7C7C7</color>
     <color name="login_line_color">#E6E6E6</color>
 
-    <color name="toolbarTextColor">#FFFF</color>
+    <color name="toolbarTextColor">#FFF</color>
     <color name="white">#FFFF</color>
     <!-- 灰色-浅-不可点 -->
     <color name="grey_two">#e6e6e6</color>
@@ -45,4 +45,5 @@
     <color name="sc_transparent_background">#00111111</color>
 
     <color name="zoushi_text_color">#8E8780</color>
+    <color name="account_color">#f83f67</color>
 </resources>

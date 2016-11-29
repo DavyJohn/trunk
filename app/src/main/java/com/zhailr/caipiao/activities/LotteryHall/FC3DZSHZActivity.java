@@ -47,6 +47,8 @@ public class FC3DZSHZActivity extends BaseActivity {
     private static final String TAG = "FC3DZSHZActivity";
     @Bind(R.id.tv_time)
     TextView tvTime;
+    @Bind(R.id.ac_fc3d_zxhe_text)
+    TextView mText;
     @Bind(R.id.layout_ball)
     LinearLayout layoutBall;
     @Bind(R.id.tv_clear)
@@ -95,6 +97,7 @@ public class FC3DZSHZActivity extends BaseActivity {
         initUI();
         initIntent();
         shake();
+        mText.setText("猜中开奖号相加之和即奖346元");
         mFolatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -569,6 +572,7 @@ public class FC3DZSHZActivity extends BaseActivity {
         if (item.getItemId() == R.id.zoushi){
 //            Intent intent = new Intent(mContext,);
 //            startActivity(intent);
+            showToast("暂无数据");
         }
         return super.onOptionsItemSelected(item);
     }

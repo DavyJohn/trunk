@@ -22,6 +22,7 @@ import com.zhailr.caipiao.activities.mine.AboutActivity;
 import com.zhailr.caipiao.activities.mine.AccountActivity;
 import com.zhailr.caipiao.activities.mine.InputCrashActivity;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
+import com.zhailr.caipiao.activities.mine.NewAccountActivity;
 import com.zhailr.caipiao.activities.mine.OrderListActivity;
 import com.zhailr.caipiao.activities.mine.PersonInfoActivity;
 import com.zhailr.caipiao.activities.mine.RegisterActivity;
@@ -282,7 +283,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
             case R.id.layout_accout:
-                startActivity(new Intent(mContext, AccountActivity.class));
+//                startActivity(new Intent(mContext, AccountActivity.class));
+
+                startActivity(new Intent(mContext, NewAccountActivity.class));
+
                 break;
             case R.id.layout_setting:
                 startActivity(new Intent(mContext, SettingActivity.class));

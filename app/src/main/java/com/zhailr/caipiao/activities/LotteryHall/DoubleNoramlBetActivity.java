@@ -16,6 +16,7 @@ import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.model.response.ZhuihaoResponse;
 import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
@@ -85,6 +86,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                     }
                 });
         instance = this;
+        addZhuihao();
         initView();
     }
 
@@ -487,6 +489,45 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
 
     @Override
     public void onCancelled(int requestCode) {
+
+    }
+
+    private void addZhuihao(){
+//        OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
+//                .addParams(Constant.USER.ZHUIHAO_TIMES,"1")
+//                .addParams("type_code","SSQ")
+//                .addParams("multiple","1")
+//                .addParams("amount","2").build().execute(new BetRecordCallBack() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//            }
+//
+//            @Override
+//            public void onResponse(BetRecordResponse response, int id) {
+//                dimissDialog();
+//                System.out.print(response);
+//
+//            }
+//        });
+        //post
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("type_code", "SSQ");
+        map.put("multiple","1");
+        map.put("append","1");
+        map.put("amount","2");
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.ZHUIHAO, map, TAG, new SpotsCallBack<ZhuihaoResponse>(mContext,false) {
+
+            @Override
+            public void onSuccess(Response response, ZhuihaoResponse zhuihaoResponse) {
+                System.out.print(zhuihaoResponse);
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+
+            }
+        });
+
 
     }
 }

@@ -79,6 +79,16 @@ public class KSRecordResponse {
             private String openTime;
             @SerializedName("win_number")
             private String winNumber;
+            @SerializedName("lottery_num")
+            private String lottery_num;
+
+            public String getLottery_num() {
+                return lottery_num;
+            }
+
+            public void setLottery_num(String lottery_num) {
+                this.lottery_num = lottery_num;
+            }
 
             public String getIssueNum() {
                 return issueNum;

@@ -103,8 +103,10 @@ public class Constant {
     public static final String APPLYWITHDRAW = "appRetLotteryPay/ApplyWithDrawRequest";
     // 提现记录
     public static final String SEARCHWITHDRAWRECORDS = "appRetLotteryPay/SearchWithdrawRecordsRequest";
-
-
+    // 追号
+    public static final String ZHUIHAO = "appChaseNumber/ChaseNumberRequest";
+    //追号详情
+    public static final String ZHUIHAOXIANGQING = "appChaseNumber/ChaseNumInfoRequest";
 
     public class USER {
         public static final String USERNAME = "userName";
@@ -116,6 +118,7 @@ public class Constant {
         public static final String GOLD = "gold";// 金币
         public static final String USABLE = "usable";//可用
         public static final String PHONENUM = "phoneNum";
+        public static final String ZHUIHAO_TIMES = "append";//追号期数
     }
 
     public class SSQOrderRequest {

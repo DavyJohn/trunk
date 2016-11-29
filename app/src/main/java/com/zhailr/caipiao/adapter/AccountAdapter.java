@@ -40,7 +40,6 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return mData == null ? null : mData.get(position);
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

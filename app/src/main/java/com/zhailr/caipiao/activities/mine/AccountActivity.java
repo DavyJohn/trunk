@@ -26,6 +26,7 @@ import okhttp3.Response;
 
 /**
  * Created by zhailiangrong on 16/7/22.
+ * 账户明细
  */
 public class AccountActivity extends BaseActivity implements PullToRefreshLayout.OnRefreshListener {
     private static final String TAG = "AccountActivity";
@@ -37,17 +38,19 @@ public class AccountActivity extends BaseActivity implements PullToRefreshLayout
     private AccountAdapter mAdapter;
     private List<AccountDetailResponse.DataBean.DetailListBean> mData = new ArrayList<>();
     private int mPage = 1;
-
+    private String type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
         getToolBar().setTitle("账户明细");
+        type = getIntent().getStringExtra("type");
         initUI();
     }
 
     private void initUI() {
+
         recycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         recycleView.setLayoutManager(mLayoutManager);
@@ -63,6 +66,7 @@ public class AccountActivity extends BaseActivity implements PullToRefreshLayout
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("pageSize", "10");
         map.put("pageNo", page + "");
+        map.put("type_code",type);
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.USERACCOUNTDETAIL, map, TAG, new SpotsCallBack<AccountDetailResponse>(mContext, false) {
             @Override
             public void onSuccess(Response response, AccountDetailResponse res) {

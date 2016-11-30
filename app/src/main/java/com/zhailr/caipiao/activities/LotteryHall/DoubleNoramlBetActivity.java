@@ -16,7 +16,9 @@ import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
 import com.zhailr.caipiao.model.response.ZhuihaoResponse;
+import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
 import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
@@ -67,7 +69,8 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     private BigInteger price;
     public static DoubleNoramlBetActivity instance = null;
     private int MAX_NUM = 50;
-
+    private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
+    private String issue_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +89,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                     }
                 });
         instance = this;
-        addZhuihao();
         initView();
     }
 
@@ -250,6 +252,8 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 changePriceAndZhu();
                 break;
             case R.id.ok:
+                //先将所有追号显示出来
+//                addZhuihao();
                 //支付
                 String timesString = times.getText().toString().equals("") ? "1" : times.getText().toString();
                 if (TextUtils.isEmpty(PreferencesUtils.getString(mContext, Constant.USER.USERID))) {
@@ -262,12 +266,18 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 } else {
                     // 先调用订单接口，然后跳转支付方式
                     showDialog();
-                    getIssueData();
+                    String iss = issue.getText().toString();
+                    if (issue.getText().toString().equals("")){
+                        getIssueData();
+                    }else {
+                        addZhuihao();
+                    }
+
                 }
                 break;
         }
     }
-
+//获取最新期号如果没有追号就调用此接口
     private void getIssueData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "SSQ");
@@ -280,7 +290,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                     CurrentNumResponse.DataBean bean = res.getData();
                     if (getIntent().getStringExtra("currentNum").equals(bean.getIssue_num())
                             && bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
-                        requestData(bean.getIssue_num());
+                        requestData(bean.getIssue_num());//其好唯一 没有追号
                     } else {
                         dimissDialog();
                         showToast(getString(R.string.bet_error));
@@ -300,6 +310,11 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void requestData(String num) {
+        if (issue_num.equals("") || issue_num.equals(null)){
+            getIssueData();
+        }else {
+            num = issue_num;
+        }
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
@@ -329,10 +344,14 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         }
         String append;
         String isAppend;
+        //判断是否追号
         if (TextUtils.isEmpty(issue.getText().toString())) {
+            //不追号
             append = "1";
             isAppend = "0";
+            getIssueData();
         } else {
+            //追号
             append = issue.getText().toString();
             isAppend = "1";
         }
@@ -493,41 +512,45 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void addZhuihao(){
-//        OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
-//                .addParams(Constant.USER.ZHUIHAO_TIMES,"1")
-//                .addParams("type_code","SSQ")
-//                .addParams("multiple","1")
-//                .addParams("amount","2").build().execute(new BetRecordCallBack() {
-//            @Override
-//            public void onError(Call call, Exception e, int id) {
-//            }
-//
-//            @Override
-//            public void onResponse(BetRecordResponse response, int id) {
-//                dimissDialog();
-//                System.out.print(response);
-//
-//            }
-//        });
-        //post
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("type_code", "SSQ");
-        map.put("multiple","1");
-        map.put("append","1");
-        map.put("amount","2");
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.ZHUIHAO, map, TAG, new SpotsCallBack<ZhuihaoResponse>(mContext,false) {
+        String issue_data = issue.getText().toString();
+        String times_data = times.getText().toString();
+        String price_data = tvPrice.getText().toString();
+        OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
+                .addParams(Constant.USER.ZHUIHAO_TIMES,issue.getText().toString())
+                .addParams("type_code","SSQ")
+                .addParams("multiple",TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams("amount",tvPrice.getText().toString())
+                .build()
+                .execute(new ZhuihaoBetRecordCallBack() {
 
-            @Override
-            public void onSuccess(Response response, ZhuihaoResponse zhuihaoResponse) {
-                System.out.print(zhuihaoResponse);
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        dimissDialog();
+                    }
+
+                    @Override
+                    public void onResponse(ZhuihaoResponse response, int id) {
+                        dimissDialog();
+                        info.clear();
+                        if (response.getCode().equals("200") && response.getCode() != null ){
+                            showToast("success");
+                            info.addAll(response.getData().getChaseNumberInfo());
+                            pinjieString(info);
+                        }
+                    }
+                });
+    }
+    //拼接字符串"123,123,123,123,123"
+    private void pinjieString(List<ZhuihaodetailDataResponse> issum){
+        issue_num = "";
+        for (int i=0;i<issum.size();i++){
+            if (i <issum.size()-1){
+                issue_num = issue_num+""+issum.get(i).getIssue_num()+","+"";
+            }else if (i == issum.size()-1){
+                issue_num = issue_num+issum.get(issum.size()-1).getIssue_num();
             }
-
-            @Override
-            public void onError(Response response, int code, Exception e) {
-
-            }
-        });
-
-
+        }
+        Log.e("==============issue_num",issue_num);
+        requestData(issue_num);
     }
 }

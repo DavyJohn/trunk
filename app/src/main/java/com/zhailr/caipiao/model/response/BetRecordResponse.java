@@ -21,6 +21,8 @@ public class BetRecordResponse {
     private DataBean data;
     private String message;
 
+
+
     public String getCode() {
         return code;
     }
@@ -49,6 +51,8 @@ public class BetRecordResponse {
         private String amount;
         private String code;
         private String orderId;
+
+
 
         public String getAmount() {
             return amount;

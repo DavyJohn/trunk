@@ -1,17 +1,24 @@
 package com.zhailr.caipiao.activities.LotteryHall;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
+import android.system.ErrnoException;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,6 +49,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.interfaces.HighLightInterface;
+import zhy.com.highlight.position.OnBottomPosCallback;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.shape.CircleLightShape;
+import zhy.com.highlight.shape.RectLightShape;
+
+import static android.system.Os.remove;
 
 /**
  * Created by zhailiangrong on 16/7/5.
@@ -61,7 +76,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     @Bind(R.id.ac_double_floating_action_button)
     FloatingActionButton mFloatButton;
 
-
+    private HighLight mHightLight;
 
     private ArrayList<String> mRedList = new ArrayList<String>();
     private ArrayList<String> mBlueList = new ArrayList<String>();
@@ -104,7 +119,6 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
         initView();
         initIntent();
         shake();
-
 
         mFloatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,6 +163,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     }
 
     private void initView() {
+//        showNextKnownTipView();
 
         mList = (ArrayList<BetBean>) getIntent().getSerializableExtra("List");
         int margin = 0;
@@ -650,11 +665,47 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.zoushi){
-            Intent intent = new Intent(mContext,ZouShiTuActivity.class);
-            intent.putExtra("List",mList);
-            startActivity(intent);
+        switch (item.getItemId()){
+            case R.id.zoushi:
+                Intent intent = new Intent(mContext,ZouShiTuActivity.class);
+                intent.putExtra("List",mList);
+                startActivity(intent);
+                break;
+            case R.id.zhidao:
+                showNextKnownTipView();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showNextKnownTipView(){
+        mHightLight = new HighLight(DoubleColorBallNormalActivity.this)
+                .anchor(findViewById(R.id.ac_double_rootview))
+                .addHighLight(R.id.layout_ball,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
+                .addHighLight(R.id.ac_double_floating_action_button,R.layout.info_gravity_left_down,new OnLeftPosCallback(45),new RectLightShape())
+                .autoRemove(false)
+                .enableNext()
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                });
+        mHightLight.show();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void clickKnown(View view)
+    {
+        if(mHightLight.isShowing() && mHightLight.isNext())//如果开启next模式
+        {
+            mHightLight.next();
+        }else
+        {
+            remove(null);
+        }
+    }
+    public void remove(View view)
+    {
+        mHightLight.remove();
     }
 }

@@ -2,10 +2,12 @@ package com.zhailr.caipiao.activities.LotteryHall;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
 import android.view.Menu;
@@ -39,6 +41,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.position.OnBottomPosCallback;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
 
 /**
  * Created by zhailiangrong on 16/7/17.
@@ -61,7 +67,7 @@ public class FC3DZSHZActivity extends BaseActivity {
     FloatingActionButton mFolatButton;
     // 代码创建的layout
     private LinearLayout m_LinearLayout;
-
+    private HighLight mHightLight;
     private ArrayList<String> mRedList1 = new ArrayList<String>();
     private ArrayList<TextView> mRedClickList1 = new ArrayList<TextView>();
     private ArrayList<TextView> mRedAllList1 = new ArrayList<TextView>();
@@ -569,11 +575,44 @@ public class FC3DZSHZActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.zoushi){
-//            Intent intent = new Intent(mContext,);
-//            startActivity(intent);
-            showToast("暂无数据");
+        switch (item.getItemId()){
+            case R.id.zoushi:
+                showToast("暂无数据");
+                break;
+            case R.id.zhidao:
+                showNextKnownTipView();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showNextKnownTipView(){
+        mHightLight = new HighLight(FC3DZSHZActivity.this)
+                .anchor(findViewById(R.id.ac_fc3d_zxhz_rootview))
+                .addHighLight(R.id.layout_ball,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
+                .autoRemove(false)
+                .enableNext()
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                });
+        mHightLight.show();
+    }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void clickKnown(View view)
+    {
+        if(mHightLight.isShowing() && mHightLight.isNext())//如果开启next模式
+        {
+            mHightLight.next();
+        }else
+        {
+            remove(null);
+        }
+    }
+    public void remove(View view)
+    {
+        mHightLight.remove();
     }
 }

@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ac_k3_er_tong_rootview">
 
     <RelativeLayout
         android:id="@+id/rl_time"
@@ -29,10 +30,11 @@
             android:padding="@dimen/x10"/>
     </RelativeLayout>
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_time"
+        android:layout_below="@+id/ac_k3_er_bu_tong_tip"
         android:scrollbars="none">
 
         <LinearLayout
@@ -187,7 +189,7 @@
         android:id="@+id/ac_k3_er_floating_action_button"
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
-        android:src="@drawable/yaoyiyao_icon"
+        android:src="@drawable/shake_icon"
         android:layout_marginBottom="10dp"
         app:borderWidth="0dp"
         app:fabSize="normal"

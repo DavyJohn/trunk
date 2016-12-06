@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -62,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void initView() {
         mWaitProgressDialog = new WaitProgressDialog(this,"正在加载中...");
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
+        mToolBar.setOverflowIcon(ContextCompat.getDrawable(mContext,R.drawable.assistant_icon));
         mContentLayout = (RelativeLayout) findViewById(R.id.content);
         mNoContentLayout = (RelativeLayout) findViewById(R.id.no_content);
         // 获取手机分辨率

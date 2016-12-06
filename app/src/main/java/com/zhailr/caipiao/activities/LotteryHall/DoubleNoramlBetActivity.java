@@ -266,7 +266,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 } else {
                     // 先调用订单接口，然后跳转支付方式
                     showDialog();
-                    String iss = issue.getText().toString();
                     if (issue.getText().toString().equals("")){
                         getIssueData();
                     }else {
@@ -282,7 +281,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "SSQ");
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDNEWAWARD, map, TAG, new SpotsCallBack<CurrentNumResponse>(mContext, false) {
-
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 System.out.print(res);
@@ -310,11 +308,11 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void requestData(String num) {
-        if (issue_num.equals("") || issue_num.equals(null)){
-            getIssueData();
-        }else {
-            num = issue_num;
-        }
+//        if (issue_num.equals("") || issue_num.equals(null)){
+//            getIssueData();
+//        }else {
+//            num = issue_num;
+//        }
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
@@ -349,7 +347,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
             //不追号
             append = "1";
             isAppend = "0";
-            getIssueData();
+//            getIssueData();
         } else {
             //追号
             append = issue.getText().toString();

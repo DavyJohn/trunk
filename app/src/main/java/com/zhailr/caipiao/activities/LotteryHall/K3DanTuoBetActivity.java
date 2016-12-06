@@ -508,4 +508,6 @@ public class K3DanTuoBetActivity extends BaseActivity implements ISimpleDialogLi
     public int getLayoutId() {
         return R.layout.ac_double_bet;
     }
+
+
 }

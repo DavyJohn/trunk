@@ -26,6 +26,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.WebViewActivity;
 import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
@@ -673,6 +674,11 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                 break;
             case R.id.zhidao:
                 showNextKnownTipView();
+                break;
+            case R.id.introduce:
+                intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("TAG","double_ball_normal_ways");
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

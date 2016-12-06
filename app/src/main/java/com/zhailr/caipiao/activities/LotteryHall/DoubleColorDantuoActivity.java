@@ -2,15 +2,20 @@ package com.zhailr.caipiao.activities.LotteryHall;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.RequiresApi;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.WebViewActivity;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
@@ -30,6 +35,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.position.OnBottomPosCallback;
+import zhy.com.highlight.position.OnLeftPosCallback;
+import zhy.com.highlight.position.OnTopPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
 
 /**
  * Created by zhailiangrong on 16/7/7.
@@ -69,7 +79,7 @@ public class DoubleColorDantuoActivity extends BaseActivity {
     // 点确定后，需要传递的list
     ArrayList<BetBean> chooseList = new ArrayList<BetBean>();
     private String currentNum;
-
+    private HighLight mHightLight;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +89,6 @@ public class DoubleColorDantuoActivity extends BaseActivity {
         getCurrentNum();
         initUI();
         initIntent();
-
     }
 
     private void getCurrentNum() {
@@ -521,5 +530,61 @@ public class DoubleColorDantuoActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.ac_double_dan_tuo;
+    }
+
+    public void showNextKnownTipView(){
+        mHightLight = new HighLight(DoubleColorDantuoActivity.this)
+                .anchor(findViewById(R.id.ac_double_dan_tuo_rootview))
+                .addHighLight(R.id.layout_red_ball_dan,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
+                .addHighLight(R.id.layout_red_ball_tuo,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
+                .addHighLight(R.id.layout_blue_ball,R.layout.info_gravity_left_down,new OnTopPosCallback(60),new RectLightShape())
+                .autoRemove(false)
+                .enableNext()
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                });
+        mHightLight.show();
+    }
+
+    public void clickKnown(View view)
+    {
+        if(mHightLight.isShowing() && mHightLight.isNext())//如果开启next模式
+        {
+            mHightLight.next();
+        }else
+        {
+            remove(null);
+        }
+    }
+    public void remove(View view)
+    {
+        mHightLight.remove();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.zoushi,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.zoushi:
+                showToast("暂无此功能");
+                break;
+            case R.id.introduce:
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("TAG","DANTUO");
+                startActivity(intent);
+                break;
+            case R.id.zhidao:
+                showNextKnownTipView();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -9,6 +9,8 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.WebViewActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -41,6 +44,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
+import zhy.com.highlight.HighLight;
+import zhy.com.highlight.position.OnBottomPosCallback;
+import zhy.com.highlight.shape.RectLightShape;
 
 /**
  * Created by zhailiangrong on 16/7/12.
@@ -86,6 +92,7 @@ public class K33BuTongActivity extends BaseActivity {
     private boolean flag;
     private long currentSec;
     private ShakeListener mShakeListener;
+    private HighLight mHightLight;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -718,5 +725,59 @@ public class K33BuTongActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.ac_k3_san_bu_tong;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.zoushi,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.zoushi:
+
+                showToast("暂无数据");
+                break;
+            case R.id.zhidao:
+                showNextKnownTipView();
+                break;
+            case R.id.introduce:
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("TAG","K3");
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void showNextKnownTipView(){
+        mHightLight = new HighLight(K33BuTongActivity.this)
+                .anchor(findViewById(R.id.ac_k3_san_bu_tong_rootview))//rootview
+                .addHighLight(R.id.layout_san_bu_tong,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
+                .addHighLight(R.id.layout_tong_xuan,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
+                .autoRemove(false)
+                .enableNext()
+                .setClickCallback(new HighLight.OnClickCallback() {
+                    @Override
+                    public void onClick() {
+                        mHightLight.next();
+                    }
+                });
+        mHightLight.show();
+    }
+
+    public void clickKnown(View view)
+    {
+        if(mHightLight.isShowing() && mHightLight.isNext())//如果开启next模式
+        {
+            mHightLight.next();
+        }else
+        {
+            remove(null);
+        }
+    }
+    public void remove(View view)
+    {
+        mHightLight.remove();
     }
 }

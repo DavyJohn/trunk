@@ -20,15 +20,32 @@ public class WebViewActivity extends BaseActivity {
 
     @Bind(R.id.web_view)
     WebView mWeb;
+    String tag ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
+        getToolBar().setTitle("玩法介绍");
         mWeb.getSettings().setJavaScriptEnabled(true);
         mWeb.getSettings().setDefaultTextEncodingName("utf-8");
         mWeb.setWebChromeClient(new WebChromeClient(){});
-        mWeb.loadUrl("file:///android_asset/kuaisan.html");
+        tag = getIntent().getStringExtra("TAG");
+        switch (tag){
+            case "double_ball_normal_ways":
+                mWeb.loadUrl("file:///android_asset/double_ball_ways.html");
+                break;
+            case "DANTUO":
+                mWeb.loadUrl("file:///android_asset/double_ball_ban_tuo.html");
+                break;
+            case "FCSD":
+                mWeb.loadUrl("file:///android_asset/fc3d.html");
+                break;
+            case "K3":
+                mWeb.loadUrl("file:///android_asset/k3.html");
+                break;
+        }
+
     }
 
     @Override

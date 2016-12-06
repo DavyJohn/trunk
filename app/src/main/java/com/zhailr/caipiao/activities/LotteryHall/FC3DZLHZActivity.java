@@ -21,6 +21,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.WebViewActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -575,6 +576,11 @@ public class FC3DZLHZActivity extends BaseActivity {
                 break;
             case R.id.zhidao:
                 showNextKnownTipView();
+                break;
+            case R.id.introduce:
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("TAG","FCSD");
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.WebViewActivity;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
@@ -517,5 +520,29 @@ public class K32BuTongDanActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.ac_k3_san_bu_tong_dan;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.zoushi,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.zoushi:
+
+                showToast("暂无数据");
+                break;
+            case R.id.zhidao:
+                showToast("开发中...");
+                break;
+            case R.id.introduce:
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("TAG","K3");
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -81,7 +81,7 @@ public class MiddleView extends ViewGroup {
     protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
         removeAllViews();
         //添加双色球
-        if (TAG.equals("red")){
+        if (TAG.equals("red")|| TAG.equals("blue")){
             addData();
         }else if (TAG.equals("zx")){
         //添加福彩
@@ -131,7 +131,7 @@ public class MiddleView extends ViewGroup {
         int right = cellWitch;
         int top = 0;
         int bottom = cellHeight;
-        for (int i = 0; i < s; i++) {//有33列
+        for (int i = 0; i < s; i++) {//列
             int start = 0;//数字
             for (int j = 0; j < q; j++) { //行
                 TextView t = new TextView(mContext);

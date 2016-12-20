@@ -3,6 +3,7 @@ package com.zhailr.caipiao.activities.mine;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.adapter.AccountAdapter;
@@ -38,13 +39,14 @@ public class AccountActivity extends BaseActivity implements PullToRefreshLayout
     private AccountAdapter mAdapter;
     private List<AccountDetailResponse.DataBean.DetailListBean> mData = new ArrayList<>();
     private int mPage = 1;
-    private String type;
+    private String type = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
         getToolBar().setTitle("账户明细");
+
         type = getIntent().getStringExtra("type");
         initUI();
     }
@@ -63,6 +65,7 @@ public class AccountActivity extends BaseActivity implements PullToRefreshLayout
 
     private void getData(int page) {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        Log.e("==========userid",PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("pageSize", "10");
         map.put("pageNo", page + "");
@@ -104,6 +107,6 @@ public class AccountActivity extends BaseActivity implements PullToRefreshLayout
 
     @Override
     public int getLayoutId() {
-        return R.layout.ac_order_list;
+        return R.layout.account_main_layout;
     }
 }

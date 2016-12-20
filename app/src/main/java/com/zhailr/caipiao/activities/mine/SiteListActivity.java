@@ -176,6 +176,6 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
 
     @Override
     public int getLayoutId() {
-        return R.layout.ac_order_list;
+        return R.layout.account_main_layout;
     }
 }

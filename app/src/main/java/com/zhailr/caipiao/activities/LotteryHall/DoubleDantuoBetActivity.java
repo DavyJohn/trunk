@@ -23,8 +23,11 @@ import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.callBack.BetRecordCallBack;
+import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
 import com.zhailr.caipiao.model.response.BetRecordResponse;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
+import com.zhailr.caipiao.model.response.ZhuihaoResponse;
+import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
 import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
@@ -65,7 +68,8 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     private BigInteger zs;
     private BigInteger price;
     private int MAX_NUM = 50;
-
+    private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
+    private String issue_num;
 
 
     @Override
@@ -241,7 +245,12 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
                 }else {
                     // 先调用订单接口，然后跳转支付方式
                     showDialog();
-                    getIssueData();
+                    if (issue.getText().toString().equals("")){
+                        getIssueData();
+                    }else {
+                        addZhuihao();
+                    }
+
                 }
                 break;
         }
@@ -394,5 +403,48 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     @Override
     public int getLayoutId() {
         return R.layout.ac_double_bet;
+    }
+    //追号
+    private void addZhuihao(){
+        String issue_data = issue.getText().toString();
+        String times_data = times.getText().toString();
+        String price_data = tvPrice.getText().toString();
+        OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
+                .addParams(Constant.USER.ZHUIHAO_TIMES,issue.getText().toString())
+                .addParams("type_code","SSQ")
+                .addParams("multiple",TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams("amount",tvPrice.getText().toString())
+                .build()
+                .execute(new ZhuihaoBetRecordCallBack() {
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        dimissDialog();
+                    }
+
+                    @Override
+                    public void onResponse(ZhuihaoResponse response, int id) {
+                        dimissDialog();
+                        info.clear();
+                        if (response.getCode().equals("200") && response.getCode() != null ){
+                            showToast("success");
+                            info.addAll(response.getData().getChaseNumberInfo());
+                            pinjieString(info);
+                        }
+                    }
+                });
+    }
+
+    private void pinjieString(List<ZhuihaodetailDataResponse> issum){
+        issue_num = "";
+        for (int i=0;i<issum.size();i++){
+            if (i <issum.size()-1){
+                issue_num = issue_num+""+issum.get(i).getIssue_num()+","+"";
+            }else if (i == issum.size()-1){
+                issue_num = issue_num+issum.get(issum.size()-1).getIssue_num();
+            }
+        }
+        Log.e("==============issue_num",issue_num);
+        requestData(issue_num);
     }
 }

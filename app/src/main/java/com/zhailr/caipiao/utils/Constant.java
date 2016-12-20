@@ -105,7 +105,7 @@ public class Constant {
     // 追号
     public static final String ZHUIHAO = "appChaseNumber/chasenumber";
     //追号详情
-//    public static final String ZHUIHAOXIANGQING = "appChaseNumber/ChaseNumInfoRequest";
+    public static final String ZHUIHAOXIANGQING = "appChaseNumber/ChaseNumInfoRequest";
 
     public class USER {
         public static final String USERNAME = "userName";

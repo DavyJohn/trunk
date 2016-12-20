@@ -30,7 +30,7 @@ import okhttp3.Response;
  * Created by 腾翔信息 on 2016/11/29.
  */
 
-public class NewAccountActivity extends BaseActivity implements View.OnClickListener {
+public class NewAccountActivity extends BaseActivity  {
     private static final String TAG = NewAccountActivity.class.getSimpleName();
     @Bind(R.id.new_account_money)
     TextView mText;
@@ -78,6 +78,7 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
 
     private void getUserData(){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        Log.e("====userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSACCOUNTINFO, map, TAG, new SpotsCallBack<AccountInfoResponse>(mContext, false) {
 
@@ -107,8 +108,4 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
         return R.layout.new_account_layout;
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }

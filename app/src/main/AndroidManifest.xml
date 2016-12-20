@@ -284,8 +284,6 @@
         </activity>
         <activity
             android:name=".activities.mine.AccountActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
         <activity

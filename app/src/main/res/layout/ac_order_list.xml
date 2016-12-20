@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <com.zhailr.caipiao.widget.TZCPPullRefresh
-        android:id="@+id/refresh_view"
+    <com.flyco.tablayout.SlidingTabLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?android:actionBarSize"
+        app:tl_textsize="14sp"
+        app:tl_divider_color="@color/red"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_textAllCaps="true"
+        app:tl_textBold="BOTH"
+        app:tl_tab_space_equal="true"
+        app:tl_divider_width="1dp"
+        app:tl_indicator_color="@color/red"
+        app:tl_textUnselectColor="@color/black"
+        app:tl_textSelectColor="@color/red"
+        android:id="@+id/ac_order_list_tab"/>
 
-        <com.zhailr.caipiao.widget.pullableview.PullableRecyclerView
-            android:id="@+id/recycle_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never" />
 
-    </com.zhailr.caipiao.widget.TZCPPullRefresh>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ac_order_list_vp"/>
 
 
 

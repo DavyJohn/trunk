@@ -1,5 +1,6 @@
 package com.zhailr.caipiao.zoushitu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,12 +14,15 @@ import android.widget.TextView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.LotteryHall.FC3DNormalBetActivity;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.fragments.FCZxTuHundredFragment;
 import com.zhailr.caipiao.fragments.FCZxTuTenFragment;
 import com.zhailr.caipiao.fragments.FCZxTuUnitFragment;
 import com.zhailr.caipiao.http.SpotsCallBack;
+import com.zhailr.caipiao.model.bean.BetBean;
+import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.model.response.FCSDRecordResponse;
 import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.StringUtils;
@@ -30,6 +34,9 @@ import org.w3c.dom.Text;
 
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -45,7 +52,7 @@ import static android.view.Gravity.CENTER;
 
 public class FCZxTuActivity extends BaseActivity {
 
-    private static final String TAG = FCZxTuActivity.class.getSimpleName();
+    private static final String TAG = "FCZxTuActivity";
     @Bind(R.id.fc_zx_tu_tab)
     SlidingTabLayout mTab;
     @Bind(R.id.fc_zx_tu_vp)
@@ -63,9 +70,66 @@ public class FCZxTuActivity extends BaseActivity {
     LinearLayout mDisPalyLayout;
     @Bind(R.id.fc_zx_tu_zoushitu_buy_text)
     TextView mBuyText;
+    @Bind(R.id.fc_zx_tu_display_text)
+    TextView mDisplayText;
     @OnClick(R.id.fc_zx_tu_zoushitu_buy_text) void buy (){
-        showToast("");
+        if (zs != 0) {
+            Intent intent = new Intent(this, FC3DNormalBetActivity.class);
+            BetBean bet = new BetBean();
+            StringBuffer sb1 = new StringBuffer();
+            // 对号码进行排序
+            Collections.sort(hundereds, new Comparator<String>() {
+                public int compare(String arg0, String arg1) {
+                    return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                }
+            });
+            Collections.sort(tens, new Comparator<String>() {
+                public int compare(String arg0, String arg1) {
+                    return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                }
+            });
+            Collections.sort(units, new Comparator<String>() {
+                public int compare(String arg0, String arg1) {
+                    return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                }
+            });
+            for (int i=0; i < hundereds.size(); i++) {
+                sb1.append(hundereds.get(i) + "  ");
+            }
+            sb1.append("|  ");
+            for (int i=0; i < tens.size(); i++) {
+                sb1.append(tens.get(i) + "  ");
+            }
+            sb1.append("|  ");
+            for (int i=0; i < units.size(); i++) {
+                sb1.append(units.get(i) + "  ");
+            }
+            bet.setRedNums(sb1.toString());
+            bet.setBlueNums("");
+            bet.setType("直选投注");
+            bet.setPrice(price + "");
+            bet.setZhu(zs + "");
+            bet.setRedList((ArrayList<String>) hundereds);
+            bet.setRedList2((ArrayList<String>) tens);
+            bet.setRedList3((ArrayList<String>) units);
+            if (chooseList.size() != 0 && position != -1) {
+                chooseList.set(position, bet);
+            } else {
+                chooseList.add(0, bet);
+            }
+            intent.putExtra("list", chooseList);
+            intent.putExtra("currentNum", currentNum);
+            intent.putExtra("tag", TAG);
+            startActivity(intent);
+            finish();
+        } else {
+            showToast("请至少选择一注");
+        }
     }
+
+    ArrayList<BetBean> chooseList = new ArrayList<BetBean>();
+    private int position = -1;
+    private String currentNum;
     private String[] mTitles = {"百位","十位","个位"};
     private List<Fragment> listFragment = new ArrayList<>();
     private MyPagerAdapter adapter;
@@ -73,6 +137,8 @@ public class FCZxTuActivity extends BaseActivity {
     private List<String> tens = new ArrayList<>();
     private List<String> units = new ArrayList<>();
     private String CONDITION = "100";
+    private int zs;
+    private int price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +147,8 @@ public class FCZxTuActivity extends BaseActivity {
         getToolBar().setTitle("走势图");
         initView();
         setData();
+        getCurrentNum();
+        initIntent();
     }
 
 
@@ -243,10 +311,6 @@ public class FCZxTuActivity extends BaseActivity {
         String ten = "";
         String un = "";
 
-//        Log.e("====================1",data1+"");
-//        Log.e("====================2",data2+"");
-//        Log.e("====================3",data3+"");
-
         for (String d1 : data1){
             hun = hun+d1+","+"";
         }
@@ -257,10 +321,10 @@ public class FCZxTuActivity extends BaseActivity {
             un = un+d3+","+"";
         }
         if (data1.size() == 0 ||data2.size() == 0 || data3.size() == 0){
-
         }else {
-            mText.setText("百位："+hun+"十位："+ten+"个位"+un);
+            mText.setText("百位:"+" "+hun+" 十位:"+" "+ten+" 个位:"+un);
             mDisPalyLayout.addView(mText);
+            changeZhusuAccount();
         }
         Log.e("====================4",hun);
     }
@@ -300,20 +364,51 @@ public class FCZxTuActivity extends BaseActivity {
     }
 
     // 显示共多少注，共多少钱
-//    private void changeZhusuAccount() {
-//        // 算法：m*n*w
-//        int n = hundereds.size();
-//        int m = tens.size();
-//        int w = units.size();
-//
-//        zs = m * n * w;
-//        if (zs != 0) {
-//            price = zs * 2;
-//            tvZhu.setText("共 " + zs + " 注");
-//            tvPrice.setText(" " + price + " 元");
-//        } else {
-//            tvZhu.setText("");
-//            tvPrice.setText("");
-//        }
-//    }
+    private void changeZhusuAccount() {
+        // 算法：m*n*w
+        int n = hundereds.size();
+        int m = tens.size();
+        int w = units.size();
+
+        zs = m * n * w;
+        if (zs != 0) {
+            price = zs * 2;
+            mDisplayText.setText("共 " + zs + " 注"+" " + price + " 元");
+
+        } else {
+            mDisplayText.setText("");
+        }
+    }
+
+    private void getCurrentNum() {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("type_code", "FCSD");
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDNEWAWARD, map, TAG, new SpotsCallBack<CurrentNumResponse>(mContext, false) {
+
+            @Override
+            public void onSuccess(Response response, CurrentNumResponse res) {
+                if (res.getCode().equals("200")) {
+                    currentNum = res.getData().getIssue_num();
+                } else {
+                    showToast(res.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+                showToast(getString(R.string.request_error));
+            }
+        });
+    }
+
+    private void initIntent() {
+        if (null != getIntent().getSerializableExtra("bean")) {// 点击进入的
+            chooseList = (ArrayList<BetBean>) getIntent().getSerializableExtra("list");
+            position = getIntent().getIntExtra("position", -1);
+
+            changeZhusuAccount();
+        } else if (null != getIntent().getSerializableExtra("List")) {// 从自选进入的
+            chooseList = (ArrayList<BetBean>) getIntent().getSerializableExtra("List");
+        }
+    }
 }

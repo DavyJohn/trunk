@@ -23,11 +23,15 @@ import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.callBack.BetRecordCallBack;
+import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
 import com.zhailr.caipiao.model.response.BetRecordResponse;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
+import com.zhailr.caipiao.model.response.ZhuihaoResponse;
+import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
 import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
+import com.zhailr.caipiao.zoushitu.FCZxTuActivity;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.math.BigInteger;
@@ -63,7 +67,8 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
     private BigInteger price;
     private String tag;
     private int MAX_NUM = 50;
-
+    private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
+    private String issue_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -255,6 +260,10 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
                         Intent intent = new Intent(FC3DNormalBetActivity.this, FC3DZLHZActivity.class);
                         intent.putExtra("List", mList);
                         startActivity(intent);
+                    }else if (tag.equals("FCZxTuActivity")){
+                        Intent intent = new Intent(FC3DNormalBetActivity.this, FCZxTuActivity.class);
+                        intent.putExtra("List", mList);
+                        startActivity(intent);
                     }
                 }else{
                     showToast("投注数目不能超过20条");
@@ -272,6 +281,8 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
                         autoChooseOne4(1);
                     } else if (tag.equals("FC3DZLHZActivity")) {
                         autoChooseOne5(1);
+                    }else if (tag.equals("FCZxTuActivity")){// 还要细分这事哪个的走势图
+                        autoChooseOne(1);
                     }
                 }else{
                     showToast("投注数目不能超过20条");
@@ -295,7 +306,11 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
                     } else {
                         // 先调用订单接口，然后跳转支付方式
                         showDialog();
-                        getIssueData();
+                        if (issue.getText().toString().equals("")){
+                            getIssueData();
+                        }else {
+                            addZhuihao();
+                        }
                     }
                 break;
         }
@@ -305,7 +320,6 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "FCSD");
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDNEWAWARD, map, TAG, new SpotsCallBack<CurrentNumResponse>(mContext, false) {
-
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
@@ -337,12 +351,12 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
         String isAppend;
         if (TextUtils.isEmpty(issue.getText().toString())) {
             append = "1";
-            isAppend = "0";
+            isAppend = "0";//不追号
         } else {
             append = issue.getText().toString();
-            isAppend = "1";
+            isAppend = "1";//追号
         }
-        Log.i(TAG, "userId:" + PreferencesUtils.getString(mContext, Constant.USER.USERID)
+        Log.e(TAG, "userId:" + PreferencesUtils.getString(mContext, Constant.USER.USERID)
                 + "siteId:" + PreferencesUtils.getString(mContext, Constant.USER.SITEID)
                 + "issue_num:" + num
                 + "append:" + append
@@ -390,7 +404,7 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
             List<String> red2 = mList.get(i).getRedList2();
             List<String> red3 = mList.get(i).getRedList3();
             // 3D直选
-            if (tag.equals("FC3DNoramlActivity")) {
+            if (tag.equals("FC3DNoramlActivity") || tag.equals("FCZxTuActivity")) {
                 if (red.size() == 1 && red2.size() == 1 && red3.size() == 1) {
                     sb.append("5201%");
                     sb.append(red.get(0) + "|" + red2.get(0) + "|" + red3.get(0) + "_1");
@@ -787,5 +801,48 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
     @Override
     public int getLayoutId() {
         return R.layout.ac_double_bet;
+    }
+    //追号
+    private void addZhuihao(){
+        String issue_data = issue.getText().toString();
+        String times_data = times.getText().toString();
+        String price_data = tvPrice.getText().toString();
+        OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
+                .addParams(Constant.USER.ZHUIHAO_TIMES,issue.getText().toString())
+                .addParams("type_code","FCSD")
+                .addParams("multiple",TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams("amount",tvPrice.getText().toString())
+                .build()
+                .execute(new ZhuihaoBetRecordCallBack() {
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        dimissDialog();
+                    }
+
+                    @Override
+                    public void onResponse(ZhuihaoResponse response, int id) {
+                        dimissDialog();
+                        info.clear();
+                        if (response.getCode().equals("200") && response.getCode() != null ){
+                            showToast("success");
+                            info.addAll(response.getData().getChaseNumberInfo());
+                            pinjieString(info);
+                        }
+                    }
+                });
+    }
+
+    private void pinjieString(List<ZhuihaodetailDataResponse> issum){
+        issue_num = "";
+        for (int i=0;i<issum.size();i++){
+            if (i <issum.size()-1){
+                issue_num = issue_num+""+issum.get(i).getIssue_num()+","+"";
+            }else if (i == issum.size()-1){
+                issue_num = issue_num+issum.get(issum.size()-1).getIssue_num();
+            }
+        }
+        Log.e("==============issue_num",issue_num);
+        requestData(issue_num);
     }
 }

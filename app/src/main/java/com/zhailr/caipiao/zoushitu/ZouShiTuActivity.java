@@ -172,7 +172,6 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
             public void onError(Response response, int code, Exception e) {
                 Log.i(TAG, response.toString());
             }
-
         });
     }
 
@@ -415,6 +414,8 @@ public class ZouShiTuActivity extends BaseActivity implements View.OnClickListen
             return mFragments.get(position);
         }
     }
+
+
     private void getCurrentNum(){
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "SSQ");

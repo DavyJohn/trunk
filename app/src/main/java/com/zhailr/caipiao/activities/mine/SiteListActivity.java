@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.zhailr.caipiao.R;
@@ -106,6 +107,9 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
                     public void onClick(DialogInterface dialog, int which) {
                         PreferencesUtils.putString(getApplicationContext(), Constant.USER.SITEID, siteId);
                         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                        Log.e("user_id",PreferencesUtils.getString(mContext, Constant.USER.USERID));
+                        Log.e("user_name",PreferencesUtils.getString(mContext, Constant.USER.USERID));
+                        Log.e("siteId",PreferencesUtils.getString(mContext, Constant.USER.SITEID));
                         map.put("user_id", PreferencesUtils.getString(mContext, Constant.USER.USERID));
                         map.put("user_name", PreferencesUtils.getString(mContext, Constant.USER.USERNAME));
                         map.put("siteId", PreferencesUtils.getString(mContext, Constant.USER.SITEID));

@@ -367,6 +367,13 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activities.mine.NewAccountActivity"/>
         <activity android:name=".zoushitu.IntroduceActivity"/>
+        <activity android:name=".activities.MapViewActivity">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
@@ -461,6 +468,10 @@
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="62e5f3be408fc3591ba0c1f0"/>
         <!-- </>值来自开发者平台取得的AppKey-->
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="5e48234146b968551df302e5d0c8e4fe">
+            //开发者申请的key
+        </meta-data>
+        <service android:name="com.amap.api.location.APSService"></service>
     </application>
 
 </manifest>

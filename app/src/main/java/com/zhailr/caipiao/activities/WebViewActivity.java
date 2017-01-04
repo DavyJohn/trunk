@@ -33,16 +33,17 @@ public class WebViewActivity extends BaseActivity {
         tag = getIntent().getStringExtra("TAG");
         switch (tag){
             case "double_ball_normal_ways":
-                mWeb.loadUrl("file:///android_asset/double_ball_ways.html");
+                mWeb.loadUrl("file:///android_asset/game_double.html");
+//                mWeb.loadUrl("file:///android_asset/double_ball_ways.html");
                 break;
             case "DANTUO":
                 mWeb.loadUrl("file:///android_asset/double_ball_ban_tuo.html");
                 break;
             case "FCSD":
-                mWeb.loadUrl("file:///android_asset/fc3d.html");
+                mWeb.loadUrl("file:///android_asset/game_3d.html");
                 break;
             case "K3":
-                mWeb.loadUrl("file:///android_asset/k3.html");
+                mWeb.loadUrl("file:///android_asset/game_nearly.html");
                 break;
         }
 

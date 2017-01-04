@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.base.BaseActivity;
@@ -40,13 +41,17 @@ public class RegisterThreeActivity extends BaseActivity {
     EditText userLoginPassword;
     @Bind(R.id.appearpwd)
     ImageView appearpwd;
+    @Bind(R.id.ac_rigister_text_zhandian)
+    TextView mTextZhanDian;
 //    @Bind(R.id.register_confirm)
 //    Button registerConfirm;
     private String identifying;
     private String tel;
     private boolean isapppwd = false;
     private String tag;
-
+    @OnClick(R.id.ac_rigister_text_zhandian) void zd(){
+        startActivity(new Intent(mContext,SiteListActivity.class));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

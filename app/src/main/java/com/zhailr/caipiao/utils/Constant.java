@@ -11,7 +11,7 @@ public class Constant {
     // 通用地址
 //    public static final String COMMONURL = "http://192.168.6.3:8807/gateway/";//测试环境
 
-    //正式环境
+    //正式环境  
     public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
     public static final String UPDATEURL = "http://122.194.107.210:8880/update/update.xml";
     // 登录成功刷新数据广播
@@ -23,7 +23,7 @@ public class Constant {
     // 账户信息刷新广播
     public static final String ACCOUNTRECEIVER = "com.zhailr.caipiao.accountreceiver";
     // 用户登录地址
-                        public static final String LOGINURL = "appUser/UserLoginRequest";
+    public static final String LOGINURL = "appUser/UserLoginRequest";
     // 验证手机号唯一性 appUser/CheckPhoneRequest
     public static final String CHECKPHONE = "appUser/CheckPhoneRequest";
     // 用户注册获取验证码

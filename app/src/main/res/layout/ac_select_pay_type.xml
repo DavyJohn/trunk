@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_line_color"
@@ -39,6 +39,22 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:id="@+id/ac_select_pay_zhandian">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="站点选择"
+            android:id="@+id/ac_select_pay_zhandian_text"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/x10"
+            android:textColor="@color/login_title_color"
+            android:textSize="@dimen/x17" />
+    </LinearLayout>
     <ListView
         android:id="@+id/pay_type_list_view"
         android:layout_width="match_parent"
@@ -86,4 +102,4 @@
     
 
 
-</RelativeLayout>
+</LinearLayout>

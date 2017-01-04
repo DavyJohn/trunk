@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.HomeActivity;
 import com.zhailr.caipiao.activities.mine.OrderListActivity;
 import com.zhailr.caipiao.activities.mine.PayPWDActivity;
+import com.zhailr.caipiao.activities.mine.SiteListActivity;
 import com.zhailr.caipiao.adapter.PayTypeListAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -32,12 +34,15 @@ import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 import com.zhailr.caipiao.widget.MySecKeyboardView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Response;
 
 /**
@@ -51,6 +56,11 @@ public class SelectPayTypeActivity extends BaseActivity {
     ListView payTypeListView;
     @Bind(R.id.edit_pay_pwd)
     EditText editPayPwd;
+    @Bind(R.id.ac_select_pay_zhandian)
+    LinearLayout mZhanDian;
+    @OnClick(R.id.ac_select_pay_zhandian) void setZd(){
+        startActivity(new Intent(this, SiteListActivity.class));
+    }
     private List<PayType> datalist = new ArrayList<PayType>();
     private PayTypeListAdapter adapter;
     private String price;

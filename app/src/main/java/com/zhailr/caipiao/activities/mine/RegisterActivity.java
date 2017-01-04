@@ -22,6 +22,7 @@ import okhttp3.Response;
 
 /**
  * Created by zhailiangrong on 16/7/5.
+ * 注册
  */
 public class RegisterActivity extends BaseActivity {
     private static final String TAG = "RegisterActivity";

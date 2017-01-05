@@ -20,6 +20,7 @@ import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.response.AccountInfoResponse;
 import com.zhailr.caipiao.model.response.OrderListResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.MyDecoration;
 import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.widget.TZCPPullRefresh;
 import com.zhailr.caipiao.widget.pullableview.PullToRefreshLayout;
@@ -68,6 +69,7 @@ public class OrderListRightFragment extends BaseFragment implements PullToRefres
         recycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(mContext);
         recycleView.setLayoutManager(mLayoutManager);
+        recycleView.addItemDecoration(new MyDecoration(mContext, MyDecoration.VERTICAL_LIST));
         recycleView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new OrderListRightAdapter(mContext);
         mAdapter.setOnItemClickListener(new OrderListRightAdapter.OnItemClickListener() {

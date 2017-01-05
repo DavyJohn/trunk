@@ -72,6 +72,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        <activity android:name=".activities.mine.RegisterFourActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
             android:name=".activities.mine.LoginActivity"
             android:label="@string/app_name"

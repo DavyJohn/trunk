@@ -142,19 +142,18 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
 
     private void getData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
-        map.put("pageSize", "10");
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDSITELIST, map, TAG, new SpotsCallBack<SiteListResponse>(mContext, false) {
+        mOkHttpHelper.get(mContext, Constant.COMMONURL + Constant.FINDSITELIST, map, TAG, new SpotsCallBack<SiteListResponse>(mContext,false) {
             @Override
-            public void onSuccess(Response response, SiteListResponse res) {
+            public void onSuccess(Response response, SiteListResponse siteListResponse) {
                 refreshView.refreshFinish(PullToRefreshLayout.SUCCEED);
-                if (res.getCode().equals("200")) {
-                    List<SiteListResponse.DataBean.SiteListsBean> newsList = res.getData().getSiteLists();
+                if (siteListResponse.getCode().equals("200")) {
+                    List<SiteListResponse.DataBean.SiteListsBean> newsList = siteListResponse.getData().getSiteLists();
                     if (null != newsList) {
                         mData.addAll(newsList);
                         mAdapter.setData(mData);
                     }
                 }
+
             }
 
             @Override
@@ -163,6 +162,28 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
                 refreshView.loadmoreFinish(PullToRefreshLayout.FAIL);
             }
         });
+
+//        map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
+//        map.put("pageSize", "10");
+//        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDSITELIST, map, TAG, new SpotsCallBack<SiteListResponse>(mContext, false) {
+//            @Override
+//            public void onSuccess(Response response, SiteListResponse res) {
+//                refreshView.refreshFinish(PullToRefreshLayout.SUCCEED);
+//                if (res.getCode().equals("200")) {
+//                    List<SiteListResponse.DataBean.SiteListsBean> newsList = res.getData().getSiteLists();
+//                    if (null != newsList) {
+//                        mData.addAll(newsList);
+//                        mAdapter.setData(mData);
+//                    }
+//                }
+//            }
+
+//            @Override
+//            public void onError(Response response, int code, Exception e) {
+//                refreshView.refreshFinish(PullToRefreshLayout.FAIL);
+//                refreshView.loadmoreFinish(PullToRefreshLayout.FAIL);
+//            }
+//        });
     }
 
 

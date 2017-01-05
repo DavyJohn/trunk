@@ -55,6 +55,7 @@
             android:textColor="@color/login_title_color"
             android:textSize="@dimen/x17" />
     </LinearLayout>
+
     <ListView
         android:id="@+id/pay_type_list_view"
         android:layout_width="match_parent"

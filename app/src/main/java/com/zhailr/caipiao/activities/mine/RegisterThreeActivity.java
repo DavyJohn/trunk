@@ -41,17 +41,15 @@ public class RegisterThreeActivity extends BaseActivity {
     EditText userLoginPassword;
     @Bind(R.id.appearpwd)
     ImageView appearpwd;
-    @Bind(R.id.ac_rigister_text_zhandian)
-    TextView mTextZhanDian;
 //    @Bind(R.id.register_confirm)
 //    Button registerConfirm;
     private String identifying;
     private String tel;
-    private boolean isapppwd = false;
     private String tag;
-    @OnClick(R.id.ac_rigister_text_zhandian) void zd(){
-        startActivity(new Intent(mContext,SiteListActivity.class));
-    }
+    private String siteId;
+    private boolean isapppwd = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +59,7 @@ public class RegisterThreeActivity extends BaseActivity {
         identifying = getIntent().getStringExtra("identifying");
         tel = getIntent().getStringExtra("tel");
         tag = getIntent().getStringExtra("tag");
+        siteId = getIntent().getStringExtra("siteId");
         userLoginPassword.setKeyListener(new DigitsKeyListener() {
             @Override
             public int getInputType() {
@@ -117,6 +116,12 @@ public class RegisterThreeActivity extends BaseActivity {
                             // 第二步:验证找回密码的手机号和验证码
                                 checkSMSCode();
                         } else {
+//                            Intent intent = new Intent(RegisterThreeActivity.this, RegisterFourActivity.class);
+//                            intent.putExtra("identifying",identifying);
+//                            intent.putExtra("tel",tel);
+//                            intent.putExtra("tag",tag);
+//                            startActivity(intent);
+//                            finish();
                             registerUser();
                         }
                     }
@@ -168,6 +173,7 @@ public class RegisterThreeActivity extends BaseActivity {
         map.put("phone_no", tel);
         map.put("sms_code", identifying);
         map.put("password", param);
+        map.put("siteId",siteId);
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.USERREGISTER, map, TAG, new SpotsCallBack<RegisterResponse>(mContext) {
 
             @Override

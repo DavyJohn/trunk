@@ -26,6 +26,7 @@ import com.zhailr.caipiao.model.bean.PayType;
 import com.zhailr.caipiao.model.response.AccountInfoResponse;
 import com.zhailr.caipiao.model.response.BaseResponse;
 import com.zhailr.caipiao.model.response.NetPaymentResponse;
+import com.zhailr.caipiao.model.response.ZhifuKaiGuan;
 import com.zhailr.caipiao.pay.PayOrderInfo;
 import com.zhailr.caipiao.pay.PayResultInfo;
 import com.zhailr.caipiao.pay.PayUtils;
@@ -68,11 +69,13 @@ public class SelectPayTypeActivity extends BaseActivity {
     private KeyboardView mKeyboardView;
     private MySecKeyboardView mMySecKeykeardView;
     private String payType;
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyApplication.getInstance().add(this);
+        changePayType();
         ButterKnife.bind(this);
         getToolBar().setTitle("支付方式");
         getAccountData();
@@ -138,6 +141,15 @@ public class SelectPayTypeActivity extends BaseActivity {
                     datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
                     datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
                     datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+//                    if (type.equals("true")){
+//                        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+//                    }else {
+//                        datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
+//                        datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
+//                        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+//                    }
+
+
                     adapter.setData(datalist);
 
                 } else {
@@ -376,5 +388,23 @@ public class SelectPayTypeActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.ac_select_pay_type;
+    }
+
+    private void changePayType(){
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        mOkHttpHelper.get(mContext, Constant.COMMONURL + Constant.ZHIFUKAIGUAN, map, TAG, new SpotsCallBack<ZhifuKaiGuan>(mContext) {
+
+            @Override
+            public void onSuccess(Response response, ZhifuKaiGuan zhifuKaiGuan) {
+                type = zhifuKaiGuan.getPayGoldConfig();
+                System.out.print(type);
+
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+
+            }
+        });
     }
 }

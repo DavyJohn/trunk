@@ -55,7 +55,7 @@ public class OkHttpHelper {
         return new OkHttpHelper();
     }
 
-    public void get(String url, String tag, BaseCallBack callBack) {
+    public void get(Context mContext, String url, LinkedHashMap<String, String> map, String tag, BaseCallBack callBack) {
         Request request = buildRequest(url, null, HttpMethodType.GET, tag);
         doRequest(request, callBack, tag);
     }

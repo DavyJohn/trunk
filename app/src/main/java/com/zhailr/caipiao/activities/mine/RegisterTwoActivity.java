@@ -97,7 +97,8 @@ public class RegisterTwoActivity extends BaseActivity {
             @Override
             public void onSuccess(Response response, SmsCodeResponse SmsCodeResponse) {
                 if (SmsCodeResponse.getCode().equals("200")) {//验证码正确跳转
-                    Intent intent = new Intent(RegisterTwoActivity.this, RegisterThreeActivity.class);
+//                    Intent intent = new Intent(RegisterTwoActivity.this, RegisterThreeActivity.class);
+                    Intent intent = new Intent(RegisterTwoActivity.this, RegisterFourActivity.class);
                     intent.putExtra("identifying", registerVerificationCodeEdit
                             .getText().toString().trim());
                     intent.putExtra("tel", tel);

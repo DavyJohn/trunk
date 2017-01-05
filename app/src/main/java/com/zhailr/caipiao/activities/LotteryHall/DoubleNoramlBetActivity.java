@@ -70,6 +70,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     public static DoubleNoramlBetActivity instance = null;
     private int MAX_NUM = 50;
     private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
+    private String mul ;
     private String issue_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -314,6 +315,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
 //            num = issue_num;
 //        }
         StringBuffer sb = new StringBuffer();
+        pingjie(Integer.parseInt(issue.getText().toString()));
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
             List<String> blue = mList.get(i).getBlueList();
@@ -353,7 +355,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
             append = issue.getText().toString();
             isAppend = "1";
         }
-        Log.i(TAG, "userId:" + PreferencesUtils.getString(mContext, Constant.USER.USERID)
+        Log.e(TAG, "userId:" + PreferencesUtils.getString(mContext, Constant.USER.USERID)
                 + "siteId:" + PreferencesUtils.getString(mContext, Constant.USER.SITEID)
                 + "issue_num:" + num
                 + "append:" + append
@@ -367,7 +369,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 .addParams(Constant.SSQOrderRequest.ISSUENUM, num)
                 .addParams(Constant.SSQOrderRequest.APPEND, append)
                 .addParams(Constant.SSQOrderRequest.ISAPPEND, isAppend)
-                .addParams(Constant.SSQOrderRequest.MULTIPLE, TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams(Constant.SSQOrderRequest.MULTIPLE, mul)
                 .addParams(Constant.SSQOrderRequest.TYPECODE, "SSQ")
                 .addParams(Constant.SSQOrderRequest.CHANNEL, "ANDROID")
                 .addParams(Constant.SSQOrderRequest.CONTENT, sb.toString())
@@ -455,6 +457,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         }
 
         mAdapter.setData(mList);
+
     }
 
 
@@ -510,9 +513,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void addZhuihao(){
-        String issue_data = issue.getText().toString();
-        String times_data = times.getText().toString();
-        String price_data = tvPrice.getText().toString();
         OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
                 .addParams(Constant.USER.ZHUIHAO_TIMES,issue.getText().toString())
                 .addParams("type_code","SSQ")
@@ -548,7 +548,16 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 issue_num = issue_num+issum.get(issum.size()-1).getIssue_num();
             }
         }
-        Log.e("==============issue_num",issue_num);
         requestData(issue_num);
+    }
+    private void pingjie(int number){
+        mul = "";
+        for (int i=0;i<number;i++){
+            if (i<number-1){
+                mul = mul+""+"1"+","+"";
+            }else if (i == number-1){
+                mul = mul+"1";
+            }
+        }
     }
 }

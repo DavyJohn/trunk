@@ -68,6 +68,7 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     private BigInteger zs;
     private BigInteger price;
     private int MAX_NUM = 50;
+    private String mul ;
     private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
     private String issue_num;
 
@@ -286,6 +287,7 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void requestData(String num) {
+        pingjie(Integer.parseInt(issue.getText().toString()),times.getText().toString());
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
@@ -333,7 +335,7 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
                 .addParams(Constant.SSQOrderRequest.ISSUENUM, num)
                 .addParams(Constant.SSQOrderRequest.APPEND, append)
                 .addParams(Constant.SSQOrderRequest.ISAPPEND, isAppend)
-                .addParams(Constant.SSQOrderRequest.MULTIPLE, TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams(Constant.SSQOrderRequest.MULTIPLE, mul)
                 .addParams(Constant.SSQOrderRequest.TYPECODE, "SSQ")
                 .addParams(Constant.SSQOrderRequest.CHANNEL, "ANDROID")
                 .addParams(Constant.SSQOrderRequest.CONTENT, sb.toString())
@@ -446,5 +448,15 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
         }
         Log.e("==============issue_num",issue_num);
         requestData(issue_num);
+    }
+    private void pingjie(int number,String s){
+        mul = "";
+        for (int i=0;i<number;i++){
+            if (i<number-1){
+                mul = mul+""+s+","+"";
+            }else if (i == number-1){
+                mul = mul+s;
+            }
+        }
     }
 }

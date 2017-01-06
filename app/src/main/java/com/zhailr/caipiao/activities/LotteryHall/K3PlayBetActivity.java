@@ -24,9 +24,12 @@ import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.callBack.BetRecordCallBack;
+import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
 import com.zhailr.caipiao.model.response.BetRecordResponse;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.model.response.LeftSecResponse;
+import com.zhailr.caipiao.model.response.ZhuihaoResponse;
+import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
 import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
@@ -73,7 +76,9 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     // 倒计时
     private TimeCount time;
     private int MAX_NUM = 50;
-
+    private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
+    private String mul ;
+    private String issue_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -301,7 +306,12 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
                     } else {
                         // 先调用订单接口，然后跳转支付方式
                         showDialog();
-                        getIssueData();
+                        if (issue.getText().toString().equals("")){
+                            getIssueData();
+                        }else {
+                            addZhuihao();
+                        }
+
                     }
                 break;
         }
@@ -316,11 +326,11 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
                     CurrentNumResponse.DataBean bean = res.getData();
-//                    if (String.valueOf(currentNum).equals(bean.getIssue_num())
-//                            && bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
-                    if (bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
+                    if (String.valueOf(currentNum).equals(bean.getIssue_num())
+                            && bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
+//                    if (bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
                         currentNum = Long.valueOf(bean.getIssue_num());
-                        requestData();
+                        requestData(bean.getIssue_num());
                     } else {
                         dimissDialog();
                         showToast(getString(R.string.bet_error));
@@ -340,8 +350,9 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     }
 
 
-    private void requestData() {
+    private void requestData(String num) {
         StringBuffer sb = new StringBuffer();
+        pingjie(Integer.parseInt(TextUtils.isEmpty(issue.getText().toString()) ? "1" : issue.getText().toString()),TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString());
         sb = getSbFromTag(sb);
         String append;
         String isAppend;
@@ -354,7 +365,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
         }
         Log.i(TAG, "userId:" + PreferencesUtils.getString(mContext, Constant.USER.USERID)
                 + "siteId:" + PreferencesUtils.getString(mContext, Constant.USER.SITEID)
-                + "issue_num:" + currentNum
+                + "issue_num:" + num
                 + "append:" + append
                 + "is_append:" + isAppend
                 + "multiple:" + "1"
@@ -364,10 +375,10 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
         OkHttpUtils.get().url(Constant.COMMONURL + Constant.KSRECORDREQUEST)
                 .addParams(Constant.SSQOrderRequest.USERID, PreferencesUtils.getString(mContext, Constant.USER.USERID))
                 .addParams(Constant.SSQOrderRequest.SITEID, PreferencesUtils.getString(mContext, Constant.USER.SITEID))
-                .addParams(Constant.SSQOrderRequest.ISSUENUM, String.valueOf(currentNum))
+                .addParams(Constant.SSQOrderRequest.ISSUENUM, num)
                 .addParams(Constant.SSQOrderRequest.APPEND, append)
                 .addParams(Constant.SSQOrderRequest.ISAPPEND, isAppend)
-                .addParams(Constant.SSQOrderRequest.MULTIPLE, TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams(Constant.SSQOrderRequest.MULTIPLE, mul)
                 .addParams(Constant.SSQOrderRequest.TYPECODE, "KS")
                 .addParams(Constant.SSQOrderRequest.CHANNEL, "ANDROID")
                 .addParams(Constant.SSQOrderRequest.CONTENT, sb.toString())
@@ -394,6 +405,43 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
                 });
     }
 
+
+    private void addZhuihao(){
+        OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
+                .addParams(Constant.USER.ZHUIHAO_TIMES,issue.getText().toString())
+                .addParams("type_code","KS")
+                .addParams("multiple",TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams("amount",tvPrice.getText().toString())
+                .build()
+                .execute(new ZhuihaoBetRecordCallBack() {
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        dimissDialog();
+                    }
+
+                    @Override
+                    public void onResponse(ZhuihaoResponse response, int id) {
+                        dimissDialog();
+                        info.clear();
+                        if (response.getCode().equals("200") && response.getCode() != null ){
+                            info.addAll(response.getData().getChaseNumberInfo());
+                            pinjieString(info);
+                        }
+                    }
+                });
+    }
+    private void pinjieString(List<ZhuihaodetailDataResponse> issum){
+        issue_num = "";
+        for (int i=0;i<issum.size();i++){
+            if (i <issum.size()-1){
+                issue_num = issue_num+""+issum.get(i).getIssue_num()+","+"";
+            }else if (i == issum.size()-1){
+                issue_num = issue_num+issum.get(issum.size()-1).getIssue_num();
+            }
+        }
+        requestData(issue_num);
+    }
     private StringBuffer getSbFromTag(StringBuffer sb) {
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
@@ -828,7 +876,16 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     public void onSaveInstanceState(Bundle outState) {
         //No call for super(). Bug on API Level > 11.
     }
-
+    private void pingjie(int number,String s){
+        mul = "";
+        for (int i=0;i<number;i++){
+            if (i<number-1){
+                mul = mul+""+s+","+"";
+            }else if (i == number-1){
+                mul = mul+s;
+            }
+        }
+    }
     @Override
     public int getLayoutId() {
         return R.layout.ac_double_bet;

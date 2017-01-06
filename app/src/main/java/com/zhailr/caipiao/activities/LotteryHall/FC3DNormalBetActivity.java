@@ -68,6 +68,7 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
     private String tag;
     private int MAX_NUM = 50;
     private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
+    private String mul ;
     private String issue_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -317,6 +318,7 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
     }
 
     private void getIssueData() {
+
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "FCSD");
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDNEWAWARD, map, TAG, new SpotsCallBack<CurrentNumResponse>(mContext, false) {
@@ -346,6 +348,7 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
 
     private void requestData(String num) {
         StringBuffer sb = new StringBuffer();
+        pingjie(Integer.parseInt(TextUtils.isEmpty(issue.getText().toString()) ? "1" : issue.getText().toString()),TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString());
         sb = getSbFromTag(sb);
         String append;
         String isAppend;
@@ -361,7 +364,7 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
                 + "issue_num:" + num
                 + "append:" + append
                 + "is_append:" + isAppend
-                + "multiple:" + "1"
+                + "multiple:" + mul
                 + "type_code:" + "FCSD"
                 + "channel:" + "ANDROID"
                 + "content:" + sb.toString());
@@ -371,7 +374,7 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
                 .addParams(Constant.SSQOrderRequest.ISSUENUM, num)
                 .addParams(Constant.SSQOrderRequest.APPEND, append)
                 .addParams(Constant.SSQOrderRequest.ISAPPEND, isAppend)
-                .addParams(Constant.SSQOrderRequest.MULTIPLE, TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString())
+                .addParams(Constant.SSQOrderRequest.MULTIPLE, mul)
                 .addParams(Constant.SSQOrderRequest.TYPECODE, "FCSD")
                 .addParams(Constant.SSQOrderRequest.CHANNEL, "ANDROID")
                 .addParams(Constant.SSQOrderRequest.CONTENT, sb.toString())
@@ -842,7 +845,16 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
                 issue_num = issue_num+issum.get(issum.size()-1).getIssue_num();
             }
         }
-        Log.e("==============issue_num",issue_num);
         requestData(issue_num);
+    }
+    private void pingjie(int number,String s){
+        mul = "";
+        for (int i=0;i<number;i++){
+            if (i<number-1){
+                mul = mul+""+s+","+"";
+            }else if (i == number-1){
+                mul = mul+s;
+            }
+        }
     }
 }

@@ -309,13 +309,8 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void requestData(String num) {
-//        if (issue_num.equals("") || issue_num.equals(null)){
-//            getIssueData();
-//        }else {
-//            num = issue_num;
-//        }
         StringBuffer sb = new StringBuffer();
-        pingjie(Integer.parseInt(issue.getText().toString()));
+        pingjie(Integer.parseInt(issue.getText().toString()),times.getText().toString());
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
             List<String> blue = mList.get(i).getBlueList();
@@ -360,7 +355,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 + "issue_num:" + num
                 + "append:" + append
                 + "is_append:" + isAppend
-                + "multiple" + "1"
+                + "multiple" + mul
                 + "type_code:" + "SSQ"
                 + "content:" + sb.toString());
         OkHttpUtils.get().url(Constant.COMMONURL + Constant.SSQRECORDREQUEST)
@@ -531,7 +526,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                         dimissDialog();
                         info.clear();
                         if (response.getCode().equals("200") && response.getCode() != null ){
-                            showToast("success");
                             info.addAll(response.getData().getChaseNumberInfo());
                             pinjieString(info);
                         }
@@ -550,13 +544,13 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         }
         requestData(issue_num);
     }
-    private void pingjie(int number){
+    private void pingjie(int number,String s){
         mul = "";
         for (int i=0;i<number;i++){
             if (i<number-1){
-                mul = mul+""+"1"+","+"";
+                mul = mul+""+s+","+"";
             }else if (i == number-1){
-                mul = mul+"1";
+                mul = mul+s;
             }
         }
     }

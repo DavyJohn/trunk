@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.orhanobut.dialogplus.DialogPlus;
@@ -660,6 +661,8 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+//        PopupMenu popupMenu = new PopupMenu(mContext,menu);
+
         getMenuInflater().inflate(R.menu.zoushi,menu);
         return super.onCreateOptionsMenu(menu);
     }

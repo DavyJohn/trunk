@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -111,6 +112,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recycleView.setLayoutManager(mLayoutManager);
         mAdapter = new BetAdapter(this);
+        mAdapter.setData(mList);
         mAdapter.setData(mList);
 //        mAdapter.setOnItemClickListener(new BetAdapter.OnItemClickListener() {
 //            @Override
@@ -310,7 +312,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
 
     private void requestData(String num) {
         StringBuffer sb = new StringBuffer();
-        pingjie(Integer.parseInt(issue.getText().toString()),times.getText().toString());
+        pingjie(Integer.parseInt(TextUtils.isEmpty(issue.getText().toString()) ? "1" : issue.getText().toString()),TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString());
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();
             List<String> blue = mList.get(i).getBlueList();
@@ -358,6 +360,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 + "multiple" + mul
                 + "type_code:" + "SSQ"
                 + "content:" + sb.toString());
+        //下单接口 Siteid 要修改
         OkHttpUtils.get().url(Constant.COMMONURL + Constant.SSQRECORDREQUEST)
                 .addParams(Constant.SSQOrderRequest.USERID, PreferencesUtils.getString(mContext, Constant.USER.USERID))
                 .addParams(Constant.SSQOrderRequest.SITEID, PreferencesUtils.getString(mContext, Constant.USER.SITEID))

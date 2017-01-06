@@ -40,7 +40,11 @@ public class PayTypeListAdapter extends SuperAdapter<PayType> {
                     ll.setVisibility(View.GONE);
                 } else {
                     ll.setVisibility(View.VISIBLE);
-                    paytypeimg.setImageResource(R.drawable.icon_alipay);
+                    if (list.size() == 3){
+                        paytypeimg.setImageResource(R.drawable.icon_alipay);
+                    }else {
+                        paytypeimg.setImageResource(R.drawable.icon_gold);
+                    }
                 }
 
                 break;

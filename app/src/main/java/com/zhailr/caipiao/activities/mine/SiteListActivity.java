@@ -65,6 +65,7 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
             @Override
             public void onItemClick(View view, int position) {
                 SiteListResponse.DataBean.SiteListsBean bean = mData.get(position);
+                Constant.POS = position;
                 showConfirmDialog("是否确定将当前站点更改为" + bean.getSite_name(), bean.getSite_id(), mContext);
              /*   LinkedHashMap<String, String> map = new LinkedHashMap<>();
                 map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
@@ -150,7 +151,7 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
                     List<SiteListResponse.DataBean.SiteListsBean> newsList = siteListResponse.getData().getSiteLists();
                     if (null != newsList) {
                         mData.addAll(newsList);
-                        mAdapter.setData(mData);
+                        mAdapter.setData(mData,Constant.POS);
                     }
                 }
 

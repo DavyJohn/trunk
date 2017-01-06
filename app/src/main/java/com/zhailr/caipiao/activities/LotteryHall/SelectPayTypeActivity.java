@@ -102,7 +102,12 @@ public class SelectPayTypeActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    payFromZFB();
+                    if (datalist.size() == 3){
+                        payFromZFB();
+                    }else {
+                        payType = "2";
+                        payFromAccount();
+                    }
 
                 } else if (position == 1) {
                     payType = "1";
@@ -113,6 +118,7 @@ public class SelectPayTypeActivity extends BaseActivity {
                     payFromAccount();
 
                 }
+
 
             }
 
@@ -138,16 +144,16 @@ public class SelectPayTypeActivity extends BaseActivity {
                     String gold = res.getData().getGold_balance();
                     String keyong = res.getData().getAvailable_fee();
                     datalist.clear();
-                    datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
-                    datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
-                    datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
-//                    if (type.equals("true")){
-//                        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
-//                    }else {
-//                        datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
-//                        datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
-//                        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
-//                    }
+//                    datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
+//                    datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
+//                    datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+                    if (type.equals("true")){
+                        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+                    }else {
+                        datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
+                        datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
+                        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+                    }
 
 
                     adapter.setData(datalist);

@@ -104,7 +104,7 @@ public class Constant {
     public static final String SEARCHWITHDRAWRECORDS = "appRetLotteryPay/SearchWithdrawRecordsRequest";
     // 追号
     public static final String ZHUIHAO = "appChaseNumber/chasenumber";
-    //追号详情
+    //追号详情 不用了 谢谢
     public static final String ZHUIHAOXIANGQING = "appChaseNumber/ChaseNumInfoRequest";
     //支付开关
     public static final String ZHIFUKAIGUAN = "appRetLotteryPay/PayGoldConfig";
@@ -120,6 +120,8 @@ public class Constant {
         public static final String PHONENUM = "phoneNum";
         public static final String ZHUIHAO_TIMES = "append";//追号期数
     }
+
+
 
     public class SSQOrderRequest {
         /**
@@ -156,4 +158,6 @@ public class Constant {
         int w = wm.getDefaultDisplay().getWidth();
         int h = wm.getDefaultDisplay().getHeight();
     }
+
+    public static int POS = 0;
 }

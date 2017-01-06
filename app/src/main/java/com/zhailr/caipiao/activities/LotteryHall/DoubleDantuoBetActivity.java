@@ -287,7 +287,7 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     }
 
     private void requestData(String num) {
-        pingjie(Integer.parseInt(issue.getText().toString()),times.getText().toString());
+        pingjie(Integer.parseInt(TextUtils.isEmpty(issue.getText().toString()) ? "1" : issue.getText().toString()),TextUtils.isEmpty(times.getText().toString()) ? "1" : times.getText().toString());
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < mList.size(); i++) {
             List<String> red = mList.get(i).getRedList();

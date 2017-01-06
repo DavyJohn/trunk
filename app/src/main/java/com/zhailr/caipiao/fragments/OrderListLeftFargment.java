@@ -78,6 +78,7 @@ public class OrderListLeftFargment extends BaseFragment implements PullToRefresh
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(mContext, OrderDetailActivity.class);
                 intent.putExtra("orderId", mData.get(position).getOrderId());
+                intent.putExtra("tag","left");
                 startActivity(intent);
             }
         });

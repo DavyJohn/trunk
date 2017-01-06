@@ -89,7 +89,12 @@ public class OrderDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
-        getToolBar().setTitle("投注详情");
+        if (getIntent().getStringExtra("tag").equals("left")){
+            getToolBar().setTitle("投注详情");
+        }else if (getIntent().getStringExtra("tag").equals("right")){
+            getToolBar().setTitle("追号详情");
+        }
+
         mOrderId = getIntent().getStringExtra("orderId");
         showNoContent();
         getData();

@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.model.response.SiteListResponse;
+import com.zhailr.caipiao.utils.Constant;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
     private List<SiteListResponse.DataBean.SiteListsBean> mData;
+    private int pos;
     private OnItemClickListener mOnItemClickListener;
     private OnCloseClickListener mOnCloseClickListener;
 
@@ -29,8 +32,9 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.mContext = context;
     }
 
-    public void setData(List<SiteListResponse.DataBean.SiteListsBean> data) {
+    public void setData(List<SiteListResponse.DataBean.SiteListsBean> data,int postion) {
         this.mData = data;
+        this.pos = postion;
         this.notifyDataSetChanged();
     }
 
@@ -59,6 +63,9 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             ((ItemViewHolder) holder).name.setText(bean.getSite_name());
             ((ItemViewHolder) holder).no.setText("站点" + bean.getSite_no());
+            if (pos == position){
+                ((ItemViewHolder) holder).mImage.setVisibility(View.VISIBLE);
+            }
 
         }
 
@@ -103,7 +110,8 @@ public class SiteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView no;
         @Bind(R.id.name)
         TextView name;
-
+        @Bind(R.id.adapter_site_gou)
+        ImageView mImage;
         public ItemViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);

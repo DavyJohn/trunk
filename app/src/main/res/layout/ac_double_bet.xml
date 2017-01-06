@@ -50,7 +50,16 @@
             android:textSize="@dimen/x16"
             android:background="@drawable/buy_coupon_info_bg"/>
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:layout_margin="6dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前站点为："/>
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
@@ -162,7 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/x52"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/bt_panel_bg">
+            android:background="@color/white">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -173,7 +182,7 @@
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/yellow"
+                    android:textColor="@color/red"
                     android:layout_marginTop="@dimen/x4"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/x16" />
@@ -182,7 +191,7 @@
                     android:id="@+id/tv_zhu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:paddingBottom="@dimen/x4"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
@@ -196,12 +205,13 @@
                 android:layout_height="@dimen/x40"
                 android:layout_alignParentRight="true"
                 android:layout_margin="@dimen/x6"
-                android:background="@drawable/btn_yellow"
+                android:background="@color/red"
                 android:clickable="true"
                 android:gravity="center"
                 android:paddingLeft="@dimen/x12"
                 android:paddingRight="@dimen/x12"
                 android:text="付款"
+                android:textColor="@color/white"
                 android:textSize="@dimen/x20"
                 android:textStyle="bold" />
         </RelativeLayout>

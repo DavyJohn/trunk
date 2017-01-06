@@ -48,6 +48,7 @@ public class RegisterFourActivity extends BaseActivity implements PullToRefreshL
     private SiteAdapter mAdapter;
     private List<SiteListResponse.DataBean.SiteListsBean> mData = new ArrayList<>();
     private AlertDialog dialog;
+    private int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,7 @@ public class RegisterFourActivity extends BaseActivity implements PullToRefreshL
             public void onItemClick(View view, int position) {
                 SiteListResponse.DataBean.SiteListsBean bean = mData.get(position);
                 showConfirmDialog("是否设置" + bean.getSite_name()+"为站点", bean.getSite_id(), mContext);
+                Constant.POS = position;
             }
         });
         recycleView.setAdapter(mAdapter);
@@ -114,7 +116,7 @@ public class RegisterFourActivity extends BaseActivity implements PullToRefreshL
                     List<SiteListResponse.DataBean.SiteListsBean> newsList = siteListResponse.getData().getSiteLists();
                     if (null != newsList) {
                         mData.addAll(newsList);
-                        mAdapter.setData(mData);
+                        mAdapter.setData(mData,pos);
                     }
                 }
 

@@ -17,6 +17,7 @@ import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
+import com.zhailr.caipiao.activities.mine.SiteListActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -63,6 +64,11 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     TextView tvAutoChoose;
     @Bind(R.id.ok)
     TextView ok;
+    @Bind(R.id.ac_double_bet_display_zhandian_name)
+    TextView mTextZhangDianName;
+    @OnClick(R.id.ac_double_bet_display_zhandian_name) void name(){
+        startActivity(new Intent(DoubleDantuoBetActivity.this, SiteListActivity.class));
+    }
     private BetAdapter mAdapter;
     private ArrayList<BetBean> mList = new ArrayList<BetBean>();
     private BigInteger zs;
@@ -399,7 +405,6 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
 
     @Override
     public void onCancelled(int requestCode) {
-
     }
 
     @Override
@@ -408,9 +413,6 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     }
     //追号
     private void addZhuihao(){
-        String issue_data = issue.getText().toString();
-        String times_data = times.getText().toString();
-        String price_data = tvPrice.getText().toString();
         OkHttpUtils.get().url(Constant.COMMONURL+Constant.ZHUIHAO)
                 .addParams(Constant.USER.ZHUIHAO_TIMES,issue.getText().toString())
                 .addParams("type_code","SSQ")
@@ -457,6 +459,17 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
             }else if (i == number-1){
                 mul = mul+s;
             }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
+        if (name.isEmpty()){
+            mTextZhangDianName.setText("请选择当前站点");
+        }else {
+            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
         }
     }
 }

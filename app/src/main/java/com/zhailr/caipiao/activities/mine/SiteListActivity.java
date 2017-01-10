@@ -67,6 +67,7 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
                 SiteListResponse.DataBean.SiteListsBean bean = mData.get(position);
                 Constant.POS = position;
                 showConfirmDialog("是否确定将当前站点更改为" + bean.getSite_name(), bean.getSite_id(), mContext);
+                PreferencesUtils.putString(mContext,Constant.SiteName,bean.getSite_name());
              /*   LinkedHashMap<String, String> map = new LinkedHashMap<>();
                 map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
                 map.put("user_name", PreferencesUtils.getString(mContext, Constant.USER.USERNAME));
@@ -99,7 +100,7 @@ public class SiteListActivity extends BaseActivity implements PullToRefreshLayou
         refreshView.autoRefresh();
     }
 
-    protected void showConfirmDialog(String str, final String siteId, Context context) {
+    protected void showConfirmDialog(String str, final String siteId , Context context) {
         dialog = new AlertDialog.Builder(context)
                 .setMessage(str).setTitle("提示")
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {

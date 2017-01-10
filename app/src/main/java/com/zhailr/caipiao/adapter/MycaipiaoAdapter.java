@@ -11,6 +11,8 @@ import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.model.response.OrderDetailResponse;
 import com.zhailr.caipiao.utils.StringUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -48,10 +50,16 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (TicketinfoBean == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mPlaytype.setText(TicketinfoBean.getPlay_way());
-            ((ItemViewHolder) holder).mBetnum.setText(TicketinfoBean.getNode());
-            ((ItemViewHolder) holder).mBetmultiple.setText(TicketinfoBean.getMultiple());
-            ((ItemViewHolder) holder).mLotterynum.setText(TicketinfoBean.getContent());
+            ((ItemViewHolder)holder).mBetnum.setText(TicketinfoBean.getContent());//彩票号码
+            ((ItemViewHolder)holder).mPlaytype.setText(TicketinfoBean.getPlay_way());//玩法类型
+            ((ItemViewHolder)holder).mNum.setText(TicketinfoBean.getIssue_num());//彩票骑术
+//            ((ItemViewHolder)holder).mLotterystation.setText(TicketinfoBean.getStatus());//彩票状态
+            ((ItemViewHolder)holder).mNode.setText(TicketinfoBean.getNode());//彩票注数
+            ((ItemViewHolder)holder).mMultiple.setText(TicketinfoBean.getMultiple());//彩票倍数
+
+//            ((ItemViewHolder) holder).mBetnum.setText(TicketinfoBean.getNode());
+//            ((ItemViewHolder) holder).mLotterynum.setText(TicketinfoBean.getContent());
+            //彩票状态
             switch (Integer.valueOf(StringUtils.getStringNotNULL(TicketinfoBean.getStatus()).equals("") ? "0" : TicketinfoBean.getStatus())) {
                 case 0:
                     ((ItemViewHolder) holder).mLotterystation.setText("未出票");
@@ -93,18 +101,25 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-//        public TextView mPlaytype;
-        public TextView mBetnum;
-        public TextView mBetmultiple;
-        public TextView mLotterynum;
-        public TextView mLotterystation;
-        public TextView mPlaytype;
+//        public TextView mPlaytype;  各位 我改不动了 名字 不改了 我注释还不行么
+
+        public TextView mNum;//期号
+        public TextView mPlaytype;//玩法类型
+        public TextView mBetnum;//彩票号码
+        public TextView mLotterystation;//彩票状态
+        public TextView mLotteryQK;//中奖情况
+        public TextView mMoney;//中将金额
+        public TextView mNode;//注数
+        public TextView mMultiple;//倍数
         public ItemViewHolder(View v) {
             super(v);
+            mNode = (TextView) v.findViewById(R.id.node);
+            mMultiple = (TextView) v.findViewById(R.id.multiple_num);
+            mNum = (TextView) v.findViewById(R.id.my_issue);
             mPlaytype = (TextView) v.findViewById(R.id.play_type);
             mBetnum = (TextView) v.findViewById(R.id.bet_num);
-            mBetmultiple = (TextView) v.findViewById(R.id.bet_multiple);
-            mLotterynum = (TextView) v.findViewById(R.id.lottery_num);
+            mMoney = (TextView) v.findViewById(R.id.money);
+            mLotteryQK = (TextView) v.findViewById(R.id.lottery_qingkuang);
             mLotterystation = (TextView) v.findViewById(R.id.lottery_station);
         }
 

@@ -17,18 +17,18 @@ import java.util.List;
  */
 public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
-    private List<OrderDetailResponse.DataBean.OrderInfoBean> mData;
+    private List<OrderDetailResponse.DataBean.ChaseInfo> mData;
 
     public MyOrderAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setData(List<OrderDetailResponse.DataBean.OrderInfoBean> data) {
+    public void setData(List<OrderDetailResponse.DataBean.ChaseInfo> data) {
         this.mData = data;
         this.notifyDataSetChanged();
     }
 
-    public OrderDetailResponse.DataBean.OrderInfoBean getItem(int position) {
+    public OrderDetailResponse.DataBean.ChaseInfo getItem(int position) {
         return mData == null ? null : mData.get(position);
     }
 
@@ -45,13 +45,13 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
 
-            OrderDetailResponse.DataBean.OrderInfoBean OrderInfoBean = mData.get(position);
+            OrderDetailResponse.DataBean.ChaseInfo OrderInfoBean = mData.get(position);
             if (OrderInfoBean == null) {
                 return;
             }
-            ((ItemViewHolder) holder).mPlayway.setText(OrderInfoBean.getPlay_way());
-            ((ItemViewHolder) holder).mContent.setText(OrderInfoBean.getContent());
-            ((ItemViewHolder) holder).mMultiple.setText(OrderInfoBean.getMultiple()+"倍");
+//            ((ItemViewHolder) holder).mPlayway.setText(OrderInfoBean.getPlay_way());
+//            ((ItemViewHolder) holder).mContent.setText(OrderInfoBean.getContent());
+//            ((ItemViewHolder) holder).mMultiple.setText(OrderInfoBean.getMultiple()+"倍");
         }
 
     }

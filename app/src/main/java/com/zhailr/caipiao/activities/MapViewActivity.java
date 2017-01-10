@@ -1,5 +1,7 @@
 package com.zhailr.caipiao.activities;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -9,9 +11,12 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.UiSettings;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.base.BaseActivity;
+import com.zhailr.caipiao.base.MyApplication;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,33 +28,36 @@ import butterknife.ButterKnife;
  * Created by 腾翔信息 on 2017/1/4.
  */
 
-public class MapViewActivity extends BaseActivity implements AMapLocationListener {
-    private AMap aMap;
+public class MapViewActivity extends BaseActivity implements AMapLocationListener,LocationSource {
+
     @Bind(R.id.mapview)
     MapView mapView;
-    //声明mLocationOption对象
-    public AMapLocationClientOption mLocationOption = null;
-    public AMapLocationClient mapLocationClient = null;
+
+    private AMap aMap;
+    private UiSettings mUiSetting;
+    private LocationManager manager;
+    private Location location;
+    private OnLocationChangedListener mListener;
+    private AMapLocationClientOption mLocationOption = null;
+    private AMapLocationClient mapLocationClient = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        mLocationOption = new AMapLocationClientOption();
-        mapLocationClient = new AMapLocationClient(this);
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationOption.setInterval(2000);
-        mapLocationClient.setLocationOption(mLocationOption);
-        mapLocationClient.startLocation();
         mapView.onCreate(savedInstanceState);
-        aMap = mapView.getMap();
-        aMap.setTrafficEnabled(true);
-        aMap.setMapType(AMap.MAP_TYPE_SATELLITE);
+        MyApplication.getInstance().add(this);
+        getToolBar().setTitle("地图");
+        if (aMap == null){
+            aMap = mapView.getMap();
+            mUiSetting = aMap.getUiSettings();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -93,6 +101,17 @@ public class MapViewActivity extends BaseActivity implements AMapLocationListene
             }
         }
 
+
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mListener = onLocationChangedListener;
+
+    }
+
+    @Override
+    public void deactivate() {
 
     }
 }

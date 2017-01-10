@@ -38,6 +38,17 @@ import okhttp3.Response;
  */
 public class OrderDetailActivity extends BaseActivity {
     private static final String TAG = "OrderDetailActivity";
+    //我的追号
+    @Bind(R.id.order_detail_zh_recyclerview)
+    RecyclerView mRecyclerZh;
+    //我的彩票
+    @Bind(R.id.order_detail_recycler)
+    RecyclerView mRecyclerview;
+
+
+
+
+
     @Bind(R.id.icon)
     ImageView icon;
     @Bind(R.id.tv_icon)
@@ -80,10 +91,13 @@ public class OrderDetailActivity extends BaseActivity {
     private String mPrice;
     private String mTypeCode;
     private LinearLayoutManager mLayoutManager;
+
     private MycaipiaoAdapter mAdapter;
     private MyOrderAdapter myOrderAdapter;
+
     private List<OrderDetailResponse.DataBean.TicketinfoBean> mData= new ArrayList<>();
-    private List<OrderDetailResponse.DataBean.OrderInfoBean> MData= new ArrayList<>();
+//    private List<OrderDetailResponse.DataBean.OrderInfoBean> MData= new ArrayList<>();
+    private List<OrderDetailResponse.DataBean.ChaseInfo> MData= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,13 +116,14 @@ public class OrderDetailActivity extends BaseActivity {
 
     private void getData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String id = PreferencesUtils.getString(mContext, Constant.USER.USERID);
+        String orderid = mOrderId;
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("orderId", mOrderId);
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.ORDERDETAIL, map, TAG, new SpotsCallBack<OrderDetailResponse>(mContext, false) {
             @Override
             public void onSuccess(Response response, OrderDetailResponse res) {
                 dimssNoContent();
-
                 if (res.getCode().equals("200")) {
                     OrderDetailResponse.DataBean bean = res.getData();
 //                    OrderDetailResponse.DataBean.TicketinfoBean TicketinfoBean = res.getData().getTicketinfo();
@@ -204,7 +219,7 @@ public class OrderDetailActivity extends BaseActivity {
 //                    content.setText(sb.toString());
                     LinearLayoutManager MLayoutManager = new LinearLayoutManager(mContext);
                     recycleVieworder.setLayoutManager(MLayoutManager);
-                    List<OrderDetailResponse.DataBean.OrderInfoBean> newsorderList = res.getData().getOrderInfo();
+                    List<OrderDetailResponse.DataBean.ChaseInfo> newsorderList = res.getData().getChaseinfo();
                     if (null != newsorderList) {
                         MData.addAll(newsorderList);
                         myOrderAdapter = new MyOrderAdapter(mContext);

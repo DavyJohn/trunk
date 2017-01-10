@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.zhailr.caipiao.widget.TrendChartViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fc_zx_tu_ten_tcvg"></com.zhailr.caipiao.widget.TrendChartViewGroup>
+</LinearLayout>

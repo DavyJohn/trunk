@@ -10,6 +10,10 @@ public class Constant {
     public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
     // 通用地址
     public static final String COMMONURL = "http://192.168.6.3:8807/gateway/";//测试环境
+    //外网
+//    public static final String COMMONURL = "http://bishopcartier.6655.la/gateway/";//测试环境
+
+
 
     //正式环境  
 //    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
@@ -158,6 +162,8 @@ public class Constant {
         int w = wm.getDefaultDisplay().getWidth();
         int h = wm.getDefaultDisplay().getHeight();
     }
-
+    //站点位置坐标
     public static int POS = 0;
+    //站点名称
+    public static String SiteName;
 }

@@ -74,6 +74,8 @@ public class RegisterFourActivity extends BaseActivity implements PullToRefreshL
                 SiteListResponse.DataBean.SiteListsBean bean = mData.get(position);
                 showConfirmDialog("是否设置" + bean.getSite_name()+"为站点", bean.getSite_id(), mContext);
                 Constant.POS = position;
+                PreferencesUtils.putString(getApplicationContext(),Constant.SiteName, bean.getSite_name());
+
             }
         });
         recycleView.setAdapter(mAdapter);
@@ -87,6 +89,7 @@ public class RegisterFourActivity extends BaseActivity implements PullToRefreshL
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        PreferencesUtils.putString(getApplicationContext(),Constant.USER.SITEID,siteId);
                         Intent intent = new Intent(RegisterFourActivity.this,RegisterThreeActivity.class);
                         intent.putExtra("siteId",siteId);
                         intent.putExtra("identifying",identifying);

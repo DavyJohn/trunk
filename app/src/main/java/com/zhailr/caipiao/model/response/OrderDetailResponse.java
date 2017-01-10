@@ -85,8 +85,18 @@ public class OrderDetailResponse {
         private String status;
         private String type_code;
         private String win_amount;
-        private List<OrderInfoBean> orderInfo;
-        private List<TicketinfoBean> ticketinfo;
+        private List<OrderInfoBean> orderInfo;//订单信息
+        private List<TicketinfoBean> ticketinfo;//彩票信息
+        private List<ChaseInfo> chaseinfo;
+
+        public List<ChaseInfo> getChaseinfo() {
+            return chaseinfo;
+        }
+
+        public void setChaseinfo(List<ChaseInfo> chaseinfo) {
+            this.chaseinfo = chaseinfo;
+        }
+
         private List<String> contentMap;
 
 //        public String getAppend() {
@@ -264,6 +274,73 @@ public class OrderDetailResponse {
         public void setContentMap(List<String> contentMap) {
             this.contentMap = contentMap;
         }
+
+        public static class ChaseInfo{
+            private String amount;
+            private String content;
+            private String issue_num;
+            private String multiple;
+            private String plan_type;
+            private String play_type;
+            private String status;
+
+            public String getAmount() {
+                return amount;
+            }
+
+            public void setAmount(String amount) {
+                this.amount = amount;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public String getIssue_num() {
+                return issue_num;
+            }
+
+            public void setIssue_num(String issue_num) {
+                this.issue_num = issue_num;
+            }
+
+            public String getMultiple() {
+                return multiple;
+            }
+
+            public void setMultiple(String multiple) {
+                this.multiple = multiple;
+            }
+
+            public String getPlan_type() {
+                return plan_type;
+            }
+
+            public void setPlan_type(String plan_type) {
+                this.plan_type = plan_type;
+            }
+
+            public String getPlay_type() {
+                return play_type;
+            }
+
+            public void setPlay_type(String play_type) {
+                this.play_type = play_type;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+        }
+
 
         public static class OrderInfoBean{
             private String content;

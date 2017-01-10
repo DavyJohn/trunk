@@ -17,6 +17,7 @@ import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
+import com.zhailr.caipiao.activities.mine.SiteListActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -61,6 +62,12 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
     TextView tvPrice;
     @Bind(R.id.tv_zhu)
     TextView tvZhu;
+    @Bind(R.id.ac_double_bet_display_zhandian_name)
+    TextView mTextZhangDianName;
+    @OnClick(R.id.ac_double_bet_display_zhandian_name) void name(){
+        startActivity(new Intent(FC3DNormalBetActivity.this, SiteListActivity.class));
+    }
+
     private BetAdapter mAdapter;
     private ArrayList<BetBean> mList = new ArrayList<BetBean>();
     private BigInteger zs;
@@ -855,6 +862,18 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
             }else if (i == number-1){
                 mul = mul+s;
             }
+        }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
+        if (name.isEmpty()){
+            mTextZhangDianName.setText("请选择当前站点");
+        }else {
+            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
         }
     }
 }

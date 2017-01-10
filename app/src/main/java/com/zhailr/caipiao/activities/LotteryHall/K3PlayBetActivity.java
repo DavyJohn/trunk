@@ -18,6 +18,7 @@ import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
+import com.zhailr.caipiao.activities.mine.SiteListActivity;
 import com.zhailr.caipiao.adapter.BetAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -56,6 +57,12 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     RecyclerView recycleView;
     @Bind(R.id.issue)
     EditText issue;
+
+    @Bind(R.id.ac_double_bet_display_zhandian_name)
+    TextView mTextZhangDianName;
+    @OnClick(R.id.ac_double_bet_display_zhandian_name) void name(){
+        startActivity(new Intent(K3PlayBetActivity.this, SiteListActivity.class));
+    }
     @Bind(R.id.times)
     EditText times;
     @Bind(R.id.tv_price)
@@ -889,5 +896,16 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     @Override
     public int getLayoutId() {
         return R.layout.ac_double_bet;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
+        if (name.isEmpty()){
+            mTextZhangDianName.setText("请选择当前站点");
+        }else {
+            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
+        }
     }
 }

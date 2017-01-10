@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        app:tl_textsize="14sp"
+        app:tl_divider_color="@color/red"
+        app:tl_indicator_width_equal_title="true"
+        app:tl_textAllCaps="true"
+        app:tl_textBold="BOTH"
+        app:tl_tab_space_equal="true"
+        app:tl_divider_width="1dp"
+        app:tl_indicator_color="@color/red"
+        app:tl_textUnselectColor="@color/black"
+        app:tl_textSelectColor="@color/red"
+        android:id="@+id/fc_zx_tu_tab"></com.flyco.tablayout.SlidingTabLayout>
+
+
+    <com.zhailr.caipiao.widget.NoScrollViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/fc_zx_tu_vp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="vertical">
+        //选号
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/fc_zx_tu_text_num_tips"
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+            <com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView
+                android:id="@+id/fc_zx_tu_scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#F1F1EB"
+                android:scrollbars="none"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:id="@+id/fc_zx_tu_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"/>
+
+            </com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:text="已选："
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:textSize="12sp"/>
+
+            <com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView
+                android:id="@+id/fc_zx_tu_chosed_scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#F1F1EB"
+                android:scrollbars="none"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:id="@+id/fc_zx_tu_chosed_ball"/>
+
+            </com.zhailr.caipiao.widget.scrollview.MyHorizontalScrollView>
+        </LinearLayout>
+
+        //添加一个购买按钮 以后样式要修改 目前是测试看看
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:id="@+id/fc_zx_tu_display_text"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="够买"
+                android:background="@color/red"
+                android:id="@+id/fc_zx_tu_zoushitu_buy_text"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="18sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

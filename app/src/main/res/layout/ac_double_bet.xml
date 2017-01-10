@@ -54,12 +54,22 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:layout_margin="6dp">
+        android:layout_margin="6dp"
+        android:id="@+id/ac_double_bet_display_zhandian">
+
         <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:id="@+id/ac_double_bet_display_zhandian_name"/>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="当前站点为："/>
+            android:src="@drawable/arrow_right_gray"/>
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"

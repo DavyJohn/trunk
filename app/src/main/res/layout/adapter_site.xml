@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="60dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,17 +12,13 @@
             android:layout_height="wrap_content"
             android:text="001"
             android:visibility="gone"
-            android:textSize="@dimen/x16"
-            android:layout_marginTop="@dimen/x12"
-            android:layout_marginLeft="@dimen/x24"/>
+            android:textSize="@dimen/x16"/>
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="自营"
             android:textSize="@dimen/x16"
-
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/x20"/>
         <ImageView

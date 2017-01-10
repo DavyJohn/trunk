@@ -17,6 +17,8 @@ import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
 import com.zhailr.caipiao.R;
+import com.zhailr.caipiao.activities.mine.RegisterFourActivity;
+import com.zhailr.caipiao.activities.mine.SiteListActivity;
 import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
 import com.zhailr.caipiao.model.response.ZhuihaoResponse;
 import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
@@ -34,6 +36,8 @@ import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.w3c.dom.Text;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -64,6 +68,11 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     TextView tvPrice;
     @Bind(R.id.tv_zhu)
     TextView tvZhu;
+    @Bind(R.id.ac_double_bet_display_zhandian_name)
+    TextView mTextZhangDianName;
+    @OnClick(R.id.ac_double_bet_display_zhandian_name) void name(){
+        startActivity(new Intent(DoubleNoramlBetActivity.this, SiteListActivity.class));
+    }
     private BetAdapter mAdapter;
     private ArrayList<BetBean> mList = new ArrayList<BetBean>();
     private BigInteger zs;
@@ -78,6 +87,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         super.onCreate(savedInstanceState);
         MyApplication.getInstance().add(this);
         ButterKnife.bind(this);
+
         getToolBar().setTitle(R.string.double_bet)
                 .setNavigationOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,7 +123,16 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         recycleView.setLayoutManager(mLayoutManager);
         mAdapter = new BetAdapter(this);
         mAdapter.setData(mList);
-        mAdapter.setData(mList);
+//        mAdapter.setData(mList);
+        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
+
+//        if (name.isEmpty()){
+//            mTextZhangDianName.setText("请选择当前站点");
+//        }else {
+//            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
+//        }
+
+
 //        mAdapter.setOnItemClickListener(new BetAdapter.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {
@@ -556,5 +575,28 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 mul = mul+s;
             }
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
+        if (name.isEmpty()){
+            mTextZhangDianName.setText("请选择当前站点");
+        }else {
+            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("=====","onPause");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e("=====","onRestart");
     }
 }

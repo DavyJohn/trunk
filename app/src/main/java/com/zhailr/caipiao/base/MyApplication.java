@@ -7,7 +7,6 @@ import android.os.Looper;
 
 import com.zhailr.caipiao.activities.HomeActivity;
 import com.zhailr.caipiao.utils.NetworkUtils;
-import com.zhailr.caipiao.utils.TestDataTools;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;

@@ -87,14 +87,22 @@ public class OrderDetailResponse {
         private String win_amount;
         private List<OrderInfoBean> orderInfo;//订单信息
         private List<TicketinfoBean> ticketinfo;//彩票信息
-        private List<ChaseInfo> chaseinfo;
+        private List<ChaseInfo> myChaseInfo;
+
+        public List<ChaseInfo> getMyChaseInfo() {
+            return myChaseInfo;
+        }
+
+        public void setMyChaseInfo(List<ChaseInfo> myChaseInfo) {
+            this.myChaseInfo = myChaseInfo;
+        }
 
         public List<ChaseInfo> getChaseinfo() {
-            return chaseinfo;
+            return myChaseInfo;
         }
 
         public void setChaseinfo(List<ChaseInfo> chaseinfo) {
-            this.chaseinfo = chaseinfo;
+            this.myChaseInfo = chaseinfo;
         }
 
         private List<String> contentMap;
@@ -275,6 +283,8 @@ public class OrderDetailResponse {
             this.contentMap = contentMap;
         }
 
+
+        //追号信息
         public static class ChaseInfo{
             private String amount;
             private String content;

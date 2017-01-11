@@ -21,8 +21,7 @@
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:text="订单摘要（订单编号21034324329482309）"
-
-                android:id="@+id/textView2" />
+                android:id="@+id/order_zaiyao" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="用户名字"/>
+                    android:id="@+id/user_name"/>
             </LinearLayout>
 
             <LinearLayout
@@ -55,7 +54,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="彩种名字"/>
+                    android:text="彩种名字"
+                    android:id="@+id/lottery_type"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,7 +71,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20160103"/>
+                    android:text="20160103"
+                    android:id="@+id/issue"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -87,7 +88,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="类型"/>
+                    android:text="类型"
+                    android:id="@+id/order_paly_type"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +105,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="时间"/>
+                    android:text="时间"
+                    android:id="@+id/start_time"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,7 +122,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="追号投注"/>
+                    android:id="@+id/order_type"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,7 +138,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8块"/>
+                    android:id="@+id/order_money"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,11 +150,12 @@
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:gravity="center_vertical"
-                    android:text="投注备注"/>
+                    android:text="投注倍数"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"/>
+                    android:text="1"
+                    android:id="@+id/order_mul"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -167,7 +171,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="支付完成"/>
+                    android:text="支付完成"
+                    android:id="@+id/order_station"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -183,7 +188,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="情况"/>
+                    android:id="@+id/zhongjiangqingkuang"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -199,7 +204,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1块"/>
+                    android:text="1块"
+                    android:id="@+id/bonus"/>
             </LinearLayout>
             //我的追号
             <LinearLayout
@@ -222,7 +228,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:id="@+id/caipiao_layout">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
@@ -236,6 +243,7 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

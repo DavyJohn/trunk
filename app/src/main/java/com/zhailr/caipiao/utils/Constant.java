@@ -9,9 +9,9 @@ import android.view.WindowManager;
 public class Constant {
     public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
     // 通用地址
-    public static final String COMMONURL = "http://192.168.6.3:8807/gateway/";//测试环境
+//    public static final String COMMONURL = "http://192.168.6.3:8807/gateway/";//测试环境
     //外网
-//    public static final String COMMONURL = "http://bishopcartier.6655.la/gateway/";//测试环境
+    public static final String COMMONURL = "http://bishopcartier.6655.la/gateway/";//测试环境
 
 
 
@@ -124,6 +124,7 @@ public class Constant {
         public static final String PHONENUM = "phoneNum";
         public static final String ZHUIHAO_TIMES = "append";//追号期数
     }
+
 
 
 

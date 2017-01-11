@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
@@ -20,6 +21,7 @@ import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.mine.RegisterFourActivity;
 import com.zhailr.caipiao.activities.mine.SiteListActivity;
 import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
+import com.zhailr.caipiao.model.response.UserInfoResponse;
 import com.zhailr.caipiao.model.response.ZhuihaoResponse;
 import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
 import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
@@ -124,14 +126,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         mAdapter = new BetAdapter(this);
         mAdapter.setData(mList);
 //        mAdapter.setData(mList);
-        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
-
-//        if (name.isEmpty()){
-//            mTextZhangDianName.setText("请选择当前站点");
-//        }else {
-//            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
-//        }
-
 
 //        mAdapter.setOnItemClickListener(new BetAdapter.OnItemClickListener() {
 //            @Override
@@ -580,12 +574,33 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     @Override
     protected void onStart() {
         super.onStart();
-        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
-        if (name.isEmpty()){
-            mTextZhangDianName.setText("请选择当前站点");
-        }else {
-            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
-        }
+        //获取站点
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSETTINGINFO, map, TAG, new SpotsCallBack<UserInfoResponse>(mContext, false) {
+
+            @Override
+            public void onSuccess(Response response, UserInfoResponse res) {
+                if (res.getCode().equals("200")) {
+                    mTextZhangDianName.setText("当前站点为："+res.getSiteName());
+                    PreferencesUtils.putString(getApplicationContext(),Constant.USER.SITEID,res.getSiteId());
+                }
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+                Log.i(TAG, response.toString());
+            }
+
+        });
+
+        //对于新用户没有问题 对于更改账户用户有问题
+//        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
+//        if (name.isEmpty()){
+//            mTextZhangDianName.setText("请选择当前站点");
+//        }else {
+//            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
+//        }
     }
 
     @Override

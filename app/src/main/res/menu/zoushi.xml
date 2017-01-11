@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/zoushi"
+        android:title="走势图"
+        app:showAsAction="never"/>
+    <item android:id="@+id/zhidao"
+        android:title="玩法指导"
+        app:showAsAction="never"/>
+    <item android:id="@+id/introduce"
+        android:title="玩法介绍"
+        app:showAsAction="never"/>
+
+</menu>

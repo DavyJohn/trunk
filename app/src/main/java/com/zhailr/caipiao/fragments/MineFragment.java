@@ -130,6 +130,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
             String username = PreferencesUtils.getString(mContext, Constant.USER.USERNAME);
             if (StringUtils.isNotEmpty(username)) {
                 userName.setText(username);
+                PreferencesUtils.putString(mContext.getApplicationContext(),Constant.USER.USERNAME,username);
             }
             String balance = PreferencesUtils.getString(mContext, Constant.USER.BALANCE);
             if (StringUtils.isNotEmpty(balance)) {

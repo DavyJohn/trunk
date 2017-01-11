@@ -8,32 +8,187 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/x14"
         android:layout_marginRight="@dimen/x10"
-        android:layout_marginTop="@dimen/x10"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/x10">
+
         <TextView
-            android:id="@+id/play_way"
-            android:layout_width="@dimen/x65"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="@dimen/x16"/>
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/x15"
-            android:layout_marginRight="@dimen/x15"
-            android:layout_gravity="center"
+            android:text="期       号"
             android:textSize="@dimen/x16"
-            android:layout_weight="1"/>
+            android:id="@+id/textView3" />
+
         <TextView
-            android:id="@+id/multiple"
-            android:layout_width="@dimen/x50"
+            android:id="@+id/order_item_issue"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/x15"
-            android:singleLine="true"
-            android:layout_gravity="center"
-            android:textSize="@dimen/x16"/>
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="玩法类型"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/order_item_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="追号号码"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/order_item_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="投注倍数"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/order_item_multiple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="投注金额"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/order_item_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="追号状态"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/order_item_station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中奖情况"
+            android:textSize="@dimen/x16"
+            android:id="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/lottery_qingkuang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中奖金额"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/x1"

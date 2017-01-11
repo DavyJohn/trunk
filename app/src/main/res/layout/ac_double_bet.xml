@@ -39,6 +39,7 @@
             android:layout_margin="@dimen/x6"
             android:textSize="@dimen/x16"
             android:background="@drawable/buy_coupon_info_bg"/>
+
         <TextView
             android:id="@+id/tv_clear"
             android:layout_width="0dp"
@@ -53,20 +54,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="3dp"
         android:gravity="center_vertical"
-        android:layout_margin="6dp"
+        android:background="@color/white"
+        android:layout_marginBottom="1dp"
         android:id="@+id/ac_double_bet_display_zhandian">
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_marginLeft="6dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:id="@+id/ac_double_bet_display_zhandian_name"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="10dp"
             android:src="@drawable/arrow_right_gray"/>
     </LinearLayout>
 

@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.model.response.OrderDetailResponse;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -52,6 +54,18 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //            ((ItemViewHolder) holder).mPlayway.setText(OrderInfoBean.getPlay_way());
 //            ((ItemViewHolder) holder).mContent.setText(OrderInfoBean.getContent());
 //            ((ItemViewHolder) holder).mMultiple.setText(OrderInfoBean.getMultiple()+"倍");
+            //期号
+            ((ItemViewHolder)holder).mIssue.setText(OrderInfoBean.getIssue_num());
+            //玩法类型
+            ((ItemViewHolder)holder).mPlayway.setText(OrderInfoBean.getPlay_type());
+            //追号号码
+            ((ItemViewHolder)holder).mContent.setText(OrderInfoBean.getContent());
+            //倍数
+            ((ItemViewHolder)holder).mMultiple.setText(OrderInfoBean.getMultiple());
+            //金额
+            ((ItemViewHolder)holder).money.setText(OrderInfoBean.getAmount());
+            //状态
+            ((ItemViewHolder)holder).mStatus.setText(OrderInfoBean.getStatus());
         }
 
     }
@@ -67,14 +81,27 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         //        public TextView mPlaytype;
-        public TextView mPlayway;
-        public TextView mContent;
-        public TextView mMultiple;
+        public TextView mPlayway;//方式
+        public TextView mContent;//彩票号码
+        public TextView mMultiple;//倍数
+        public TextView mIssue;//期号
+        public TextView money;//钱
+        public TextView mStatus;//状态
+
         public ItemViewHolder(View v) {
             super(v);
-            mPlayway = (TextView) v.findViewById(R.id.play_way);
-            mContent = (TextView) v.findViewById(R.id.content);
-            mMultiple = (TextView) v.findViewById(R.id.multiple);
+            //期号
+            mIssue = (TextView) v.findViewById(R.id.order_item_issue);
+            //类型
+            mPlayway = (TextView) v.findViewById(R.id.order_item_type);
+            //号码
+            mContent = (TextView) v.findViewById(R.id.order_item_num);
+            //倍数
+            mMultiple = (TextView) v.findViewById(R.id.order_item_multiple);
+            //金额
+            money = (TextView) v.findViewById(R.id.order_item_money);
+            //状态
+            mStatus = (TextView) v.findViewById(R.id.order_item_station);
         }
 
     }

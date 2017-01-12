@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -31,6 +33,7 @@ import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.model.response.KSRecordResponse;
 import com.zhailr.caipiao.model.response.LeftSecResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 import com.zhailr.caipiao.widget.ShakeListener;
 
@@ -480,13 +483,25 @@ public class K33TongActivity extends BaseActivity {
                                 public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                                     switch (position) {
                                         case 0:
-                                            autoChooseOne(1);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(1);
+                                            }
                                             break;
                                         case 1:
-                                            autoChooseOne(5);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(5);
+                                            }
                                             break;
                                         case 2:
-                                            autoChooseOne(10);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(10);
+                                            }
                                             break;
                                     }
                                     dialog.dismiss();
@@ -502,76 +517,80 @@ public class K33TongActivity extends BaseActivity {
                 }
                 break;
             case R.id.ok:
-                if (zs != 0) {
-                    Intent intent = new Intent(this, K3PlayBetActivity.class);
-                    BetBean bet = new BetBean();
-                    // 对号码进行排序
-                    if (mRedList1.size() != 0) {
-                        StringBuffer sb1 = new StringBuffer();
-                        for (int i = 0; i < mRedList1.size(); i++) {
-                            if (mRedList1.get(i).equals("三同号通选")) {
-                                mRedList1.remove("三同号通选");
-                                break;
+                if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }else {
+                    if (zs != 0) {
+                        Intent intent = new Intent(this, K3PlayBetActivity.class);
+                        BetBean bet = new BetBean();
+                        // 对号码进行排序
+                        if (mRedList1.size() != 0) {
+                            StringBuffer sb1 = new StringBuffer();
+                            for (int i = 0; i < mRedList1.size(); i++) {
+                                if (mRedList1.get(i).equals("三同号通选")) {
+                                    mRedList1.remove("三同号通选");
+                                    break;
+                                }
                             }
-                        }
-                        Collections.sort(mRedList1, new Comparator<String>() {
-                            public int compare(String arg0, String arg1) {
-                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            Collections.sort(mRedList1, new Comparator<String>() {
+                                public int compare(String arg0, String arg1) {
+                                    return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                                }
+                            });
+                            for (int i = 0; i < mRedList1.size(); i++) {
+                                if (i != mRedList1.size() - 1) {
+                                    sb1.append(mRedList1.get(i) + "  ");
+                                } else {
+                                    sb1.append(mRedList1.get(i) + "[三同号单选]");
+                                }
                             }
-                        });
-                        for (int i = 0; i < mRedList1.size(); i++) {
-                            if (i != mRedList1.size() - 1) {
-                                sb1.append(mRedList1.get(i) + "  ");
-                            } else {
-                                sb1.append(mRedList1.get(i) + "[三同号单选]");
-                            }
-                        }
-                        bet.setRedNums(sb1.toString());
-                        bet.setBlueNums("");
-                        bet.setType("三同号单选");
-                        zs = mRedList1.size();
-                        price = zs * 2;
-                        bet.setZhu(zs + "");
-                        bet.setPrice(price + "");
-                        bet.setRedList(mRedList1);
-                        // 点通选进来的，通选不变，其他的另外添加
-                        if (hasTongXuan) {
-                            chooseList.add(0, bet);
-                        } else {
-                            if (chooseList.size() != 0 && position != -1) {
-                                chooseList.set(position, bet);
-                            } else {
-                                chooseList.add(0, bet);
-                            }
-                        }
-
-                    }
-                    // 如果不是点通选进来的，则要添加
-                    if (!hasTongXuan) {
-                        if (layoutTongXuan.getTag() == "0") {
-                            ArrayList<String> redList1 = new ArrayList<String>();
-                            String numString1 = "三同号通选";
-                            redList1.add(numString1);
-                            // 2.封装成bean,添加到list中
-                            bet = new BetBean();
-                            bet.setRedNums(numString1 + "[三同号通选]");
+                            bet.setRedNums(sb1.toString());
                             bet.setBlueNums("");
-                            bet.setZhu("1");
-                            bet.setPrice("2");
-                            bet.setType("三同号通选");
-                            bet.setRedList(redList1);
-                            chooseList.add(0, bet);
+                            bet.setType("三同号单选");
+                            zs = mRedList1.size();
+                            price = zs * 2;
+                            bet.setZhu(zs + "");
+                            bet.setPrice(price + "");
+                            bet.setRedList(mRedList1);
                             // 点通选进来的，通选不变，其他的另外添加
+                            if (hasTongXuan) {
+                                chooseList.add(0, bet);
+                            } else {
+                                if (chooseList.size() != 0 && position != -1) {
+                                    chooseList.set(position, bet);
+                                } else {
+                                    chooseList.add(0, bet);
+                                }
+                            }
+
                         }
+                        // 如果不是点通选进来的，则要添加
+                        if (!hasTongXuan) {
+                            if (layoutTongXuan.getTag() == "0") {
+                                ArrayList<String> redList1 = new ArrayList<String>();
+                                String numString1 = "三同号通选";
+                                redList1.add(numString1);
+                                // 2.封装成bean,添加到list中
+                                bet = new BetBean();
+                                bet.setRedNums(numString1 + "[三同号通选]");
+                                bet.setBlueNums("");
+                                bet.setZhu("1");
+                                bet.setPrice("2");
+                                bet.setType("三同号通选");
+                                bet.setRedList(redList1);
+                                chooseList.add(0, bet);
+                                // 点通选进来的，通选不变，其他的另外添加
+                            }
+                        }
+                        intent.putExtra("list", chooseList);
+                        intent.putExtra("tag", TAG);
+                        intent.putExtra("currentNum", currentNum);
+                        intent.putExtra("currentSec", currentSec);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        showToast("请至少选择一注");
                     }
-                    intent.putExtra("list", chooseList);
-                    intent.putExtra("tag", TAG);
-                    intent.putExtra("currentNum", currentNum);
-                    intent.putExtra("currentSec", currentSec);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    showToast("请至少选择一注");
                 }
                 break;
         }

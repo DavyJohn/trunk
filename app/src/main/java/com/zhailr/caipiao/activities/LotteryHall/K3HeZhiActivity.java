@@ -10,6 +10,7 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.renderscript.ScriptIntrinsicYuvToRGB;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -34,6 +36,7 @@ import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.model.response.KSRecordResponse;
 import com.zhailr.caipiao.model.response.LeftSecResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 import com.zhailr.caipiao.widget.ShakeListener;
 
@@ -731,6 +734,7 @@ public class K3HeZhiActivity extends BaseActivity {
                 vibrator.vibrate(new long[]{0, 50}, -1);
                 break;
             case R.id.tv_auto_choose:
+
                 if (tvAutoChoose.getText().equals("机选")) {
                     DialogPlus dialog = DialogPlus.newDialog(this)
                             .setContentHolder(new GridHolder(3))
@@ -740,13 +744,25 @@ public class K3HeZhiActivity extends BaseActivity {
                                 public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                                     switch (position) {
                                         case 0:
-                                            autoChooseOne(1);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(1);
+                                            }
                                             break;
                                         case 1:
-                                            autoChooseOne(5);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(5);
+                                            }
                                             break;
                                         case 2:
-                                            autoChooseOne(10);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(10);
+                                            }
                                             break;
                                     }
                                     dialog.dismiss();
@@ -762,36 +778,40 @@ public class K3HeZhiActivity extends BaseActivity {
                 }
                 break;
             case R.id.ok:
-                if (zs != 0) {
-                    Intent intent = new Intent(this, K3PlayBetActivity.class);
-                    BetBean bet = new BetBean();
-                    StringBuffer sb1 = new StringBuffer();
-                    for (int i = 0; i < mRedList1.size(); i++) {
-                        if (i != mRedList1.size() - 1) {
-                            sb1.append(mRedList1.get(i) + "  ");
-                        } else {
-                            sb1.append(mRedList1.get(i) + "[和值]");
+                if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }else {
+                    if (zs != 0) {
+                        Intent intent = new Intent(this, K3PlayBetActivity.class);
+                        BetBean bet = new BetBean();
+                        StringBuffer sb1 = new StringBuffer();
+                        for (int i = 0; i < mRedList1.size(); i++) {
+                            if (i != mRedList1.size() - 1) {
+                                sb1.append(mRedList1.get(i) + "  ");
+                            } else {
+                                sb1.append(mRedList1.get(i) + "[和值]");
+                            }
                         }
-                    }
-                    bet.setRedNums(sb1.toString());
-                    bet.setBlueNums("");
-                    bet.setType("和值");
-                    bet.setPrice(price + "");
-                    bet.setZhu(zs + "");
-                    bet.setRedList(mRedList1);
-                    if (chooseList.size() != 0 && position != -1) {
-                        chooseList.set(position, bet);
+                        bet.setRedNums(sb1.toString());
+                        bet.setBlueNums("");
+                        bet.setType("和值");
+                        bet.setPrice(price + "");
+                        bet.setZhu(zs + "");
+                        bet.setRedList(mRedList1);
+                        if (chooseList.size() != 0 && position != -1) {
+                            chooseList.set(position, bet);
+                        } else {
+                            chooseList.add(0, bet);
+                        }
+                        intent.putExtra("list", chooseList);
+                        intent.putExtra("tag", TAG);
+                        intent.putExtra("currentNum", currentNum);
+                        intent.putExtra("currentSec", currentSec);
+                        startActivity(intent);
+                        finish();
                     } else {
-                        chooseList.add(0, bet);
+                        showToast("请至少选择一注");
                     }
-                    intent.putExtra("list", chooseList);
-                    intent.putExtra("tag", TAG);
-                    intent.putExtra("currentNum", currentNum);
-                    intent.putExtra("currentSec", currentSec);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    showToast("请至少选择一注");
                 }
                 break;
         }

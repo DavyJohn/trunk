@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -30,6 +32,7 @@ import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.model.response.KSRecordResponse;
 import com.zhailr.caipiao.model.response.LeftSecResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 import com.zhailr.caipiao.widget.ShakeListener;
 
@@ -458,13 +461,26 @@ public class K33BuTongActivity extends BaseActivity {
                                 public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                                     switch (position) {
                                         case 0:
-                                            autoChooseOne(1);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(1);
+                                            }
+
                                             break;
                                         case 1:
-                                            autoChooseOne(5);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(5);
+                                            }
                                             break;
                                         case 2:
-                                            autoChooseOne(10);
+                                            if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(10);
+                                            }
                                             break;
                                     }
                                     dialog.dismiss();
@@ -479,58 +495,62 @@ public class K33BuTongActivity extends BaseActivity {
                 }
                 break;
             case R.id.ok:
-                if(mRedList1.size() != 0&&mRedList1.size() < 3){
-                    tvAutoChoose.setClickable(false);
-                    ok.setClickable(false);
-                    showToast("三不同选请至少下一注或者不下注");
+                if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
+                    startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    if (zs != 0) {
-                        // 跳转
-                        Intent intent = new Intent(this, K3PlayBetActivity.class);
-                        BetBean bet = new BetBean();
-                        // 点击进来的
-                        if (chooseList.size() != 0 && position != -1) {
-                            if (hasTongXuan) {
-                                // 其他的另外添加
-                                if (mRedList1.size() != 0) {
-                                    bet = changeDanXuan(bet);
-                                    chooseList.add(0, bet);
+                    if (mRedList1.size() != 0 && mRedList1.size() < 3) {
+                        tvAutoChoose.setClickable(false);
+                        ok.setClickable(false);
+                        showToast("三不同选请至少下一注或者不下注");
+                    } else {
+                        if (zs != 0) {
+                            // 跳转
+                            Intent intent = new Intent(this, K3PlayBetActivity.class);
+                            BetBean bet = new BetBean();
+                            // 点击进来的
+                            if (chooseList.size() != 0 && position != -1) {
+                                if (hasTongXuan) {
+                                    // 其他的另外添加
+                                    if (mRedList1.size() != 0) {
+                                        bet = changeDanXuan(bet);
+                                        chooseList.add(0, bet);
+                                    }
                                 }
+                                // 从单选点进来的，先改单选，再改通选
+                                else {
+                                    if (mRedList1.size() != 0) {
+                                        bet = changeDanXuan(bet);
+                                        chooseList.set(position, bet);
+                                    }
+                                    if (layoutTongXuan.getTag() == null) {
+                                        bet = changeTongXuan(bet);
+                                        chooseList.add(0, bet);
+                                    }
+                                }
+
                             }
-                            // 从单选点进来的，先改单选，再改通选
+                            // 新增的
                             else {
-                                if (mRedList1.size() != 0) {
-                                    bet = changeDanXuan(bet);
-                                    chooseList.set(position, bet);
-                                }
                                 if (layoutTongXuan.getTag() == null) {
                                     bet = changeTongXuan(bet);
                                     chooseList.add(0, bet);
                                 }
-                            }
+                                if (mRedList1.size() != 0) {
+                                    bet = changeDanXuan(bet);
+                                    chooseList.add(0, bet);
+                                }
 
+                            }
+                            intent.putExtra("list", chooseList);
+                            intent.putExtra("tag", TAG);
+                            intent.putExtra("currentNum", currentNum);
+                            intent.putExtra("currentSec", currentSec);
+                            startActivity(intent);
+                            finish();
+
+                        } else {
+                            showToast("请至少选择1注");
                         }
-                        // 新增的
-                        else {
-                            if (layoutTongXuan.getTag() == null) {
-                                bet = changeTongXuan(bet);
-                                chooseList.add(0, bet);
-                            }
-                            if (mRedList1.size() != 0) {
-                                bet = changeDanXuan(bet);
-                                chooseList.add(0, bet);
-                            }
-
-                        }
-                        intent.putExtra("list", chooseList);
-                        intent.putExtra("tag", TAG);
-                        intent.putExtra("currentNum", currentNum);
-                        intent.putExtra("currentSec", currentSec);
-                        startActivity(intent);
-                        finish();
-
-                    } else {
-                        showToast("请至少选择1注");
                     }
                 }
                 break;

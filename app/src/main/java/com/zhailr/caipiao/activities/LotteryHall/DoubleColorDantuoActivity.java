@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +17,14 @@ import android.widget.TextView;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 
 import java.math.BigDecimal;
@@ -62,7 +65,7 @@ public class DoubleColorDantuoActivity extends BaseActivity {
     TextView ok;
     // 代码创建的layout
     private LinearLayout m_LinearLayout;
-
+    private String USERID ;
     private ArrayList<String> mRedList1 = new ArrayList<String>();
     private ArrayList<String> mRedList2 = new ArrayList<String>();
     private ArrayList<String> mBlueList = new ArrayList<String>();
@@ -468,61 +471,69 @@ public class DoubleColorDantuoActivity extends BaseActivity {
                 clearClickBall();
                 break;
             case R.id.ok:
-                if (StringUtils.isEmpty(tvPrice.getText())) {
-                    showToast("请至少选择7个红球，1个蓝球");
-                } else if (price > 200000) {
-                    showToast("金额上限不能超过20万");
-                } else if (mRedClickList1.size() == 0){
-                    showToast("请至少选择一个胆码");
+                //首先判断userid是否为空
+                USERID = TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID)) ? "" : PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID);
+                if (USERID.equals("")){
+                    startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    Intent intent = new Intent(this, DoubleDantuoBetActivity.class);
-                    BetBean bet = new BetBean();
-                    StringBuilder sb1 = new StringBuilder();
-                    StringBuilder sb2 = new StringBuilder();
-                    // 对号码进行排序
-                    Collections.sort(mRedList1, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                    if (StringUtils.isEmpty(tvPrice.getText())) {
+                        showToast("请至少选择7个红球，1个蓝球");
+                    } else if (price > 200000) {
+                        showToast("金额上限不能超过20万");
+                    } else if (mRedClickList1.size() == 0){
+                        showToast("请至少选择一个胆码");
+                    }else {
+                        Intent intent = new Intent(this, DoubleDantuoBetActivity.class);
+                        BetBean bet = new BetBean();
+                        StringBuilder sb1 = new StringBuilder();
+                        StringBuilder sb2 = new StringBuilder();
+                        // 对号码进行排序
+                        Collections.sort(mRedList1, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        Collections.sort(mRedList2, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        Collections.sort(mBlueList, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        for (int i=0; i < mRedList1.size(); i++) {
+                            sb1.append(mRedList1.get(i) + "  ");
                         }
-                    });
-                    Collections.sort(mRedList2, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                        sb1.append("#  ");
+                        for (int i=0; i < mRedList2.size(); i++) {
+                            sb1.append(mRedList2.get(i) + "  ");
                         }
-                    });
-                    Collections.sort(mBlueList, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                        for (int i=0; i < mBlueList.size(); i++) {
+                            sb2.append(mBlueList.get(i) + "  ");
                         }
-                    });
-                    for (int i=0; i < mRedList1.size(); i++) {
-                        sb1.append(mRedList1.get(i) + "  ");
+                        bet.setRedNums(sb1.toString());
+                        bet.setBlueNums(sb2.toString());
+                        bet.setType("胆拖投注");
+                        bet.setPrice(price + "");
+                        bet.setZhu(zs + "");
+                        bet.setBlueList(mBlueList);
+                        bet.setRedList(mRedList1);
+                        bet.setRedList2(mRedList2);
+                        if (chooseList.size() != 0 && position != -1) {
+                            chooseList.set(position, bet);
+                        } else {
+                            chooseList.add(0, bet);
+                        }
+                        intent.putExtra("list", chooseList);
+                        intent.putExtra("currentNum", currentNum);
+                        startActivity(intent);
+                        finish();
                     }
-                    sb1.append("#  ");
-                    for (int i=0; i < mRedList2.size(); i++) {
-                        sb1.append(mRedList2.get(i) + "  ");
-                    }
-                    for (int i=0; i < mBlueList.size(); i++) {
-                        sb2.append(mBlueList.get(i) + "  ");
-                    }
-                    bet.setRedNums(sb1.toString());
-                    bet.setBlueNums(sb2.toString());
-                    bet.setType("胆拖投注");
-                    bet.setPrice(price + "");
-                    bet.setZhu(zs + "");
-                    bet.setBlueList(mBlueList);
-                    bet.setRedList(mRedList1);
-                    bet.setRedList2(mRedList2);
-                    if (chooseList.size() != 0 && position != -1) {
-                        chooseList.set(position, bet);
-                    } else {
-                        chooseList.add(0, bet);
-                    }
-                    intent.putExtra("list", chooseList);
-                    intent.putExtra("currentNum", currentNum);
-                    startActivity(intent);
-                    finish();
                 }
+
+
                 break;
         }
     }

@@ -112,6 +112,12 @@ public class Constant {
     public static final String ZHUIHAOXIANGQING = "appChaseNumber/ChaseNumInfoRequest";
     //支付开关
     public static final String ZHIFUKAIGUAN = "appRetLotteryPay/PayGoldConfig";
+
+    //修改取票方式的接口
+    public static final String QUPIAOFANGSHI = "appRetLotteryPay/ModTicketInfo";
+    //站点详情
+    public static final String SILTDATA = "";
+
     public class USER {
         public static final String USERNAME = "userName";
         public static final String REALNAME = "real_name";

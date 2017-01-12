@@ -187,6 +187,28 @@
             android:singleLine="false"
             android:textSize="@dimen/x16" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x14"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/x10">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取票方式"
+            android:textSize="@dimen/x16" />
+
+        <TextView
+            android:id="@+id/lottery_ticket_way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x14"
+            android:layout_marginRight="@dimen/x10"
+            android:singleLine="false"
+            android:textSize="@dimen/x16" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

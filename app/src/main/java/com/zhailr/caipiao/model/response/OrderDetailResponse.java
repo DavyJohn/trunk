@@ -385,6 +385,16 @@ public class OrderDetailResponse {
             }
         }
         public static class TicketinfoBean{
+            private String take_ticket_way;
+
+            public String getTake_ticket_way() {
+                return take_ticket_way;
+            }
+
+            public void setTake_ticket_way(String take_ticket_way) {
+                this.take_ticket_way = take_ticket_way;
+            }
+
             private String amount;
             private String append;
             private String content;

@@ -56,6 +56,21 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 //            ((ItemViewHolder)holder).mLotterystation.setText(TicketinfoBean.getStatus());//彩票状态
             ((ItemViewHolder)holder).mNode.setText(TicketinfoBean.getNode());//彩票注数
             ((ItemViewHolder)holder).mMultiple.setText(TicketinfoBean.getMultiple());//彩票倍数
+            switch (Integer.parseInt(TicketinfoBean.getTake_ticket_way())){
+                case 0:
+                    ((ItemViewHolder)holder).mTicketWay.setText("取票异常");
+                    break;
+                case 1:
+                    ((ItemViewHolder)holder).mTicketWay.setText("线上取票");
+                    break;
+                case 2:
+                    ((ItemViewHolder)holder).mTicketWay.setText("线下取票");
+                    break;
+                case 3:
+                    ((ItemViewHolder)holder).mTicketWay.setText("线下已取票");
+                    break;
+
+            }
 
 //            ((ItemViewHolder) holder).mBetnum.setText(TicketinfoBean.getNode());
 //            ((ItemViewHolder) holder).mLotterynum.setText(TicketinfoBean.getContent());
@@ -111,8 +126,10 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView mMoney;//中将金额
         public TextView mNode;//注数
         public TextView mMultiple;//倍数
+        public TextView mTicketWay;
         public ItemViewHolder(View v) {
             super(v);
+            mTicketWay = (TextView) v.findViewById(R.id.lottery_ticket_way);
             mNode = (TextView) v.findViewById(R.id.node);
             mMultiple = (TextView) v.findViewById(R.id.multiple_num);
             mNum = (TextView) v.findViewById(R.id.my_issue);

@@ -116,7 +116,7 @@ public class Constant {
     //修改取票方式的接口
     public static final String QUPIAOFANGSHI = "appRetLotteryPay/ModTicketInfo";
     //站点详情
-    public static final String SILTDATA = "";
+    public static final String SILTDATA = "appRetLotteryPay/GetSiteInfoRequest";
 
     public class USER {
         public static final String USERNAME = "userName";

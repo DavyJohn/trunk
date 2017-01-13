@@ -409,6 +409,16 @@ public class OrderDetailResponse {
             private String result;
             private String settlement_time;
             private String siteId;
+
+            public String getTicketId() {
+                return ticketId;
+            }
+
+            public void setTicketId(String ticketId) {
+                this.ticketId = ticketId;
+            }
+
+            private String ticketId;
             private String status;
             private String ticket_no;
             private String type_code;

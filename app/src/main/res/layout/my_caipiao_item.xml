@@ -192,7 +192,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/x14"
         android:layout_marginRight="@dimen/x10"
-        android:layout_marginTop="@dimen/x10">
+        android:layout_marginTop="@dimen/x10"
+        android:id="@+id/caipiao_ticket_way">
 
         <TextView
             android:layout_width="wrap_content"
@@ -202,12 +203,23 @@
 
         <TextView
             android:id="@+id/lottery_ticket_way"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x14"
             android:layout_marginRight="@dimen/x10"
             android:singleLine="false"
             android:textSize="@dimen/x16" />
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="20dp"
+            android:text="更改"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="3dp"
+            android:textColor="@color/white"
+            android:background="@color/red"/>
     </LinearLayout>
 
     <View

@@ -1,14 +1,20 @@
 package com.zhailr.caipiao.activities.mine;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.LotteryHall.DoubleColorBallChooseActivity;
@@ -147,6 +153,7 @@ public class OrderDetailActivity extends BaseActivity {
     private int tag = 0;
     private LinearLayoutManager mLayoutManager;
     private String mSiteId ;
+    private AlertDialog dialog;
     private MycaipiaoAdapter mAdapter;
     private MyOrderAdapter myOrderAdapter;//这个是追号Adapter
 
@@ -317,6 +324,14 @@ public class OrderDetailActivity extends BaseActivity {
                             mAdapter = new MycaipiaoAdapter(mContext);
                             mAdapter.setData(mData);
                             mRecyclerview.setAdapter(mAdapter);
+                            mAdapter.setOnClickItemListener(new MycaipiaoAdapter.OnClickItemListener() {
+                                @Override
+                                public void OnClickItem(int postion, LinearLayout layout) {
+                                    Toast.makeText(mContext,"item",Toast.LENGTH_SHORT).show();
+                                    showConfirmDialog(mData.get(postion).getTake_ticket_way(),mData.get(postion).getTicketId(),mContext);
+
+                                }
+                            });
                         }else {
                             //TODO
                             mCPlayout.setVisibility(View.GONE);
@@ -386,7 +401,46 @@ public class OrderDetailActivity extends BaseActivity {
         }
     }
 
+    protected void showConfirmDialog(final String Id , final String ticketid,Context context) {
+        dialog = new AlertDialog.Builder(context)
+                .setMessage("是否将取票方式更改为:线下取票？").setTitle("提示")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
 
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                        Log.e("userId",PreferencesUtils.getString(mContext, Constant.USER.USERID));
+                        Log.e("take_ticket_way",Id);
+                        Log.e("ticketId",PreferencesUtils.getString(mContext, Constant.USER.SITEID));
+                        map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
+                        map.put("take_ticket_way", Id);
+                        map.put("ticketId", ticketid);
+                        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.QUPIAOFANGSHI, map, TAG, new SpotsCallBack<BaseResponse>(mContext, false) {
+                            @Override
+                            public void onSuccess(Response response, BaseResponse res) {
+                                if (res.getCode().equals("200")) {
+
+                                }
+                            }
+
+                            @Override
+                            public void onError(Response response, int code, Exception e) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        dialog.show();
+    }
 
 
     @Override

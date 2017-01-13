@@ -63,8 +63,28 @@ public class SiteDataActivity extends BaseActivity {
                 mTextPhone.setText(siteData.getPhone());
                 mTextSiteName.setText(siteData.getSiteName());
                 mTextSiteNo.setText(siteData.getSiteNo());
-                mTextStatus.setText(siteData.getStatus());
-                mTextType.setText(siteData.getType());
+                switch (Integer.parseInt(siteData.getStatus())){
+                    case 0:
+                        mTextStatus.setText("停用");
+                        break;
+                    case 1:
+                        mTextStatus.setText("启用");
+                        break;
+                    case 2:
+                        mTextStatus.setText("删除");
+                        break;
+                }
+                switch (Integer.parseInt(siteData.getType())){
+                    case 1:
+                        mTextType.setText("福彩");
+                        break;
+                    case 2:
+                        mTextType.setText("体彩");
+                        break;
+                    case 3:
+                        mTextType.setText("福彩和体彩");
+                        break;
+                }
 
             }
 

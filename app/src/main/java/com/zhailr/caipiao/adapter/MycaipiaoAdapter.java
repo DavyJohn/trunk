@@ -1,11 +1,14 @@
 package com.zhailr.caipiao.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.model.response.OrderDetailResponse;
@@ -43,7 +46,18 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return vh;
     }
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+
+        if (onClickItemListener != null){
+            ((ItemViewHolder)holder).mLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickItemListener.OnClickItem(position,((ItemViewHolder) holder).mLayout);
+        }
+    });
+        }
+
+
         if (holder instanceof ItemViewHolder) {
 
             OrderDetailResponse.DataBean.TicketinfoBean TicketinfoBean = mData.get(position);
@@ -127,8 +141,10 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView mNode;//注数
         public TextView mMultiple;//倍数
         public TextView mTicketWay;
+        public LinearLayout mLayout;
         public ItemViewHolder(View v) {
             super(v);
+            mLayout = (LinearLayout) v.findViewById(R.id.caipiao_ticket_way);
             mTicketWay = (TextView) v.findViewById(R.id.lottery_ticket_way);
             mNode = (TextView) v.findViewById(R.id.node);
             mMultiple = (TextView) v.findViewById(R.id.multiple_num);
@@ -140,5 +156,15 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             mLotterystation = (TextView) v.findViewById(R.id.lottery_station);
         }
 
+    }
+
+
+    public interface OnClickItemListener{
+        void OnClickItem(int postion,LinearLayout layout);
+    }
+    public OnClickItemListener onClickItemListener;
+
+    public void setOnClickItemListener(OnClickItemListener onClickItemListener){
+        this.onClickItemListener = onClickItemListener;
     }
 }

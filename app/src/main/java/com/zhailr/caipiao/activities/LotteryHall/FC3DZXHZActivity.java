@@ -9,6 +9,7 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -30,6 +32,7 @@ import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.widget.ShakeListener;
 
 import java.math.BigDecimal;
@@ -83,6 +86,7 @@ public class FC3DZXHZActivity extends BaseActivity {
     private String currentNum;
     private ShakeListener mShakeListener;
     private HighLight mHightLight;
+    private String USERID;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -105,6 +109,7 @@ public class FC3DZXHZActivity extends BaseActivity {
         initUI();
         initIntent();
         shake();
+        USERID = TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID)) ? "" : PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID);
         mText.setText("猜中开奖号相加之和即奖1040元");
         mFloatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -517,13 +522,25 @@ public class FC3DZXHZActivity extends BaseActivity {
                                 public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                                     switch (position) {
                                         case 0:
-                                            autoChooseOne(1);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(1);
+                                            }
                                             break;
                                         case 1:
-                                            autoChooseOne(5);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(5);
+                                            }
                                             break;
                                         case 2:
-                                            autoChooseOne(10);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(10);
+                                            }
                                             break;
                                     }
                                     dialog.dismiss();
@@ -538,16 +555,19 @@ public class FC3DZXHZActivity extends BaseActivity {
                 }
                 break;
             case R.id.ok:
-                if (zs != 0) {
-                    Intent intent = new Intent(this, FC3DNormalBetActivity.class);
+                if (USERID.equals("")){
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }else {
+                    if (zs != 0) {
+                        Intent intent = new Intent(this, FC3DNormalBetActivity.class);
 //                    BetBean bet = new BetBean();
 //                    StringBuilder sb1 = new StringBuilder();
-                    // 对号码进行排序
-                    Collections.sort(mRedList1, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
-                        }
-                    });
+                        // 对号码进行排序
+                        Collections.sort(mRedList1, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
 //                    for (int i=0; i < mRedList1.size(); i++) {
 //                        sb1.append(mRedList1.get(i) + "  ");
 //                    }
@@ -565,30 +585,31 @@ public class FC3DZXHZActivity extends BaseActivity {
 //                    intent.putExtra("list", chooseList);
 //                    intent.putExtra("currentNum", currentNum);
 //                    intent.putExtra("tag", TAG);
-                    for(int i = 0; i < mRedList1.size(); i++) {
-                        ArrayList<String> redList1 = new ArrayList<String>();
-                        BetBean bet = new BetBean();
-                        redList1.add(mRedList1.get(i));
-                        int zs = changeZhusuAccount(mRedList1.get(i));
-                        bet.setRedNums(mRedList1.get(i));
-                        bet.setBlueNums("");
-                        bet.setZhu(zs + "");
-                        bet.setPrice(zs * 2 + "");
-                        bet.setType("直选和值");
-                        bet.setRedList(redList1);
-                        if (chooseList.size() != 0 && position != -1) {
-                            chooseList.set(position, bet);
-                        } else {
-                            chooseList.add(0, bet);
+                        for (int i = 0; i < mRedList1.size(); i++) {
+                            ArrayList<String> redList1 = new ArrayList<String>();
+                            BetBean bet = new BetBean();
+                            redList1.add(mRedList1.get(i));
+                            int zs = changeZhusuAccount(mRedList1.get(i));
+                            bet.setRedNums(mRedList1.get(i));
+                            bet.setBlueNums("");
+                            bet.setZhu(zs + "");
+                            bet.setPrice(zs * 2 + "");
+                            bet.setType("直选和值");
+                            bet.setRedList(redList1);
+                            if (chooseList.size() != 0 && position != -1) {
+                                chooseList.set(position, bet);
+                            } else {
+                                chooseList.add(0, bet);
+                            }
+                            intent.putExtra("list", chooseList);
+                            intent.putExtra("tag", TAG);
+                            intent.putExtra("currentNum", currentNum);
                         }
-                        intent.putExtra("list", chooseList);
-                        intent.putExtra("tag", TAG);
-                        intent.putExtra("currentNum", currentNum);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        showToast("请至少选择一注");
                     }
-                    startActivity(intent);
-                    finish();
-                } else {
-                    showToast("请至少选择一注");
                 }
                 break;
         }

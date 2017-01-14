@@ -574,25 +574,34 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     @Override
     protected void onStart() {
         super.onStart();
-        //获取站点
+        //获取站点 判断UserID
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSETTINGINFO, map, TAG, new SpotsCallBack<UserInfoResponse>(mContext, false) {
+            map.put("userId", TextUtils.isEmpty(PreferencesUtils.getString(mContext, Constant.USER.USERID))? "" : PreferencesUtils.getString(mContext, Constant.USER.USERID) );
+            mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSETTINGINFO, map, TAG, new SpotsCallBack<UserInfoResponse>(mContext, false) {
 
-            @Override
-            public void onSuccess(Response response, UserInfoResponse res) {
-                if (res.getCode().equals("200")) {
-                    mTextZhangDianName.setText("当前站点为："+res.getSiteName());
-                    PreferencesUtils.putString(getApplicationContext(),Constant.USER.SITEID,res.getSiteId());
+                @Override
+                public void onSuccess(Response response, UserInfoResponse res) {
+                    if (res.getCode().equals("200")) {
+                        mTextZhangDianName.setText("当前站点为："+res.getSiteName());
+                        PreferencesUtils.putString(getApplicationContext(),Constant.USER.SITEID,res.getSiteId());
+                    }else{
+                        finish();
+                        startActivity(new Intent(mContext, LoginActivity.class));
+
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Response response, int code, Exception e) {
-                Log.i(TAG, response.toString());
-            }
+                @Override
+                public void onError(Response response, int code, Exception e) {
+                    Log.i(TAG, response.toString());
 
-        });
+
+                }
+
+            });
+
+
+
 
         //对于新用户没有问题 对于更改账户用户有问题
 //        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);

@@ -88,8 +88,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public TextView money;//钱
         public TextView mStatus;//状态
 
+
         public ItemViewHolder(View v) {
             super(v);
+
             //期号
             mIssue = (TextView) v.findViewById(R.id.order_item_issue);
             //类型

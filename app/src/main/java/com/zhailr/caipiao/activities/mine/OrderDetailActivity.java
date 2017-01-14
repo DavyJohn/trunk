@@ -1,13 +1,20 @@
 package com.zhailr.caipiao.activities.mine;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.LotteryHall.DoubleColorBallChooseActivity;
@@ -21,7 +28,9 @@ import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.response.BaseResponse;
 import com.zhailr.caipiao.model.response.OrderDetailResponse;
+import com.zhailr.caipiao.model.response.SiteData;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.MyDecoration;
 import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 
@@ -89,6 +98,16 @@ public class OrderDetailActivity extends BaseActivity {
     LinearLayout mZHlayout;
     @Bind(R.id.caipiao_layout)
     LinearLayout mCPlayout;
+    @Bind(R.id.silt_data)
+    TextView mTextSite;
+    @Bind(R.id.silt_linear)
+    LinearLayout mSiltLayout;
+    @OnClick(R.id.silt_linear) void onClick(){
+        Intent intent = new Intent(mContext,SiteDataActivity.class);
+        intent.putExtra("id",mSiteId);
+        startActivity(intent);
+
+    }
   //end
 //    @Bind(R.id.icon)
 //    ImageView icon;
@@ -133,7 +152,8 @@ public class OrderDetailActivity extends BaseActivity {
     private String mTypeCode;
     private int tag = 0;
     private LinearLayoutManager mLayoutManager;
-
+    private String mSiteId ;
+    private AlertDialog dialog;
     private MycaipiaoAdapter mAdapter;
     private MyOrderAdapter myOrderAdapter;//这个是追号Adapter
 
@@ -158,6 +178,8 @@ public class OrderDetailActivity extends BaseActivity {
         mOrderId = getIntent().getStringExtra("orderId");
         showNoContent();
         getData();
+        //获取站点信息
+
     }
 
     private void getData() {
@@ -171,6 +193,8 @@ public class OrderDetailActivity extends BaseActivity {
             public void onSuccess(Response response, OrderDetailResponse res) {
                 dimssNoContent();
                 if (res.getCode().equals("200")) {
+                    mSiteId = res.getData().getSiteId();
+                    getSiteData(mSiteId);
                     OrderDetailResponse.DataBean bean = res.getData();
 //                    OrderDetailResponse.DataBean.TicketinfoBean TicketinfoBean = res.getData().getTicketinfo();
 //                    OrderDetailResponse.DataBean.OrderInfoBean OrderInfoBean = res.getData().getOrderInfo();
@@ -278,6 +302,7 @@ public class OrderDetailActivity extends BaseActivity {
                         LinearLayoutManager MLayoutManager = new LinearLayoutManager(mContext);
                         //追号
                         mRecyclerZh.setLayoutManager(MLayoutManager);
+                        mRecyclerZh.addItemDecoration(new MyDecoration(mContext,MyDecoration.HORIZONTAL_LIST));
                         List<OrderDetailResponse.DataBean.ChaseInfo> newsorderList = res.getData().getChaseinfo();
                         if (null != newsorderList) {
                             MData.addAll(newsorderList);
@@ -291,12 +316,22 @@ public class OrderDetailActivity extends BaseActivity {
                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
                 //彩票
                 mRecyclerview.setLayoutManager(mLayoutManager);
-                        List<OrderDetailResponse.DataBean.TicketinfoBean> newsList = res.getData().getTicketinfo();
+                mRecyclerview.addItemDecoration(new MyDecoration(mContext,MyDecoration.VERTICAL_LIST));
+
+                List<OrderDetailResponse.DataBean.TicketinfoBean> newsList = res.getData().getTicketinfo();
                         if (null != newsList) {
                             mData.addAll(newsList);
                             mAdapter = new MycaipiaoAdapter(mContext);
                             mAdapter.setData(mData);
                             mRecyclerview.setAdapter(mAdapter);
+                            mAdapter.setOnClickItemListener(new MycaipiaoAdapter.OnClickItemListener() {
+                                @Override
+                                public void OnClickItem(int postion, LinearLayout layout) {
+                                    Toast.makeText(mContext,"item",Toast.LENGTH_SHORT).show();
+                                    showConfirmDialog(mData.get(postion).getTake_ticket_way(),mData.get(postion).getTicketId(),mContext);
+
+                                }
+                            });
                         }else {
                             //TODO
                             mCPlayout.setVisibility(View.GONE);
@@ -366,9 +401,72 @@ public class OrderDetailActivity extends BaseActivity {
         }
     }
 
+    protected void showConfirmDialog(final String Id , final String ticketid,Context context) {
+        dialog = new AlertDialog.Builder(context)
+                .setMessage("是否将取票方式更改为:线下取票？").setTitle("提示")
+                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                        Log.e("userId",PreferencesUtils.getString(mContext, Constant.USER.USERID));
+                        Log.e("take_ticket_way",Id);
+                        Log.e("ticketId",PreferencesUtils.getString(mContext, Constant.USER.SITEID));
+                        map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
+                        map.put("take_ticket_way", Id);
+                        map.put("ticketId", ticketid);
+                        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.QUPIAOFANGSHI, map, TAG, new SpotsCallBack<BaseResponse>(mContext, false) {
+                            @Override
+                            public void onSuccess(Response response, BaseResponse res) {
+                                if (res.getCode().equals("200")) {
+
+                                }
+                            }
+
+                            @Override
+                            public void onError(Response response, int code, Exception e) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
+
     @Override
     public int getLayoutId() {
 //        return R.layout.ac_order_detail;
         return R.layout.order_detail_zh_layout;
+    }
+
+    public void getSiteData(String id) {
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("siteId", id);
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.SILTDATA, map, TAG, new SpotsCallBack<SiteData>(mContext,false) {
+
+
+            @Override
+            public void onSuccess(Response response, SiteData siteData) {
+                System.out.print(siteData);
+                mTextSite.setText(siteData.getAddress());
+
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+
+            }
+        });
+
     }
 }

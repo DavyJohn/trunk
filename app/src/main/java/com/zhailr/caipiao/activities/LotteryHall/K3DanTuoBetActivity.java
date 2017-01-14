@@ -74,6 +74,7 @@ public class K3DanTuoBetActivity extends BaseActivity implements ISimpleDialogLi
     // 倒计时
     private TimeCount time;
     private int MAX_NUM = 50;
+    private String USERID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class K3DanTuoBetActivity extends BaseActivity implements ISimpleDialogLi
                         }
                     }
                 });
-
+        USERID = TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID)) ? "" : PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID);
         initView();
     }
 

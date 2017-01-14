@@ -9,6 +9,7 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -29,6 +31,7 @@ import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.widget.ShakeListener;
 
 import java.math.BigDecimal;
@@ -76,6 +79,7 @@ public class FC3DGroupActivity extends BaseActivity {
     private ArrayList<TextView> mRedClickList2 = new ArrayList<TextView>();
     private ArrayList<TextView> mRedAllList1 = new ArrayList<TextView>();
     private ArrayList<TextView> mRedAllList2 = new ArrayList<TextView>();
+    private String USERID;
     // 注数
     private int zs;
     private int price;
@@ -106,7 +110,7 @@ public class FC3DGroupActivity extends BaseActivity {
         getToolBar().setTitle(R.string.fc3d_group_paly);
         getCurrentNum();
         shake();
-
+        USERID = TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID)) ? "" : PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID);
         mFloatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -546,13 +550,26 @@ public class FC3DGroupActivity extends BaseActivity {
                                 public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                                     switch (position) {
                                         case 0:
-                                            autoChooseOne(1);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext,LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(1);
+
+                                            }
                                             break;
                                         case 1:
-                                            autoChooseOne(5);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext,LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(5);
+                                            }
                                             break;
                                         case 2:
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext,LoginActivity.class));
+                                            }else {
                                             autoChooseOne(10);
+                                            }
                                             break;
                                     }
                                     dialog.dismiss();
@@ -568,50 +585,54 @@ public class FC3DGroupActivity extends BaseActivity {
                 }
                 break;
             case R.id.ok:
-                if (zs != 0) {
-                    Intent intent = new Intent(this, FC3DNormalBetActivity.class);
-                    BetBean bet = new BetBean();
-                    StringBuilder sb1 = new StringBuilder();
-                    // 对号码进行排序
-                    Collections.sort(mRedList1, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                if (USERID.equals("")){
+                    startActivity(new Intent(mContext, LoginActivity.class));
+                }else {
+                    if (zs != 0) {
+                        Intent intent = new Intent(this, FC3DNormalBetActivity.class);
+                        BetBean bet = new BetBean();
+                        StringBuilder sb1 = new StringBuilder();
+                        // 对号码进行排序
+                        Collections.sort(mRedList1, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        Collections.sort(mRedList2, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        for (int i = 0; i < mRedList1.size(); i++) {
+                            sb1.append(mRedList1.get(i) + "  ");
                         }
-                    });
-                    Collections.sort(mRedList2, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                        sb1.append("|  ");
+                        for (int i = 0; i < mRedList2.size(); i++) {
+                            sb1.append(mRedList2.get(i) + "  ");
                         }
-                    });
-                    for (int i = 0; i < mRedList1.size(); i++) {
-                        sb1.append(mRedList1.get(i) + "  ");
-                    }
-                    sb1.append("|  ");
-                    for (int i = 0; i < mRedList2.size(); i++) {
-                        sb1.append(mRedList2.get(i) + "  ");
-                    }
 
-                    bet.setRedNums(sb1.toString());
-                    bet.setBlueNums("");
-                    bet.setType("直选投注");
-                    bet.setPrice(price + "");
-                    bet.setZhu(zs + "");
-                    bet.setRedList(mRedList1);
-                    bet.setRedList2(mRedList2);
-                    if (chooseList.size() != 0 && position != -1) {
-                        chooseList.set(position, bet);
+                        bet.setRedNums(sb1.toString());
+                        bet.setBlueNums("");
+                        bet.setType("直选投注");
+                        bet.setPrice(price + "");
+                        bet.setZhu(zs + "");
+                        bet.setRedList(mRedList1);
+                        bet.setRedList2(mRedList2);
+                        if (chooseList.size() != 0 && position != -1) {
+                            chooseList.set(position, bet);
+                        } else {
+                            chooseList.add(0, bet);
+                        }
+                        intent.putExtra("list", chooseList);
+                        intent.putExtra("currentNum", currentNum);
+                        intent.putExtra("tag", TAG);
+                        startActivity(intent);
+                        finish();
                     } else {
-                        chooseList.add(0, bet);
+                        showToast("请至少选择一注");
                     }
-                    intent.putExtra("list", chooseList);
-                    intent.putExtra("currentNum", currentNum);
-                    intent.putExtra("tag", TAG);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    showToast("请至少选择一注");
-                }
 
+                }
                 break;
         }
     }

@@ -385,6 +385,16 @@ public class OrderDetailResponse {
             }
         }
         public static class TicketinfoBean{
+            private String take_ticket_way;
+
+            public String getTake_ticket_way() {
+                return take_ticket_way;
+            }
+
+            public void setTake_ticket_way(String take_ticket_way) {
+                this.take_ticket_way = take_ticket_way;
+            }
+
             private String amount;
             private String append;
             private String content;
@@ -399,6 +409,16 @@ public class OrderDetailResponse {
             private String result;
             private String settlement_time;
             private String siteId;
+
+            public String getTicketId() {
+                return ticketId;
+            }
+
+            public void setTicketId(String ticketId) {
+                this.ticketId = ticketId;
+            }
+
+            private String ticketId;
             private String status;
             private String ticket_no;
             private String type_code;

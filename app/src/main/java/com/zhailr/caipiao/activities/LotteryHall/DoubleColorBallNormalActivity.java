@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
 import android.system.ErrnoException;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ import com.orhanobut.dialogplus.GridHolder;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
+import com.zhailr.caipiao.activities.mine.LoginActivity;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
@@ -95,7 +98,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     ArrayList<BetBean> chooseList = new ArrayList<BetBean>();
     private int position = -1;
     private static final int START = 0;
-
+    private String USERID;
     private String currentNum;
     private ShakeListener mShakeListener;
     Handler handler = new Handler(){
@@ -461,15 +464,29 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                             .setOnItemClickListener(new OnItemClickListener() {
                                 @Override
                                 public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                                    USERID = TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID)) ? "" :PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID);
                                     switch (position) {
                                         case 0:
-                                            autoChooseOne(1);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(1);
+                                            }
+
                                             break;
                                         case 1:
-                                            autoChooseOne(5);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(5);
+                                            }
                                             break;
                                         case 2:
-                                            autoChooseOne(10);
+                                            if (USERID.equals("")){
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }else {
+                                                autoChooseOne(10);
+                                            }
                                             break;
                                     }
                                     dialog.dismiss();
@@ -485,49 +502,54 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                 }
                 break;
             case R.id.ok:
-                if (StringUtils.isEmpty(tvPrice.getText())) {
-                    showToast("请至少选择6个红球，1个蓝球");
-                } else if (price.compareTo(new BigInteger("200000")) == 1) {
-                    showToast("金额上限不能超过20万");
-                } else {
-                    Intent intent = new Intent(this, DoubleNoramlBetActivity.class);
-                    BetBean bet = new BetBean();
-                    StringBuilder sb1 = new StringBuilder();
-                    StringBuilder sb2 = new StringBuilder();
-                    // 对号码进行排序
-                    Collections.sort(mRedList, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
-                        }
-                    });
-                    Collections.sort(mBlueList, new Comparator<String>() {
-                        public int compare(String arg0, String arg1) {
-                            return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
-                        }
-                    });
-                    for (int i = 0; i < mRedList.size(); i++) {
-                        sb1.append(mRedList.get(i) + "  ");
-                    }
-                    for (int i = 0; i < mBlueList.size(); i++) {
-                        sb2.append(mBlueList.get(i) + "  ");
-                    }
-                    bet.setRedNums(sb1.toString());
-                    bet.setBlueNums(sb2.toString());
-                    bet.setType("普通投注");
-                    bet.setPrice(price + "");
-                    bet.setZhu(zs + "");
-                    bet.setBlueList(mBlueList);
-                    bet.setRedList(mRedList);
-                    if (chooseList.size() != 0 && position != -1) {
-                        chooseList.set(position, bet);
+                USERID = TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID)) ? "" :PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID);
+                if (USERID.equals("")){
+                    startActivity(new Intent(mContext,LoginActivity.class));
+                }else {
+                    if (StringUtils.isEmpty(tvPrice.getText())) {
+                        showToast("请至少选择6个红球，1个蓝球");
+                    } else if (price.compareTo(new BigInteger("200000")) == 1) {
+                        showToast("金额上限不能超过20万");
                     } else {
-                        chooseList.add(0, bet);
+                        Intent intent = new Intent(this, DoubleNoramlBetActivity.class);
+                        BetBean bet = new BetBean();
+                        StringBuilder sb1 = new StringBuilder();
+                        StringBuilder sb2 = new StringBuilder();
+                        // 对号码进行排序
+                        Collections.sort(mRedList, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        Collections.sort(mBlueList, new Comparator<String>() {
+                            public int compare(String arg0, String arg1) {
+                                return Integer.valueOf(arg0).compareTo(Integer.valueOf(arg1));
+                            }
+                        });
+                        for (int i = 0; i < mRedList.size(); i++) {
+                            sb1.append(mRedList.get(i) + "  ");
+                        }
+                        for (int i = 0; i < mBlueList.size(); i++) {
+                            sb2.append(mBlueList.get(i) + "  ");
+                        }
+                        bet.setRedNums(sb1.toString());
+                        bet.setBlueNums(sb2.toString());
+                        bet.setType("普通投注");
+                        bet.setPrice(price + "");
+                        bet.setZhu(zs + "");
+                        bet.setBlueList(mBlueList);
+                        bet.setRedList(mRedList);
+                        if (chooseList.size() != 0 && position != -1) {
+                            chooseList.set(position, bet);
+                        } else {
+                            chooseList.add(0, bet);
+                        }
+                        intent.putExtra("list", chooseList);
+                        intent.putExtra("TAG",TAG);
+                        intent.putExtra("currentNum", currentNum);
+                        startActivity(intent);
+                        finish();
                     }
-                    intent.putExtra("list", chooseList);
-                    intent.putExtra("TAG",TAG);
-                    intent.putExtra("currentNum", currentNum);
-                    startActivity(intent);
-                    finish();
                 }
                 break;
         }

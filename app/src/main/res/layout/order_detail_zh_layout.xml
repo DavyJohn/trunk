@@ -207,6 +207,31 @@
                     android:text="1块"
                     android:id="@+id/bonus"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:id="@+id/silt_linear">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:gravity="center_vertical"
+                    android:text="站点详情"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/silt_data"/>
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow_right_gray"
+                    android:layout_gravity="center_vertical"/>
+            </LinearLayout>
+
             //我的追号
             <LinearLayout
                 android:layout_width="match_parent"

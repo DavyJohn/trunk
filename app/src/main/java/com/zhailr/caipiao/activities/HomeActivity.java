@@ -48,7 +48,6 @@ public class HomeActivity extends BaseActivity {
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
         init();
-//        appupdater.start();
     }
 
     private void init() {

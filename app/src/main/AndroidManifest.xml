@@ -29,6 +29,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
+
     <!--摇一摇功能权限-->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- if you want to load images from the internet -->

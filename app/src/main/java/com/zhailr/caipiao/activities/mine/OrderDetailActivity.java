@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -326,9 +327,8 @@ public class OrderDetailActivity extends BaseActivity {
                             mRecyclerview.setAdapter(mAdapter);
                             mAdapter.setOnClickItemListener(new MycaipiaoAdapter.OnClickItemListener() {
                                 @Override
-                                public void OnClickItem(int postion, LinearLayout layout) {
-                                    Toast.makeText(mContext,"item",Toast.LENGTH_SHORT).show();
-                                    showConfirmDialog(mData.get(postion).getTake_ticket_way(),mData.get(postion).getTicketId(),mContext);
+                                public void OnClickItem(int postion, TextView mChange,LinearLayout mLayout) {
+                                    showConfirmDialog(mData.get(postion).getTake_ticket_way(),mData.get(postion).getTicketId(),mContext,mLayout,mChange);
 
                                 }
                             });
@@ -401,7 +401,7 @@ public class OrderDetailActivity extends BaseActivity {
         }
     }
 
-    protected void showConfirmDialog(final String Id , final String ticketid,Context context) {
+    protected void showConfirmDialog(final String Id , final String ticketid, Context context, final LinearLayout layout, final TextView text) {
         dialog = new AlertDialog.Builder(context)
                 .setMessage("是否将取票方式更改为:线下取票？").setTitle("提示")
                 .setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -420,7 +420,9 @@ public class OrderDetailActivity extends BaseActivity {
                             @Override
                             public void onSuccess(Response response, BaseResponse res) {
                                 if (res.getCode().equals("200")) {
-                                    System.out.print("success");
+                                    //layout.setClickable(false);
+                                    //
+                                    // text.setBackground(ContextCompat.getDrawable(mContext,R.color.dark_gray));
                                 }
                             }
 

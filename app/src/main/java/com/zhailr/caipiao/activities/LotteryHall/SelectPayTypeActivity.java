@@ -62,11 +62,13 @@ public class SelectPayTypeActivity extends BaseActivity {
     @OnClick(R.id.ac_select_pay_zhandian) void setZd(){
         startActivity(new Intent(this, SiteListActivity.class));
     }
+    @Bind(R.id.keyboard_view)
+    KeyboardView mKeyboardView;
     private List<PayType> datalist = new ArrayList<PayType>();
     private PayTypeListAdapter adapter;
     private String price;
     private String orderId;
-    private KeyboardView mKeyboardView;
+//    private KeyboardView mKeyboardView;
     private MySecKeyboardView mMySecKeykeardView;
     private String payType;
     private String type;
@@ -83,7 +85,7 @@ public class SelectPayTypeActivity extends BaseActivity {
     }
 
     private void initUI() {
-        mKeyboardView = (KeyboardView) findViewById(R.id.keyboard_view);
+//        mKeyboardView = (KeyboardView) findViewById(R.id.keyboard_view);
         price = getIntent().getStringExtra("totalallprice");
         String tvPrice = StringUtils.Double2String(Double.parseDouble(price));
         tvPayTotal.setText("￥" + tvPrice);
@@ -181,8 +183,10 @@ public class SelectPayTypeActivity extends BaseActivity {
             if (!TextUtils.isEmpty(isPay) && isPay.equals("1")) {
                 // 如果开启，则验证密码，显示输入框，强制弹出键盘
                 editPayPwd.setVisibility(View.VISIBLE);
+                mKeyboardView.setVisibility(View.VISIBLE);
                 editPayPwd.requestFocus();
                 mMySecKeykeardView = new MySecKeyboardView(this, editPayPwd, mKeyboardView);
+                mMySecKeykeardView.showKeyboard();
                 mMySecKeykeardView.setOnFinishClickListener(new MySecKeyboardView.OnFinishedClickListener() {
                     @Override
                     public void onItemClick() {
@@ -190,7 +194,6 @@ public class SelectPayTypeActivity extends BaseActivity {
                         vailUserAccountPWD();
                     }
                 });
-                mMySecKeykeardView.showKeyboard();
 
             } else {
                 showToast("请先设置支付密码");

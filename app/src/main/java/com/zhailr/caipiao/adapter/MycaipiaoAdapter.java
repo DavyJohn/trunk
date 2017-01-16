@@ -1,6 +1,7 @@
 package com.zhailr.caipiao.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ItemViewHolder)holder).mLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickItemListener.OnClickItem(position,((ItemViewHolder) holder).mLayout);
+                    onClickItemListener.OnClickItem(position,((ItemViewHolder) holder).mChange,((ItemViewHolder) holder).mLayout);
         }
     });
         }
@@ -79,6 +80,9 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     break;
                 case 2:
                     ((ItemViewHolder)holder).mTicketWay.setText("线下取票");
+                    ((ItemViewHolder) holder).mLayout.setEnabled(false);
+                    ((ItemViewHolder) holder).mChange.setBackground(ContextCompat.getDrawable(mContext,R.color.dark_gray));
+
                     break;
                 case 3:
                     ((ItemViewHolder)holder).mTicketWay.setText("线下已取票");
@@ -142,8 +146,10 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         public TextView mMultiple;//倍数
         public TextView mTicketWay;
         public LinearLayout mLayout;
+        public TextView mChange;
         public ItemViewHolder(View v) {
             super(v);
+            mChange = (TextView) v.findViewById(R.id.my_caipiao_change);
             mLayout = (LinearLayout) v.findViewById(R.id.caipiao_ticket_way);
             mTicketWay = (TextView) v.findViewById(R.id.lottery_ticket_way);
             mNode = (TextView) v.findViewById(R.id.node);
@@ -160,7 +166,7 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public interface OnClickItemListener{
-        void OnClickItem(int postion,LinearLayout layout);
+        void OnClickItem(int postion,TextView text,LinearLayout layout);
     }
     public OnClickItemListener onClickItemListener;
 

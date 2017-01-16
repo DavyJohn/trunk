@@ -214,6 +214,7 @@
             android:layout_width="35dp"
             android:layout_height="20dp"
             android:text="更改"
+            android:id="@+id/my_caipiao_change"
             android:textSize="14sp"
             android:gravity="center"
             android:layout_gravity="center_vertical"

@@ -168,6 +168,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
 
     private void getUserData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        String user = PreferencesUtils.getString(mContext, Constant.USER.USERID);
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSETTINGINFO, map, TAG, new SpotsCallBack<UserInfoResponse>(mContext, false) {
 

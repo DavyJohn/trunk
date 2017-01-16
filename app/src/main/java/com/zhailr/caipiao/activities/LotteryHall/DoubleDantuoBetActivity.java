@@ -27,6 +27,7 @@ import com.zhailr.caipiao.model.callBack.BetRecordCallBack;
 import com.zhailr.caipiao.model.callBack.ZhuihaoBetRecordCallBack;
 import com.zhailr.caipiao.model.response.BetRecordResponse;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
+import com.zhailr.caipiao.model.response.UserInfoResponse;
 import com.zhailr.caipiao.model.response.ZhuihaoResponse;
 import com.zhailr.caipiao.model.response.ZhuihaodetailDataResponse;
 import com.zhailr.caipiao.utils.Constant;
@@ -465,11 +466,30 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
     @Override
     protected void onStart() {
         super.onStart();
-        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
-        if (name.isEmpty()){
-            mTextZhangDianName.setText("请选择当前站点");
-        }else {
-            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
-        }
+        //获取站点 判断UserID
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("userId", TextUtils.isEmpty(PreferencesUtils.getString(mContext, Constant.USER.USERID))? "" : PreferencesUtils.getString(mContext, Constant.USER.USERID) );
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSETTINGINFO, map, TAG, new SpotsCallBack<UserInfoResponse>(mContext, false) {
+
+            @Override
+            public void onSuccess(Response response, UserInfoResponse res) {
+                if (res.getCode().equals("200")) {
+                    mTextZhangDianName.setText("当前站点为："+res.getSiteName());
+                    PreferencesUtils.putString(getApplicationContext(),Constant.USER.SITEID,res.getSiteId());
+                }else{
+                    finish();
+                    startActivity(new Intent(mContext, LoginActivity.class));
+
+                }
+            }
+
+            @Override
+            public void onError(Response response, int code, Exception e) {
+                Log.i(TAG, response.toString());
+
+
+            }
+
+        });
     }
 }

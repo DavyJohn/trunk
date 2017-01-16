@@ -554,7 +554,6 @@ public class FC3DGroupActivity extends BaseActivity {
                                                 startActivity(new Intent(mContext,LoginActivity.class));
                                             }else {
                                                 autoChooseOne(1);
-
                                             }
                                             break;
                                         case 1:

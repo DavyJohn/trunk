@@ -599,17 +599,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
                 }
 
             });
-
-
-
-
-        //对于新用户没有问题 对于更改账户用户有问题
-//        String name = PreferencesUtils.getString(getApplicationContext(),Constant.SiteName);
-//        if (name.isEmpty()){
-//            mTextZhangDianName.setText("请选择当前站点");
-//        }else {
-//            mTextZhangDianName.setText("当前站点为："+PreferencesUtils.getString(mContext,Constant.SiteName));
-//        }
     }
 
     @Override

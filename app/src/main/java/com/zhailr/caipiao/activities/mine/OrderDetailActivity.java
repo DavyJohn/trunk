@@ -415,11 +415,12 @@ public class OrderDetailActivity extends BaseActivity {
                         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
                         map.put("take_ticket_way", Id);
                         map.put("ticketId", ticketid);
+                        String user = PreferencesUtils.getString(mContext, Constant.USER.USERID);
                         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.QUPIAOFANGSHI, map, TAG, new SpotsCallBack<BaseResponse>(mContext, false) {
                             @Override
                             public void onSuccess(Response response, BaseResponse res) {
                                 if (res.getCode().equals("200")) {
-
+                                    System.out.print("success");
                                 }
                             }
 

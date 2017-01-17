@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amap.api.maps.model.Text;
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
 import com.avast.android.dialogs.iface.ISimpleDialogListener;
@@ -61,6 +63,8 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
     EditText times;
     @Bind(R.id.tv_price)
     TextView tvPrice;
+    @Bind(R.id.ok)
+    TextView mTextOk;
     @Bind(R.id.tv_zhu)
     TextView tvZhu;
     @Bind(R.id.ac_double_bet_display_zhandian_name)
@@ -186,6 +190,11 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
 
             @Override
             public void afterTextChanged(Editable s) {
+                String str = issue.getText().toString();
+                if (StringUtils.isNotEmpty(str) && Integer.valueOf(str) > MAX_NUM) {
+                    issue.setText(String.valueOf(MAX_NUM));
+                    issue.setSelection(2);
+                }
                 changePriceAndZhu();
             }
         });
@@ -235,8 +244,15 @@ public class FC3DNormalBetActivity extends BaseActivity implements ISimpleDialog
         String timesString = times.getText().toString().equals("") ? "1" : times.getText().toString();
         price = (price.multiply(new BigInteger(issueString))).multiply(new BigInteger(timesString));
         if (price.compareTo(new BigInteger("0")) != 0) {
-            tvPrice.setText("共 " + price + " 元");
-            tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                mTextOk.setEnabled(false);
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_LONG).show();
+            }else {
+                mTextOk.setEnabled(true);
+                tvPrice.setText("共 " + price + " 元");
+                tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            }
+
         } else {
             tvPrice.setText("");
             tvZhu.setText("");

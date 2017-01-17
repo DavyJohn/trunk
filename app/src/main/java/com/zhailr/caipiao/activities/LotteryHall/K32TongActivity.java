@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
@@ -358,9 +359,16 @@ public class K32TongActivity extends BaseActivity {
         int w = mRedList3.size();
         zs = n * m + w;
         if (zs != 0) {
-            price = zs * 2;
-            tvZhu.setText("共 " + zs + " 注");
-            tvPrice.setText(" " + price + " 元");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                ok.setEnabled(false);
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_LONG).show();
+            }else {
+                ok.setEnabled(true);
+                price = zs * 2;
+                tvZhu.setText("共 " + zs + " 注");
+                tvPrice.setText(" " + price + " 元");
+            }
+
         } else {
             tvZhu.setText("");
             tvPrice.setText("");

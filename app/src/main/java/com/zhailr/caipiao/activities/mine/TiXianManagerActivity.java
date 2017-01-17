@@ -3,6 +3,7 @@ package com.zhailr.caipiao.activities.mine;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.base.BaseActivity;
@@ -39,7 +40,7 @@ public class TiXianManagerActivity extends BaseActivity {
                 startActivity(new Intent(mContext, TiXianActivity.class));
                 break;
             case R.id.search_choose:
-                startActivity(new Intent(mContext, TiXianHistoryListActivity.class));
+                startActivity(new Intent(mContext,TiXianHistoryListActivity.class));
                 break;
         }
     }

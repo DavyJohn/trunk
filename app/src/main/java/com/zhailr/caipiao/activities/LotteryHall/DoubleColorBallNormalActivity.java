@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
@@ -80,7 +81,8 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
     TextView tvTime;
     @Bind(R.id.ac_double_floating_action_button)
     FloatingActionButton mFloatButton;
-
+    @Bind(R.id.ok)
+    TextView mTextOk;
     private HighLight mHightLight;
 
     private ArrayList<String> mRedList = new ArrayList<String>();
@@ -445,8 +447,17 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
         zs = ((((((m.multiply(n)).multiply(n.subtract(new BigInteger("1")))).multiply(n.subtract(new BigInteger("2")))).multiply(n.subtract(new BigInteger("3")))).multiply(n.subtract(new BigInteger("4")))).multiply(n.subtract(new BigInteger("5")))).divide(new BigInteger("720"));
         if (zs.compareTo(new BigInteger("0")) != 0) {
             price = zs.multiply(new BigInteger("2"));
-            tvZhu.setText("共 " + zs + " 注");
-            tvPrice.setText(" " + price + " 元");
+            System.out.print(price);
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_SHORT).show();
+                // TODO: 2017/1/17
+                mTextOk.setEnabled(false);
+            }else {
+                mTextOk.setEnabled(true);
+                tvZhu.setText("共 " + zs + " 注");
+                tvPrice.setText(" " + price + " 元");
+            }
+
         } else {
             tvZhu.setText("");
             tvPrice.setText("");

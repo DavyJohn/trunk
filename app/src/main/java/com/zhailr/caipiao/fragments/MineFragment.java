@@ -286,7 +286,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                 break;
             case R.id.layout_accout:
 //                startActivity(new Intent(mContext, AccountActivity.class));
-
                 startActivity(new Intent(mContext, NewAccountActivity.class));
 
                 break;

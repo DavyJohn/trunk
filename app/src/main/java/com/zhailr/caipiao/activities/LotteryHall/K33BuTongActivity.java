@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
@@ -292,7 +293,7 @@ public class K33BuTongActivity extends BaseActivity {
     }
 
     private void changeChooseBtn() {
-        if (mRedList1.size() != 0 || layoutTongXuan.getTag() == null) {
+        if (mRedList1.size() != 0 || layoutTongXuan.getTag() == "0") {
             tvAutoChoose.setText("清空");
             tvAutoChoose.setTextColor(getResources().getColor(R.color.white));
         } else {
@@ -303,7 +304,7 @@ public class K33BuTongActivity extends BaseActivity {
 
     // 显示共多少注，共多少钱
     private void changeZhusuAccount() {
-     //   if (mRedList1.size() != 0) {
+//        if (mRedList1.size() != 0) {
         if (mRedList1.size() > 3) {
             int m = mRedList1.size();
             // zs = m!/3!*(m-3)!三不同选的算法
@@ -316,25 +317,32 @@ public class K33BuTongActivity extends BaseActivity {
                 b = b * i;
             }
             zs = a / (b * 6);
-            if (layoutTongXuan.getTag() == null) {
+            if (layoutTongXuan.getTag() == "0") {
                 zs = zs + 1;
             }
         }else if(mRedList1.size() == 3){
             zs = 1;
-            if (layoutTongXuan.getTag() == null) {
+            if (layoutTongXuan.getTag() == "0") {
                 zs = zs + 1;
             }
         }else{
-            if (layoutTongXuan.getTag() == null) {
+            if (layoutTongXuan.getTag() == "0") {
                 zs = 1;
             } else {
                 zs = 0;
             }
         }
         if (zs != 0) {
-            price = zs * 2;
-            tvZhu.setText("共 " + zs + " 注");
-            tvPrice.setText(" " + price + " 元");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                ok.setEnabled(false);
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_LONG).show();
+            }else {
+                ok.setEnabled(true);
+                price = zs * 2;
+                tvZhu.setText("共 " + zs + " 注");
+                tvPrice.setText(" " + price + " 元");
+            }
+
         } else {
             tvZhu.setText("");
             tvPrice.setText("");
@@ -435,7 +443,8 @@ public class K33BuTongActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_tong_xuan:
-                if (layoutTongXuan.getTag() != null) {
+                // TODO: 2017/1/17 无用
+                if (layoutTongXuan.getTag() != "0") {
                     layoutTongXuan.setTag("0");
                     layoutTongXuan.setBackground(getResources().getDrawable(R.drawable.graybutton_press));
                     TextView tv = (TextView) layoutTongXuan.getChildAt(0);
@@ -522,7 +531,7 @@ public class K33BuTongActivity extends BaseActivity {
                                         bet = changeDanXuan(bet);
                                         chooseList.set(position, bet);
                                     }
-                                    if (layoutTongXuan.getTag() == null) {
+                                    if (layoutTongXuan.getTag() == "0") {
                                         bet = changeTongXuan(bet);
                                         chooseList.add(0, bet);
                                     }
@@ -531,7 +540,7 @@ public class K33BuTongActivity extends BaseActivity {
                             }
                             // 新增的
                             else {
-                                if (layoutTongXuan.getTag() == null) {
+                                if (layoutTongXuan.getTag() == "0") {
                                     bet = changeTongXuan(bet);
                                     chooseList.add(0, bet);
                                 }
@@ -575,7 +584,7 @@ public class K33BuTongActivity extends BaseActivity {
         bet.setRedNums(sb1.toString());
         bet.setBlueNums("");
         bet.setType("三不同号");
-        if (layoutTongXuan.getTag() == null) {
+        if (layoutTongXuan.getTag() == "0") {
             zs = zs - 1;
             price = zs * 2;
             bet.setPrice(price + "");

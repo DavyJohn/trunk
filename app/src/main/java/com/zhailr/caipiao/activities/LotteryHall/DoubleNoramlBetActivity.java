@@ -70,6 +70,8 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
     TextView tvPrice;
     @Bind(R.id.tv_zhu)
     TextView tvZhu;
+    @Bind(R.id.ok)
+    TextView mTextOk;
     @Bind(R.id.ac_double_bet_display_zhandian_name)
     TextView mTextZhangDianName;
     @OnClick(R.id.ac_double_bet_display_zhandian_name) void name(){
@@ -169,6 +171,11 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
 
             @Override
             public void afterTextChanged(Editable s) {
+                String str = issue.getText().toString();
+                if (StringUtils.isNotEmpty(str) && Integer.valueOf(str) > MAX_NUM) {
+                    issue.setText(String.valueOf(MAX_NUM));
+                    issue.setSelection(2);
+                }
                 changePriceAndZhu();
             }
         });
@@ -218,8 +225,16 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         String timesString = times.getText().toString().equals("") ? "1" : times.getText().toString();
         price = (price.multiply(new BigInteger(issueString))).multiply(new BigInteger(timesString));
         if (price.compareTo(new BigInteger("0")) != 0) {
-            tvPrice.setText("共 " + price + " 元");
-            tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_SHORT).show();
+                // TODO: 2017/1/17
+                mTextOk.setEnabled(false);
+            }else {
+                mTextOk.setEnabled(true);
+                tvPrice.setText("共 " + price + " 元");
+                tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            }
+
         } else {
             tvPrice.setText("");
             tvZhu.setText("");

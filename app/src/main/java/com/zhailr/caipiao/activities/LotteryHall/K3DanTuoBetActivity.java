@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
@@ -44,7 +45,8 @@ import okhttp3.Call;
 import okhttp3.Response;
 
 /**
- * Created by zhailiangrong on 16/7/13.
+ * Created by zhailiangrong on 16/7/13.gong'nen
+ * m没有此功能咱不开发
  */
 public class K3DanTuoBetActivity extends BaseActivity implements ISimpleDialogListener, ISimpleDialogCancelListener {
     private static final String TAG = "DoubleDantuoBetActivity";
@@ -219,8 +221,15 @@ public class K3DanTuoBetActivity extends BaseActivity implements ISimpleDialogLi
         String timesString = times.getText().toString().equals("") ? "1" : times.getText().toString();
         price = (price.multiply(new BigInteger(issueString))).multiply(new BigInteger(timesString));
         if (price.compareTo(new BigInteger("0")) != 0) {
-            tvPrice.setText("共 " + price + " 元");
-            tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                ok.setEnabled(false);
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_LONG).show();
+            }else {
+                ok.setEnabled(true);
+                tvPrice.setText("共 " + price + " 元");
+                tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            }
+
         } else {
             tvPrice.setText("");
             tvZhu.setText("");

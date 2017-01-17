@@ -163,6 +163,11 @@ public class DoubleDantuoBetActivity extends BaseActivity implements ISimpleDial
 
             @Override
             public void afterTextChanged(Editable s) {
+                String str = issue.getText().toString();
+                if (StringUtils.isNotEmpty(str) && Integer.valueOf(str) > MAX_NUM) {
+                    issue.setText(String.valueOf(MAX_NUM));
+                    issue.setSelection(2);
+                }
                 changePriceAndZhu();
             }
         });

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avast.android.dialogs.fragment.SimpleDialogFragment;
 import com.avast.android.dialogs.iface.ISimpleDialogCancelListener;
@@ -83,7 +84,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     private long currentSec;
     // 倒计时
     private TimeCount time;
-    private int MAX_NUM = 50;
+    private int MAX_NUM = 100;
     private List<ZhuihaodetailDataResponse> info = new ArrayList<>();
     private String mul ;
     private String issue_num;
@@ -198,7 +199,12 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
 
             @Override
             public void afterTextChanged(Editable s) {
-                changePriceAndZhu();
+
+                String str = issue.getText().toString();
+                if (StringUtils.isNotEmpty(str) && Integer.valueOf(str) > MAX_NUM) {
+                    issue.setText(String.valueOf(MAX_NUM));
+                    issue.setSelection(2);
+                }changePriceAndZhu();
             }
         });
         times.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -224,8 +230,8 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
             @Override
             public void afterTextChanged(Editable s) {
                 String str = times.getText().toString();
-                if (StringUtils.isNotEmpty(str) && Integer.valueOf(str) > MAX_NUM) {
-                    times.setText(String.valueOf(MAX_NUM));
+                if (StringUtils.isNotEmpty(str) && Integer.valueOf(str) > 50) {
+                    times.setText(String.valueOf(50));
                     times.setSelection(2);
                 }
                 changePriceAndZhu();
@@ -246,8 +252,15 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
         String timesString = times.getText().toString().equals("") ? "1" : times.getText().toString();
         price = (price.multiply(new BigInteger(issueString))).multiply(new BigInteger(timesString));
         if (price.compareTo(new BigInteger("0")) != 0) {
-            tvPrice.setText("共 " + price + " 元");
-            tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                ok.setEnabled(false);
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_LONG).show();
+            }else {
+                ok.setEnabled(true);
+                tvPrice.setText("共 " + price + " 元");
+                tvZhu.setText(zs + " 注 " + timesString + " 倍 " + issueString + " 期");
+            }
+
         } else {
             tvPrice.setText("");
             tvZhu.setText("");
@@ -877,7 +890,6 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
 
     @Override
     public void onCancelled(int requestCode) {
-
     }
 
     @Override
@@ -921,10 +933,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
             @Override
             public void onError(Response response, int code, Exception e) {
                 Log.i(TAG, response.toString());
-
-
             }
-
         });
     }
 }

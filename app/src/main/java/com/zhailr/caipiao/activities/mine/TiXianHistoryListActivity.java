@@ -5,6 +5,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
+import com.flyco.tablayout.SlidingTabLayout;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.adapter.TiXianAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
@@ -26,7 +27,8 @@ import butterknife.ButterKnife;
 import okhttp3.Response;
 
 /**
- * Created by zhailiangrong on 16/8/15.
+ * Created by zhailiangrong on 16/8/15.\
+ * 提现记录
  */
 public class TiXianHistoryListActivity extends BaseActivity implements PullToRefreshLayout.OnRefreshListener {
     private static final String TAG = "OrderListActivity";
@@ -34,6 +36,7 @@ public class TiXianHistoryListActivity extends BaseActivity implements PullToRef
     PullableRecyclerView recycleView;
     @Bind(R.id.refresh_view)
     TZCPPullRefresh refreshView;
+
     private LinearLayoutManager mLayoutManager;
     private TiXianAdapter mAdapter;
     private List<TiXianHistroyResponse.DataBean.SearchWithdrawRecordsBean> mData = new ArrayList<>();
@@ -110,6 +113,6 @@ public class TiXianHistoryListActivity extends BaseActivity implements PullToRef
 
     @Override
     public int getLayoutId() {
-        return R.layout.ac_order_list;
+        return R.layout.tixianlist_layout;
     }
 }

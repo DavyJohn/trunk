@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.GridHolder;
@@ -71,6 +72,8 @@ public class FC3DNoramlActivity extends BaseActivity {
     TextView tvZhu;
     @Bind(R.id.tv_price)
     TextView tvPrice;
+    @Bind(R.id.ok)
+    TextView mTextOk;
     @Bind(R.id.ac_fc3d_floating_action_button)
     FloatingActionButton mFloatButton;
     // 代码创建的layout
@@ -426,9 +429,16 @@ public class FC3DNoramlActivity extends BaseActivity {
 
         zs = m * n * w;
         if (zs != 0) {
-            price = zs * 2;
-            tvZhu.setText("共 " + zs + " 注");
-            tvPrice.setText(" " + price + " 元");
+            if (Integer.parseInt(String.valueOf(price))>9999){
+                mTextOk.setEnabled(false);
+                Toast.makeText(mContext,"超出金额",Toast.LENGTH_SHORT).show();
+            }else {
+                mTextOk.setEnabled(true);
+                price = zs * 2;
+                tvZhu.setText("共 " + zs + " 注");
+                tvPrice.setText(" " + price + " 元");
+            }
+
         } else {
             tvZhu.setText("");
             tvPrice.setText("");

@@ -335,7 +335,7 @@ public class K32BuTongDanActivity extends BaseActivity {
                 if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
                     startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    if (zs != 0) {
+                    if (zs != 0 && !TextUtils.isEmpty(String.valueOf(currentNum))) {
                         // 跳转
                         Intent intent = new Intent(this, K3DanTuoBetActivity.class);
                         BetBean bet = new BetBean();

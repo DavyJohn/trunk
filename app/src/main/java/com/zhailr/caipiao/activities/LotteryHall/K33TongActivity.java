@@ -424,11 +424,15 @@ public class K33TongActivity extends BaseActivity {
             bet.setRedList(redList1);
             chooseList.add(0, bet);
         }
-        Intent intent = new Intent(this, K3PlayBetActivity.class);
-        intent.putExtra("list", chooseList);
-        intent.putExtra("tag", TAG);
-        startActivity(intent);
-        finish();
+        if (!TextUtils.isEmpty(String.valueOf(currentNum))) {
+            Intent intent = new Intent(this, K3PlayBetActivity.class);
+            intent.putExtra("list", chooseList);
+            intent.putExtra("tag", TAG);
+            startActivity(intent);
+            finish();
+        }else {
+            Toast.makeText(mContext,"当前网络不稳定，请稍等一会！！！",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void initIntent() {
@@ -528,7 +532,7 @@ public class K33TongActivity extends BaseActivity {
                 if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
                     startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    if (zs != 0) {
+                    if (zs != 0 && !TextUtils.isEmpty(String.valueOf(currentNum))) {
                         Intent intent = new Intent(this, K3PlayBetActivity.class);
                         BetBean bet = new BetBean();
                         // 对号码进行排序

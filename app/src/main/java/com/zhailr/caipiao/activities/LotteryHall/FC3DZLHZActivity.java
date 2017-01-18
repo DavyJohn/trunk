@@ -473,12 +473,16 @@ public class FC3DZLHZActivity extends BaseActivity {
             bet.setRedList(redList1);
             chooseList.add(0, bet);
         }
-        Intent intent = new Intent(this, FC3DNormalBetActivity.class);
-        intent.putExtra("list", chooseList);
-        intent.putExtra("tag", TAG);
-        intent.putExtra("currentNum", currentNum);
-        startActivity(intent);
-        finish();
+        if (!TextUtils.isEmpty(currentNum)) {
+            Intent intent = new Intent(this, FC3DNormalBetActivity.class);
+            intent.putExtra("list", chooseList);
+            intent.putExtra("tag", TAG);
+            intent.putExtra("currentNum", currentNum);
+            startActivity(intent);
+            finish();
+        }else {
+            Toast.makeText(mContext,"当前网络不稳定，请稍等一会！！！",Toast.LENGTH_LONG).show();
+        }
     }
 
     @OnClick({R.id.tv_clear, R.id.ok})
@@ -531,7 +535,7 @@ public class FC3DZLHZActivity extends BaseActivity {
                 if (USERID.equals("")){
                     startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    if (zs != 0) {
+                    if (zs != 0 && !TextUtils.isEmpty(currentNum)) {
                         Intent intent = new Intent(this, FC3DNormalBetActivity.class);
 //                    BetBean bet = new BetBean();
 //                    StringBuilder sb1 = new StringBuilder();

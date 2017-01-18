@@ -109,7 +109,7 @@ public class OrderDetailActivity extends BaseActivity {
         startActivity(intent);
 
     }
-  //end
+  //end注释的基本都是上代的 方便后来的恢复
 //    @Bind(R.id.icon)
 //    ImageView icon;
 //    @Bind(R.id.tv_icon)
@@ -268,10 +268,11 @@ public class OrderDetailActivity extends BaseActivity {
                             break;
                         default:
                             mTextStation.setText("已开奖");
-                            if (Integer.parseInt(bean.getWin_amount()) > 0 && bean.getWin_amount() != null ){
-                                mTextQingkuang.setText("恭喜中奖");
-                            }else {
+                            if (bean.getWin_amount().equals("")|| Integer.parseInt(bean.getWin_amount()) == 0){
                                 mTextQingkuang.setText("未中奖");
+                            }else {
+                                mTextQingkuang.setText("恭喜中奖");
+
                             }
                             break;
                     }
@@ -409,13 +410,13 @@ public class OrderDetailActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         LinkedHashMap<String, String> map = new LinkedHashMap<>();
+                        String user = PreferencesUtils.getString(mContext, Constant.USER.USERID);
                         Log.e("userId",PreferencesUtils.getString(mContext, Constant.USER.USERID));
                         Log.e("take_ticket_way",Id);
                         Log.e("ticketId",PreferencesUtils.getString(mContext, Constant.USER.SITEID));
                         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
-                        map.put("take_ticket_way", Id);
+                        map.put("take_ticket_way", "2");
                         map.put("ticketId", ticketid);
-                        String user = PreferencesUtils.getString(mContext, Constant.USER.USERID);
                         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.QUPIAOFANGSHI, map, TAG, new SpotsCallBack<BaseResponse>(mContext, false) {
                             @Override
                             public void onSuccess(Response response, BaseResponse res) {
@@ -470,6 +471,5 @@ public class OrderDetailActivity extends BaseActivity {
 
             }
         });
-
     }
 }

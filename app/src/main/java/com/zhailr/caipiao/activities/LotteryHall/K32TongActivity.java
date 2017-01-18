@@ -469,11 +469,15 @@ public class K32TongActivity extends BaseActivity {
             bet.setPrice("2");
             chooseList.add(0, bet);
         }
-        Intent intent = new Intent(this, K3PlayBetActivity.class);
-        intent.putExtra("list", chooseList);
-        intent.putExtra("tag", TAG);
-        startActivity(intent);
-        finish();
+        if (!TextUtils.isEmpty(String.valueOf(currentNum))) {
+            Intent intent = new Intent(this, K3PlayBetActivity.class);
+            intent.putExtra("list", chooseList);
+            intent.putExtra("tag", TAG);
+            startActivity(intent);
+            finish();
+        }else {
+            Toast.makeText(mContext,"当前网络不稳定，请稍等一会！！！",Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -570,7 +574,7 @@ public class K32TongActivity extends BaseActivity {
                 if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
                     startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    if (zs != 0) {
+                    if (zs != 0 && !TextUtils.isEmpty(String.valueOf(currentNum))) {
 //                    if (mRedList1.size() * mRedList2.size() == 0) {
 //                        if (mRedList1.size() == 0 && mRedList2.size() != 0 || mRedList2.size() == 0 && mRedList1.size() != 0) {
 //                            showToast("请至少选择1注");

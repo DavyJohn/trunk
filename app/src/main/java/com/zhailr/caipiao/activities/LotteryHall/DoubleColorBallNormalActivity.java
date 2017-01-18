@@ -521,7 +521,7 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                         showToast("请至少选择6个红球，1个蓝球");
                     } else if (price.compareTo(new BigInteger("200000")) == 1) {
                         showToast("金额上限不能超过20万");
-                    } else {
+                    } else if(!TextUtils.isEmpty(currentNum)){
                         Intent intent = new Intent(this, DoubleNoramlBetActivity.class);
                         BetBean bet = new BetBean();
                         StringBuilder sb1 = new StringBuilder();
@@ -560,6 +560,8 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                         intent.putExtra("currentNum", currentNum);
                         startActivity(intent);
                         finish();
+                    }else if (TextUtils.isEmpty(currentNum)){
+                        Toast.makeText(mContext,"当前网络不稳定，请稍等一会！！！",Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -673,12 +675,17 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
             bet.setRedList(redList);
             chooseList.add(0, bet);
         }
-        Intent intent = new Intent(this, DoubleNoramlBetActivity.class);
-        intent.putExtra("list", chooseList);
-        intent.putExtra("currentNum", currentNum);
-        intent.putExtra("TAG",TAG);
-        startActivity(intent);
-        finish();
+        if (!TextUtils.isEmpty(currentNum)){
+            Intent intent = new Intent(this, DoubleNoramlBetActivity.class);
+            intent.putExtra("list", chooseList);
+            intent.putExtra("currentNum", currentNum);
+            intent.putExtra("TAG",TAG);
+            startActivity(intent);
+            finish();
+        }else {
+            Toast.makeText(mContext,"当前网络不稳定，请稍等一会！！！",Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override

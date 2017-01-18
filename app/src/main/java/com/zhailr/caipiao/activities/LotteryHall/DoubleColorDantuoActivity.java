@@ -490,7 +490,7 @@ public class DoubleColorDantuoActivity extends BaseActivity {
                         showToast("金额上限不能超过20万");
                     } else if (mRedClickList1.size() == 0){
                         showToast("请至少选择一个胆码");
-                    }else {
+                    }else if (!TextUtils.isEmpty(currentNum)){
                         Intent intent = new Intent(this, DoubleDantuoBetActivity.class);
                         BetBean bet = new BetBean();
                         StringBuilder sb1 = new StringBuilder();

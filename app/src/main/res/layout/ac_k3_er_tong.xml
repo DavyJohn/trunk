@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,98 +30,121 @@
             android:padding="@dimen/x10"/>
     </RelativeLayout>
 
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ac_k3_er_bu_tong_tip"
-        android:scrollbars="none">
-
-        <LinearLayout
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_below="@+id/ac_k3_er_bu_tong_tip"
+            android:scrollbars="none"
+            >
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/x8"
-                    android:text="单选："
-                    android:textSize="@dimen/x15" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="选择同号和不同号的组合，奖金80元"
-                    android:textSize="@dimen/x13" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="同号"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/x16" />
-
-            <LinearLayout
-                android:id="@+id/layout_tong_hao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x8"
-                android:text="不同号"
-                android:gravity="center_horizontal"
-                android:textSize="@dimen/x16" />
-
-            <LinearLayout
-                android:id="@+id/layout_bu_tong_hao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/x10"
-                android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/x8"
+                        android:text="单选："
+                        android:textSize="@dimen/x15" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="选择同号和不同号的组合，奖金80元"
+                        android:textSize="@dimen/x13" />
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/x8"
-                    android:text="复选："
-                    android:textSize="@dimen/x15" />
+                    android:text="同号"
+                    android:gravity="center_horizontal"
+                    android:textSize="@dimen/x16" />
+
+                <LinearLayout
+                    android:id="@+id/layout_tong_hao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="猜开奖中两个指定的相同号码，奖金15元"
-                    android:textSize="@dimen/x13" />
+                    android:layout_marginTop="@dimen/x8"
+                    android:text="不同号"
+                    android:gravity="center_horizontal"
+                    android:textSize="@dimen/x16" />
 
+                <LinearLayout
+                    android:id="@+id/layout_bu_tong_hao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/x8"
+                        android:text="复选："
+                        android:textSize="@dimen/x15" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="猜开奖中两个指定的相同号码，奖金15元"
+                        android:textSize="@dimen/x13" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_fu_xuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/layout_fu_xuan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+             
 
-            </LinearLayout>
-        </LinearLayout>
-         
+        </ScrollView>
 
-    </ScrollView>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:id="@+id/ac_k3_er_floating_action_button"
+            android:src="@drawable/shake_icon"
+            android:layout_marginBottom="15dp"
+            app:borderWidth="0dp"
+            app:fabSize="normal"
+            android:backgroundTint="#ffffff"
+            app:rippleColor="@android:color/holo_red_light"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="24dp"
+            android:layout_marginEnd="24dp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -182,21 +205,4 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:id="@+id/ac_k3_er_floating_action_button"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/shake_icon"
-        android:layout_marginBottom="10dp"
-        app:borderWidth="0dp"
-        app:fabSize="normal"
-        android:backgroundTint="#ffffff"
-        app:rippleColor="@android:color/holo_red_light"
-        android:layout_above="@+id/relativeLayout6"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-</RelativeLayout>
+</LinearLayout>

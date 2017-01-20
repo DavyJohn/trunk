@@ -92,7 +92,7 @@ public class K33BuTongActivity extends BaseActivity {
     private boolean hasTongXuan;
     // 倒计时
     private TimeCount time;
-    private long currentNum;
+    private String currentNum;
     private boolean flag;
     private long currentSec;
     private ShakeListener mShakeListener;
@@ -403,7 +403,7 @@ public class K33BuTongActivity extends BaseActivity {
             bet.setRedList(redList1);
             chooseList.add(0, bet);
         }
-        if (!TextUtils.isEmpty(String.valueOf(currentNum))){
+        if (!TextUtils.isEmpty(currentNum)){
         Intent intent = new Intent(this, K3PlayBetActivity.class);
         intent.putExtra("list", chooseList);
         intent.putExtra("tag", TAG);
@@ -516,7 +516,7 @@ public class K33BuTongActivity extends BaseActivity {
                         ok.setClickable(false);
                         showToast("三不同选请至少下一注或者不下注");
                     } else {
-                        if (zs != 0 && !TextUtils.isEmpty(String.valueOf(currentNum))) {
+                        if (zs != 0 && !TextUtils.isEmpty(currentNum)) {
                             // 跳转
                             Intent intent = new Intent(this, K3PlayBetActivity.class);
                             BetBean bet = new BetBean();
@@ -625,7 +625,8 @@ public class K33BuTongActivity extends BaseActivity {
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
-                    currentNum = Long.valueOf(res.getData().getIssue_num());
+                    currentNum = res.getData().getIssue_num();
+//                    currentNum = Long.valueOf(response.getData().getIssue_num());
                 } else {
                     showToast(res.getMessage());
                 }
@@ -719,7 +720,7 @@ public class K33BuTongActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {//计时过程显示
             currentSec = millisUntilFinished;
-            if (currentNum != 0)
+            if (Integer.parseInt(currentNum) != 0)
                 tvTime.setText("第" + currentNum + "期  截止" + StringUtils.getMillionsToMin((int) millisUntilFinished / 1000));
             if (millisUntilFinished / 1000 == 540)
                 getKSData();

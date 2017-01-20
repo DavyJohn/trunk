@@ -2,6 +2,7 @@ package com.zhailr.caipiao.activities.mine;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -74,13 +75,13 @@ public class EditIDActivity extends BaseActivity {
             param1 = URLEncoder.encode(param1, "utf-8").replaceAll("%","%");
             param2 = URLEncoder.encode(param2, "utf-8").replaceAll("%","%");
         }catch (Exception e){
-
         }
-        map.put("user_id", PreferencesUtils.getString(mContext, Constant.USER.USERID));
+        String id = PreferencesUtils.getString(mContext, Constant.USER.USERID);
+        map.put("user_id", id);
         map.put("real_name", param1);
         map.put("id_card", param2);
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.MODUSERINFOFORMATION, map, TAG, new SpotsCallBack<ModUserResponse>(mContext) {
-
+        Log.e("补全信息","用户id"+id+"===="+"真实姓名"+param1+"===="+"id_card"+param2+"");
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.MODUSERINFOFORMATION, map, TAG, new SpotsCallBack<ModUserResponse>(mContext,false) {
             @Override
             public void onSuccess(Response response, ModUserResponse res) {
                 if (res.getCode().equals("200")) {

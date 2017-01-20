@@ -15,24 +15,32 @@ public class ModUserResponse {
      * code : 200
      */
 
-    private DataBean data;
+    private String data;
     private String message;
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public DataBean getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(String data) {
         this.data = data;
     }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+//
+//    public DataBean getData() {
+//        return data;
+//    }
+//
+//    public void setData(DataBean data) {
+//        this.data = data;
+//    }
 
     public String getMessage() {
         return message;
@@ -42,15 +50,15 @@ public class ModUserResponse {
         this.message = message;
     }
 
-    public static class DataBean {
-        private String code;
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-    }
+//    public static class DataBean {
+//        private String code;
+//
+//        public String getCode() {
+//            return code;
+//        }
+//
+//        public void setCode(String code) {
+//            this.code = code;
+//        }
+//    }
 }

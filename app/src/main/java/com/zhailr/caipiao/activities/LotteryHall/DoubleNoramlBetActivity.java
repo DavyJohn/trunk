@@ -91,7 +91,6 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
         super.onCreate(savedInstanceState);
         MyApplication.getInstance().add(this);
         ButterKnife.bind(this);
-
         getToolBar().setTitle(R.string.double_bet)
                 .setNavigationOnClickListener(new View.OnClickListener() {
                     @Override

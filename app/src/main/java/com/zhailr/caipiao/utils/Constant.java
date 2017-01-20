@@ -6,6 +6,7 @@ import android.view.WindowManager;
 /**
  * Created by zhailiangrong on 16/6/11.
  */
+
 public class Constant {
     public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
 

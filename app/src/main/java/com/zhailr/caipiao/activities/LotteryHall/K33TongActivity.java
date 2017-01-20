@@ -53,6 +53,8 @@ import zhy.com.highlight.HighLight;
 import zhy.com.highlight.position.OnBottomPosCallback;
 import zhy.com.highlight.shape.RectLightShape;
 
+import static com.zhailr.caipiao.R.color.red;
+
 /**
  * Created by zhailiangrong on 16/7/11.
  */
@@ -95,7 +97,7 @@ public class K33TongActivity extends BaseActivity {
     private boolean hasTongXuan;
     // 倒计时
     private TimeCount time;
-    private long currentNum;
+    private String currentNum;
     private boolean flag;
     private long currentSec;
     private ShakeListener mShakeListener;
@@ -215,7 +217,7 @@ public class K33TongActivity extends BaseActivity {
                     redBall.setTextSize(22);
                     redBall.setGravity(Gravity.CENTER);
                     redBall.setPadding(0, 20, 0, 0);
-                    redBall.setTextColor(getResources().getColor(R.color.red));
+                    redBall.setTextColor(getResources().getColor(red));
                     mRedAllList1.add(j, ballLayout);
                     mRedAllList2.add(j, redBall);
                     ballLayout.setOnClickListener(new View.OnClickListener() {
@@ -258,7 +260,7 @@ public class K33TongActivity extends BaseActivity {
                     redBall.setTextSize(22);
                     redBall.setGravity(Gravity.CENTER);
                     redBall.setPadding(0, 20, 0, 0);
-                    redBall.setTextColor(getResources().getColor(R.color.red));
+                    redBall.setTextColor(getResources().getColor(red));
                     mRedAllList1.add(j, ballLayout);
                     mRedAllList2.add(j, redBall);
 
@@ -332,7 +334,7 @@ public class K33TongActivity extends BaseActivity {
         } else {
             // 取消
             view.setTag("0");
-            tv.setTextColor(getResources().getColor(R.color.red));
+            tv.setTextColor(getResources().getColor(red));
             view.setBackground(getResources().getDrawable(R.drawable.graybutton));
             mRedList1.remove(tv.getText().toString());
             mRedClickList1.remove(view);
@@ -387,7 +389,7 @@ public class K33TongActivity extends BaseActivity {
     private void clearClickBall() {
         for (int i = 0; i < mRedClickList1.size(); i++) {
             TextView textView = mRedClickList1.get(i);
-            textView.setTextColor(getResources().getColor(R.color.red));
+            textView.setTextColor(getResources().getColor(red));
             int id = Integer.valueOf(textView.getText().toString())/111 - 1;
             LinearLayout layout = mRedAllList1.get(id);
             layout.setBackground(getResources().getDrawable(R.drawable.graybutton));
@@ -396,7 +398,7 @@ public class K33TongActivity extends BaseActivity {
         layoutTongXuan.setTag("1");
         layoutTongXuan.setBackground(getResources().getDrawable(R.drawable.graybutton));
         TextView tv = (TextView) layoutTongXuan.getChildAt(0);
-        tv.setTextColor(getResources().getColor(R.color.red));
+        tv.setTextColor(getResources().getColor(red));
         tvZhu.setText("");
         tvPrice.setText("");
         mRedList1.clear();
@@ -427,6 +429,7 @@ public class K33TongActivity extends BaseActivity {
         if (!TextUtils.isEmpty(String.valueOf(currentNum))) {
             Intent intent = new Intent(this, K3PlayBetActivity.class);
             intent.putExtra("list", chooseList);
+            intent.putExtra("currentNum",currentNum);
             intent.putExtra("tag", TAG);
             startActivity(intent);
             finish();
@@ -478,7 +481,7 @@ public class K33TongActivity extends BaseActivity {
                     layoutTongXuan.setTag("1");
                     layoutTongXuan.setBackground(getResources().getDrawable(R.drawable.graybutton));
                     TextView tv = (TextView) layoutTongXuan.getChildAt(0);
-                    tv.setTextColor(getResources().getColor(R.color.red));
+                    tv.setTextColor(getResources().getColor(red));
                 }
                 Vibrator vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
                 vibrator.vibrate(new long[]{0, 50}, -1);
@@ -532,7 +535,7 @@ public class K33TongActivity extends BaseActivity {
                 if (TextUtils.isEmpty(PreferencesUtils.getString(getApplicationContext(),Constant.USER.USERID))){
                     startActivity(new Intent(mContext, LoginActivity.class));
                 }else {
-                    if (zs != 0 && !TextUtils.isEmpty(String.valueOf(currentNum))) {
+                    if (zs != 0 && !TextUtils.isEmpty(currentNum)) {
                         Intent intent = new Intent(this, K3PlayBetActivity.class);
                         BetBean bet = new BetBean();
                         // 对号码进行排序
@@ -616,7 +619,8 @@ public class K33TongActivity extends BaseActivity {
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
-                    currentNum = Long.valueOf(res.getData().getIssue_num());
+                    currentNum = res.getData().getIssue_num();
+//                    currentNum = Long.valueOf(res.getData().getIssue_num());
                 } else {
                     showToast(res.getMessage());
                 }
@@ -710,7 +714,7 @@ public class K33TongActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {//计时过程显示
             currentSec = millisUntilFinished;
-            if (currentNum != 0)
+            if (Integer.parseInt(currentNum) != 0)
                 tvTime.setText("第" + currentNum + "期  截止" + StringUtils.getMillionsToMin((int) millisUntilFinished / 1000));
             if (millisUntilFinished / 1000 == 540)
                 getKSData();

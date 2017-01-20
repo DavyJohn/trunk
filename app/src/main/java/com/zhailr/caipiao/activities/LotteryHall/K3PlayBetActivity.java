@@ -342,18 +342,18 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "KS");
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDNEWAWARD, map, TAG, new SpotsCallBack<CurrentNumResponse>(mContext, false) {
-
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
                     CurrentNumResponse.DataBean bean = res.getData();
-                    if (String.valueOf(currentNum).equals(bean.getIssue_num())
+                    if (getIntent().getStringExtra("currentNum").equals(bean.getIssue_num())
                             && bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
 //                    if (bean.getSystem_date().compareTo(bean.getTime_draw()) < 0) {
                         currentNum = Long.valueOf(bean.getIssue_num());
                         requestData(bean.getIssue_num());
                     } else {
                         dimissDialog();
+                        //TODO BUG
                         showToast(getString(R.string.bet_error));
                     }
                 } else {

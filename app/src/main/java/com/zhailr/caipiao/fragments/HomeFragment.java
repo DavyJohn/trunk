@@ -90,7 +90,6 @@ public class HomeFragment extends BaseFragment implements PullToRefreshLayout.On
 
     private void getData() {
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.HOME, null, TAG, new SpotsCallBack<HomeResponse>(mContext, false) {
-
             @Override
             public void onSuccess(Response response, HomeResponse homeResponse) {
                 System.out.print(homeResponse);

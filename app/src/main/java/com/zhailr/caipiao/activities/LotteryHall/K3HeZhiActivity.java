@@ -641,7 +641,7 @@ public class K3HeZhiActivity extends BaseActivity {
             if (arcNum + 4 < 10) {
                 numString1 = "0" + (arcNum + 4);
             } else {
-                numString1 = "" + (arcNum + 4);
+                numString1 = "" + (arcNum);
             }
             redList1.add(numString1);
             // 2.封装成bean,添加到list中
@@ -834,14 +834,13 @@ public class K3HeZhiActivity extends BaseActivity {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("type_code", "KS");
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDNEWAWARD, map, TAG, new SpotsCallBack<CurrentNumResponse>(mContext, false) {
-
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
                     currentNum = res.getData().getIssue_num();
 //                    currentNum = Long.valueOf(res.getData().getIssue_num());
                 } else {
-                    showToast(res.getMessage());
+                    showToast("getCurrentNum"+res.getMessage());
                 }
             }
 
@@ -880,7 +879,7 @@ public class K3HeZhiActivity extends BaseActivity {
 //                    }
 
                 } else {
-                    showToast(res.getMessage());
+                    showToast("getLeftSec"+res.getMessage());
                 }
             }
 
@@ -933,7 +932,7 @@ public class K3HeZhiActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {//计时过程显示
             currentSec = millisUntilFinished;
-            if (Integer.parseInt(currentNum) != 0)
+            if (!TextUtils.isEmpty(currentNum))
                 tvTime.setText("第" + currentNum + "期  截止" + StringUtils.getMillionsToMin((int) millisUntilFinished / 1000));
             if (millisUntilFinished / 1000 == 540)
                 getKSData();

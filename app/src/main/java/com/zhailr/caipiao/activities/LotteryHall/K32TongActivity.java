@@ -818,7 +818,7 @@ public class K32TongActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {//计时过程显示
             currentSec = millisUntilFinished;
-            if (Integer.parseInt(currentNum) != 0)
+            if (!TextUtils.isEmpty(currentNum))
                 tvTime.setText("第" + currentNum + "期  截止" + StringUtils.getMillionsToMin((int) millisUntilFinished / 1000));
             if (millisUntilFinished / 1000 == 540)
                 getKSData();

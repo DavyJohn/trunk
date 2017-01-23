@@ -561,8 +561,10 @@ public class K33BuTongActivity extends BaseActivity {
                             startActivity(intent);
                             finish();
 
-                        } else {
-                            showToast("请至少选择1注");
+                        }else if (TextUtils.isEmpty(currentNum)){
+                            showToast("当前网络不稳定，请稍等一会！！！");
+                        }else {
+                            showToast("请至少选择一注");
                         }
                     }
                 }

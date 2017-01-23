@@ -538,10 +538,10 @@ public class DoubleColorDantuoActivity extends BaseActivity {
                         intent.putExtra("currentNum", currentNum);
                         startActivity(intent);
                         finish();
+                    }else {
+                        Toast.makeText(mContext,"当前网络不稳定，请稍等一会！！！",Toast.LENGTH_LONG).show();
                     }
                 }
-
-
                 break;
         }
     }

@@ -637,7 +637,10 @@ public class FC3DNoramlActivity extends BaseActivity {
                         intent.putExtra("tag", TAG);
                         startActivity(intent);
                         finish();
-                    } else {
+                    } else if (TextUtils.isEmpty(currentNum)){
+
+                        showToast("当前网络不稳定，请稍等一会！！！");
+                    }else {
                         showToast("请至少选择一注");
                     }
                 }

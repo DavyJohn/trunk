@@ -131,7 +131,7 @@ public class K33TongActivity extends BaseActivity {
             public void onClick(View v) {
                 Constant.CHOOSE_STYLE = 7;
                 Constant.isClick = true;
-                startActivity(new Intent(K33TongActivity.this,ShakeActivity.class));
+                startActivity(new Intent(mContext,ShakeActivity.class));
             }
         });
     }

@@ -54,7 +54,7 @@ public class RegisterActivity extends BaseActivity {
     public void onClick() {
         if (checkMobileNo()) {
             if (null != tag && tag.equals(getString(R.string.forgot_pwd_title))) {
-                Intent intent = new Intent(this, RegisterTwoActivity.class);
+                Intent intent = new Intent(mContext, RegisterTwoActivity.class);
                 intent.putExtra("tag", getString(R.string.forgot_pwd_title));
                 intent.putExtra("tel", mobileNo);
                 startActivity(intent);

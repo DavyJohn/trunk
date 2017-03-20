@@ -149,6 +149,7 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
             scrollView.setCanPullDown(true);
             scrollView.setCanPullUp(false);
             refreshView.setTAG(TAG);
+
             refreshView.setOnRefreshListener(this);
             getSSQData();
             getFCSDData();

@@ -51,7 +51,6 @@ public class OkHttpHelper {
     }
 
     public static  OkHttpHelper getInstace(){
-
         return new OkHttpHelper();
     }
 

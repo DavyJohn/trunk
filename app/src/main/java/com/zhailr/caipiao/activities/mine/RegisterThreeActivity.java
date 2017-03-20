@@ -174,7 +174,7 @@ public class RegisterThreeActivity extends BaseActivity {
         map.put("sms_code", identifying);
         map.put("password", param);
         map.put("siteId",siteId);
-        System.out.print(siteId);
+
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.USERREGISTER, map, TAG, new SpotsCallBack<RegisterResponse>(mContext) {
 
             @Override

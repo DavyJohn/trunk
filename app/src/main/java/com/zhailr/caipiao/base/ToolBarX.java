@@ -14,7 +14,7 @@ import com.zhailr.caipiao.R;
 /**
  * Created by zhailiangrong on 16/6/9.
  */
-public class ToolBarX {
+    public class ToolBarX {
     private Toolbar mToolBar;
     private AppCompatActivity mActivity;
     private ActionBar mActionBar;

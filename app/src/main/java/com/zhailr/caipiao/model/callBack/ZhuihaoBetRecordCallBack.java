@@ -1,14 +1,11 @@
 package com.zhailr.caipiao.model.callBack;
 
-import android.content.pm.LauncherApps;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.zhailr.caipiao.model.response.BetRecordResponse;
 import com.zhailr.caipiao.model.response.ZhuihaoResponse;
 import com.zhy.http.okhttp.callback.Callback;
 
-import okhttp3.Call;
 import okhttp3.Response;
 
 /**

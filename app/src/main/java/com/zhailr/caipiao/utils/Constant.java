@@ -8,13 +8,13 @@ import android.view.WindowManager;
  */
 
 public class Constant {
-    public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
+//    public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
 
-//    public static final String COMMONURL = "http://192.168.6.8:8807/gateway/";//测试环境
+    public static final String COMMONURL = "http://192.168.6.8:8807/gateway/";//测试环境
 
 //    public static final String COMMONURL = "http://bishopcartier.6655.la/gateway/";//外网测试环境
     //正式环境  
-    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
+//    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
     public static final String UPDATEURL = "http://122.194.107.210:8880/update/update.xml";
     // 登录成功刷新数据广播
     public static final String LOGINRECEIVER = "com.zhailr.caipiao.loginreceiver";

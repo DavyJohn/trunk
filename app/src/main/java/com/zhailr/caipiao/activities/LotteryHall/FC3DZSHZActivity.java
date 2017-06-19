@@ -644,7 +644,6 @@ public class FC3DZSHZActivity extends BaseActivity {
                 });
         mHightLight.show();
     }
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void clickKnown(View view)
     {
         if(mHightLight.isShowing() && mHightLight.isNext())//如果开启next模式

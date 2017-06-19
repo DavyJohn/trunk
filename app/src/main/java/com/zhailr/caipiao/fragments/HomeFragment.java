@@ -182,6 +182,7 @@ public class HomeFragment extends BaseFragment implements PullToRefreshLayout.On
         });
         mSliderShow.addSlider(mTextSliderView);
 
+
         // 设置默认指示器位置(默认指示器白色,位置在sliderlayout底部)
         mSliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         // 设置默认过渡效果(可在xml中设置)

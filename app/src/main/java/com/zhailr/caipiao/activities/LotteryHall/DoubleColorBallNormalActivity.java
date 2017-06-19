@@ -1,6 +1,5 @@
 package com.zhailr.caipiao.activities.LotteryHall;
 
-import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
@@ -9,19 +8,14 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.FloatingActionButton;
-import android.system.ErrnoException;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +25,6 @@ import com.orhanobut.dialogplus.OnItemClickListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.WebViewActivity;
 import com.zhailr.caipiao.activities.mine.LoginActivity;
-import com.zhailr.caipiao.utils.PreferencesUtils;
-import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 import com.zhailr.caipiao.adapter.SimpleAdapter;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -40,8 +32,10 @@ import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.bean.BetBean;
 import com.zhailr.caipiao.model.response.CurrentNumResponse;
 import com.zhailr.caipiao.utils.Constant;
+import com.zhailr.caipiao.utils.PreferencesUtils;
 import com.zhailr.caipiao.utils.StringUtils;
 import com.zhailr.caipiao.widget.ShakeListener;
+import com.zhailr.caipiao.zoushitu.ZouShiTuActivity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,13 +50,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 import zhy.com.highlight.HighLight;
-import zhy.com.highlight.interfaces.HighLightInterface;
 import zhy.com.highlight.position.OnBottomPosCallback;
 import zhy.com.highlight.position.OnLeftPosCallback;
-import zhy.com.highlight.shape.CircleLightShape;
 import zhy.com.highlight.shape.RectLightShape;
-
-import static android.system.Os.remove;
 
 /**
  * Created by zhailiangrong on 16/7/5.
@@ -742,7 +732,6 @@ public class DoubleColorBallNormalActivity extends BaseActivity {
                 });
         mHightLight.show();
     }
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void clickKnown(View view)
     {
         if(mHightLight.isShowing() && mHightLight.isNext())//如果开启next模式

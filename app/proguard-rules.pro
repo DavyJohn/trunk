@@ -225,6 +225,13 @@
 -keep class okio.**{*;}
 -keep interface okio.**{*;}
 
+
+
+
+
+
+
+
 #jp
 -dontoptimize
 -dontpreverify

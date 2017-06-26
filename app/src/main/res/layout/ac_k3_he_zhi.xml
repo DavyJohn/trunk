@@ -115,11 +115,12 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/x40"
                         android:layout_weight="1"
+                        android:background="@drawable/graybutton"
+                        android:gravity="center"
                         android:text="小"
                         android:textColor="@color/red"
-                        android:textSize="@dimen/x24"
-                        android:gravity="center"
-                        android:background="@drawable/graybutton"/>
+                        android:textSize="@dimen/x24" />
+
                     <TextView
                         android:id="@+id/tv_dan"
                         android:layout_width="0dp"
@@ -141,6 +142,10 @@
                         android:gravity="center"
                         android:background="@drawable/graybutton"/>
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:background="@drawable/background"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -150,7 +155,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/relativeLayout4"
         android:background="@drawable/bt_panel_bg">

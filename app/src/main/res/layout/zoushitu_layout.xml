@@ -118,7 +118,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="够买"
+                android:text="购买"
                 android:background="@color/red"
                 android:id="@+id/zoushitu_buy_text"
                 android:textColor="@color/white"

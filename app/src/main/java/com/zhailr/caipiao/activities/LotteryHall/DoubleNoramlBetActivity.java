@@ -227,6 +227,7 @@ public class DoubleNoramlBetActivity extends BaseActivity implements ISimpleDial
             if (Integer.parseInt(String.valueOf(price))>9999){
                 Toast.makeText(mContext,"超出金额",Toast.LENGTH_SHORT).show();
                 // TODO: 2017/1/17
+
                 mTextOk.setEnabled(false);
             }else {
                 mTextOk.setEnabled(true);

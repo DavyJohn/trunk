@@ -557,7 +557,7 @@ public class DoubleColorDantuoActivity extends BaseActivity {
                 .addHighLight(R.id.layout_red_ball_dan,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
                 .addHighLight(R.id.layout_red_ball_tuo,R.layout.info_gravity_left_down,new OnBottomPosCallback(60),new RectLightShape())
                 .addHighLight(R.id.layout_blue_ball,R.layout.info_gravity_left_down,new OnTopPosCallback(60),new RectLightShape())
-                .autoRemove(false)
+                .autoRemove(true)
                 .enableNext()
                 .setClickCallback(new HighLight.OnClickCallback() {
                     @Override

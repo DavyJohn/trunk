@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +61,8 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
     RecyclerView recycleView;
     @Bind(R.id.issue)
     EditText issue;
-
+    @Bind(R.id.isstop_check)
+    CheckBox mBox;
     @Bind(R.id.ac_double_bet_display_zhandian_name)
     TextView mTextZhangDianName;
     @OnClick(R.id.ac_double_bet_display_zhandian_name) void name(){
@@ -106,6 +109,17 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
                         }
                     }
                 });
+        mBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    // TODO: 2017/6/26 判断是否追号停止
+                    Constant.isStop = "1";
+                }else {
+                    Constant.isStop = "0";
+                }
+            }
+        });
         initView();
     }
 
@@ -384,15 +398,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
             append = issue.getText().toString();
             isAppend = "1";
         }
-        Log.i(TAG, "userId:" + PreferencesUtils.getString(mContext, Constant.USER.USERID)
-                + "siteId:" + PreferencesUtils.getString(mContext, Constant.USER.SITEID)
-                + "issue_num:" + num
-                + "append:" + append
-                + "is_append:" + isAppend
-                + "multiple:" + "1"
-                + "type_code:" + "KS"
-                + "channel:" + "ANDROID"
-                + "content:" + sb.toString());
+
         OkHttpUtils.get().url(Constant.COMMONURL + Constant.KSRECORDREQUEST)
                 .addParams(Constant.SSQOrderRequest.USERID, PreferencesUtils.getString(mContext, Constant.USER.USERID))
                 .addParams(Constant.SSQOrderRequest.SITEID, PreferencesUtils.getString(mContext, Constant.USER.SITEID))
@@ -403,6 +409,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
                 .addParams(Constant.SSQOrderRequest.TYPECODE, "KS")
                 .addParams(Constant.SSQOrderRequest.CHANNEL, "ANDROID")
                 .addParams(Constant.SSQOrderRequest.CONTENT, sb.toString())
+                .addParams("isStop", Constant.isStop)
                 .build()
                 .execute(new BetRecordCallBack() {
                     @Override
@@ -419,6 +426,7 @@ public class K3PlayBetActivity extends BaseActivity implements ISimpleDialogList
                             intent.putExtra("totalallprice", response.getData().getAmount());
                             startActivity(intent);
                             finish();
+                            Constant.isStop = "0";
                         } else {
                             showToast(response.getMessage());
                         }

@@ -126,7 +126,7 @@ public class K3HeZhiActivity extends BaseActivity {
         Constant.isClick = false ; //初始化
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
-        getToolBar().setTitle("快3 和值");
+        getToolBar().setTitle("快3和值");
         initUI();
         initIntent();
         getKSData();
@@ -747,7 +747,6 @@ public class K3HeZhiActivity extends BaseActivity {
                 vibrator.vibrate(new long[]{0, 50}, -1);
                 break;
             case R.id.tv_auto_choose:
-
                 if (tvAutoChoose.getText().equals("机选")) {
                     DialogPlus dialog = DialogPlus.newDialog(this)
                             .setContentHolder(new GridHolder(3))
@@ -822,7 +821,7 @@ public class K3HeZhiActivity extends BaseActivity {
                         intent.putExtra("currentSec", currentSec);
                         startActivity(intent);
                         finish();
-                    } else if (TextUtils.isEmpty(currentNum)){
+                    } else if (!TextUtils.isEmpty(currentNum)){
                         showToast("当前网络不稳定，请稍等一会！！！");
                     }else {
                         showToast("请至少选择一注");
@@ -839,7 +838,7 @@ public class K3HeZhiActivity extends BaseActivity {
             @Override
             public void onSuccess(Response response, CurrentNumResponse res) {
                 if (res.getCode().equals("200")) {
-                    currentNum = res.getData().getIssue_num();
+                     currentNum = res.getData().getIssue_num();
 //                    currentNum = Long.valueOf(res.getData().getIssue_num());
                 } else {
                     showToast("getCurrentNum"+res.getMessage());

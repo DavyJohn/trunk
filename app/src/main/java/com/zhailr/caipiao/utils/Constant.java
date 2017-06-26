@@ -10,9 +10,9 @@ import android.view.WindowManager;
 public class Constant {
 //    public static final String WANFENURL ="http://wanfen.iask.in/lottery-view-gateway/";
 
-    public static final String COMMONURL = "http://192.168.6.8:8807/gateway/";//测试环境
+//    public static final String COMMONURL = "http://192.168.6.8:8807/gateway/";//测试环境
 
-//    public static final String COMMONURL = "http://bishopcartier.6655.la/gateway/";//外网测试环境
+    public static final String COMMONURL = "http://bishopcartier.6655.la/gateway/";//外网测试环境
     //正式环境  
 //    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
     public static final String UPDATEURL = "http://122.194.107.210:8880/update/update.xml";
@@ -40,7 +40,7 @@ public class Constant {
     public static final String SSQRECORD = "appLotteryHistory/SearchSSQHistoryRecordsRequest";
     // 福彩3D
     public static final String FCSDRECORD = "appLotteryHistory/SearchFCSDHistoryRecordsRequest";
-    // K3
+    // K3re
     public static final String KSRECORD = "appLotteryHistory/SearchQSHistoryRecordsRequest";
 
     public static final String SSQRECORDREQUEST = "appRetLotteryOrder/RetSSQOrderRequest";
@@ -110,8 +110,8 @@ public class Constant {
     public static final String ZHUIHAOXIANGQING = "appChaseNumber/ChaseNumInfoRequest";
     //支付开关
     public static final String ZHIFUKAIGUAN = "appRetLotteryPay/PayGoldConfig";
-
-    //修改取票方式的接口
+    //追号停止
+       //修改取票方式的接口
     public static final String QUPIAOFANGSHI = "appRetLotteryPay/ModTicketInfo";
     //站点详情
     public static final String SILTDATA = "appRetLotteryPay/GetSiteInfoRequest";
@@ -153,6 +153,8 @@ public class Constant {
         public static final String SITEID = "siteId";
         public static final String MULTIPLE = "multiple";
     }
+
+    public static String isStop = "0";//是否追号停止
 
     public static  int CHOOSE_STYLE = -1;//0 双色球 1 福彩 2 快三...自己看去吧 写不动了
     public static boolean isClick = false;//写不下去了

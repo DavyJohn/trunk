@@ -315,9 +315,11 @@ public class OrderDetailActivity extends BaseActivity {
                     }
                     }
 
-                   LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                mLayoutManager.setSmoothScrollbarEnabled(true);
                 //彩票
                 mRecyclerview.setLayoutManager(mLayoutManager);
+                mRecyclerview.setNestedScrollingEnabled(false);
                 mRecyclerview.addItemDecoration(new MyDecoration(mContext,MyDecoration.VERTICAL_LIST));
 
                 List<OrderDetailResponse.DataBean.TicketinfoBean> newsList = res.getData().getTicketinfo();

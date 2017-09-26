@@ -63,7 +63,6 @@ public class OrderListLeftFargment extends BaseFragment implements PullToRefresh
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         initUI();
-//        registerReceiver();
         getAccountData();
     }
 

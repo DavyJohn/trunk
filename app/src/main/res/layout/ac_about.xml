@@ -45,7 +45,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:text="http：//www.tcclottery.com"
+                android:text="http：//www.ttgcp.cn"
                 android:textColor="@color/login_title_color"
                 android:textSize="@dimen/x15" />
         </RelativeLayout>

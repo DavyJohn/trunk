@@ -65,6 +65,11 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             if (TicketinfoBean == null) {
                 return;
             }
+            if (TicketinfoBean.getType_code().equals("KS")){
+                ((ItemViewHolder)holder).mLayout.setVisibility(View.GONE);
+            }else {
+                ((ItemViewHolder)holder).mLayout.setVisibility(View.VISIBLE);
+            }
             ((ItemViewHolder)holder).mBetnum.setText(TicketinfoBean.getContent());//彩票号码
             ((ItemViewHolder)holder).mPlaytype.setText(TicketinfoBean.getPlay_way());//玩法类型
             ((ItemViewHolder)holder).mNum.setText(TicketinfoBean.getIssue_num());//彩票骑术

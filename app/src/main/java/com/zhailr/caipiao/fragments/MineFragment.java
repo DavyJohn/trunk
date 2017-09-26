@@ -275,6 +275,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                 }
                 break;
             case R.id.layout_order:
+                //投注记录
                 startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
             case R.id.layout_accout:
@@ -284,6 +285,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(new Intent(mContext, SettingActivity.class));
                 break;
             case R.id.layout_about:
+                //关于我们
                 startActivity(new Intent(mContext, AboutActivity.class));
                 break;
         }

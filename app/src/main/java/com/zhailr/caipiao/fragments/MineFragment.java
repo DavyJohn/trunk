@@ -38,6 +38,7 @@ import com.zhailr.caipiao.utils.StringUtils;
 import com.zhailr.caipiao.widget.TZCPPullRefresh;
 import com.zhailr.caipiao.widget.pullableview.PullToRefreshLayout;
 import com.zhailr.caipiao.widget.pullableview.PullableScrollView;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.LinkedHashMap;
 
@@ -60,15 +61,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
     ImageView userHead;
     @Bind(R.id.user_name)
     TextView userName;
-    @Bind(R.id.account_yu_e)
+//    @Bind(R.id.account_yu_e)
     TextView accountYue;
     @Bind(R.id.scrollView)
     PullableScrollView scrollView;
     @Bind(R.id.refresh_view)
     TZCPPullRefresh refreshView;
-    @Bind(R.id.account_jin_bi)
+//    @Bind(R.id.account_jin_bi)
     TextView accountJinBi;
-    @Bind(R.id.account_ke_yong)
+//    @Bind(R.id.account_ke_yong)
     TextView accountKeyong;
     @Bind(R.id.content_layout)
     LinearLayout contentLayout;
@@ -88,6 +89,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
         ButterKnife.bind(this, rootView);
         mNoLoginView = noLogin.inflate();
         registerReceiver();
+        accountYue = (TextView) rootView.findViewById(R.id.account_yu_e);
+        accountJinBi = (TextView) rootView.findViewById(R.id.account_jin_bi);
+        accountKeyong = (TextView) rootView.findViewById(R.id.account_ke_yong);
         return rootView;
     }
 
@@ -103,7 +107,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
             if (intent.getAction().equals(Constant.USERINFORECEIVER)) {
                 getUserData();
             } else if (intent.getAction().equals(Constant.ACCOUNTRECEIVER)) {
-//                getAccountData();
+                getAccountData();
             }
         };
     };
@@ -188,6 +192,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
     private void getAccountData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
+
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSACCOUNTINFO, map, TAG, new SpotsCallBack<AccountInfoResponse>(mContext, false) {
 
             @Override
@@ -198,15 +203,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                     PreferencesUtils.putString(mContext, Constant.USER.USABLE, res.getData().getAvailable_fee()+"");
                     String balance = res.getData().getCash_balance();
                     if (StringUtils.isNotEmpty(balance)) {
-                        accountYue.setText("账户余额:" + balance + "元");
+                        if (accountYue.getVisibility() == View.VISIBLE){
+                            accountYue.setText("账户余额:" + balance + "元");
+                        }
                     }
                     String jinbi = res.getData().getGold_balance();
                     if (StringUtils.isNotEmpty(jinbi)) {
-                        accountJinBi.setText("金币余额:" + jinbi + "元");
+                        if (accountJinBi.getVisibility() == View.VISIBLE){
+                            accountJinBi.setText("金币余额:" + jinbi + "元");
+                        }
+
                     }
                     String keyong = res.getData().getAvailable_fee();
                     if (StringUtils.isNotEmpty(keyong)) {
-                        accountKeyong.setText("可用余额:" + keyong + "元");
+                        if (accountKeyong.getVisibility() == View.VISIBLE){
+                            accountKeyong.setText("可用余额:" + keyong + "元");
+                        }
                     }
                 } else {
                     Toast.makeText(mContext, res.getMessage(), Toast.LENGTH_SHORT).show();
@@ -229,7 +241,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mOkHttpHelper.cancelTag(TAG);
+//        mOkHttpHelper.cancelTag(TAG);
     }
 
     @Override

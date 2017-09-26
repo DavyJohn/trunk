@@ -119,9 +119,7 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
           }else if (msg.what == 2){
               KSRecordResponse.DataBean.HitoryQSBean bean = (KSRecordResponse.DataBean.HitoryQSBean) msg.obj;
               if (bean.getIssueNum() != null) {
-                  System.out.println("bean.getIssueNum()"+bean.getIssueNum());
                   k3Date.setText("第" + bean.getIssueNum() + "期");
-                  System.out.println("bean.getIssueNum()"+bean.getIssueNum());
                   k3Time.setText(bean.getOpenTime());
                   k3One.setText(bean.getNumOne());
                   k3Two.setText(bean.getNumTwo());
@@ -168,18 +166,6 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
         }
         return rootView;
 
-     /*   View view = inflater.inflate(R.layout.fm_cart, container, false);
-        ButterKnife.bind(this, view);
-        // 先隐藏内容
-        layoutContent.setVisibility(View.GONE);
-        scrollView.setCanPullDown(true);
-        scrollView.setCanPullUp(false);
-        refreshView.setTAG(TAG);
-        refreshView.setOnRefreshListener(this);
-        getSSQData();
-        getFCSDData();
-        getKSData();
-        return view;*/
     }
 
     //只是获取上一期 不是所有的都返回
@@ -193,32 +179,34 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
                 if (null != data.getData().getHistorySsqList() && data.getData().getHistorySsqList().size() != 0) {
                         try {
                             final SSQRecordResponse.DataBean.HistorySsqListBean bean = data.getData().getHistorySsqList().get(0);
-                            if (!TextUtils.isEmpty(bean.getIssue_num())) {
-                                // 开启线程，
-                                new Thread(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        Message msg = handler.obtainMessage();
-                                        msg.what = 0;
-                                        msg.obj = bean;
-                                        handler.sendMessage(msg);
-                                    }
-                                }).start();
-//                        Message msg = handler.obtainMessage();
-//                        msg.what = 1;
-//                        msg.obj=bean;
-//                        handler.sendMessage(msg);
-//                        msg.arg1 = Integer.parseInt(bean.getIssueNum());
-//                        handler.sendMessage(msg);
-//                        fc3dDate.setText("第" + bean.getIssueNum() + "期");
+//                            if (!TextUtils.isEmpty(bean.getIssue_num())) {
+//                                // 开启线程，
+//                                new Thread(new Runnable() {
+//
+//                                    @Override
+//                                    public void run() {
+//                                        Message msg = handler.obtainMessage();
+//                                        msg.what = 0;
+//                                        msg.obj = bean;
+//                                        handler.sendMessage(msg);
+//                                    }
+//                                }).start();
+//                            }
+                            if (bean != null){
+                                ssqDate.setText("第" + bean.getIssue_num() + "期");
+                                ssqTime.setText(bean.getOpen_time());
+                                ssqOne.setText(bean.getRed_num1());
+                                ssqTwo.setText(bean.getRed_num2());
+                                ssqThree.setText(bean.getRed_num3());
+                                ssqFour.setText(bean.getRed_num4());
+                                ssqFive.setText(bean.getRed_num5());
+                                ssqSix.setText(bean.getRed_num6());
+                                ssqSeven.setText(bean.getBlue_num());
+                                // 显示内容
+                                layoutContent.setVisibility(View.VISIBLE);
                             }
-//                    fc3dTime.setText(bean.getOpenTime());
-//                    fc3dOne.setText(bean.getNumOne());
-//                    fc3dTwo.setText(bean.getNumTwo());
-//                    fc3dThree.setText(bean.getNumThree());
-//                    // 显示内容
-//                    layoutContent.setVisibility(View.VISIBLE);
+
+//
                         } catch (Exception e) {
 
                         }
@@ -227,27 +215,12 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
 
             @Override
             public void onError(Response response, int code, Exception e) {
-                System.out.println("双色球失败");
+                System.out.println("获取双色球失败");
                 Log.i(TAG, response.toString());
             }
 
         });
     }
-
-    private void initData(SSQRecordResponse.DataBean.HistorySsqListBean bean) {
-        //ssqDate.setText("第" + bean.getIssue_num() + "期");
-        ssqTime.setText(bean.getOpen_time());
-        ssqOne.setText(bean.getRed_num1());
-        ssqTwo.setText(bean.getRed_num2());
-        ssqThree.setText(bean.getRed_num3());
-        ssqFour.setText(bean.getRed_num4());
-        ssqFive.setText(bean.getRed_num5());
-        ssqSix.setText(bean.getRed_num6());
-        ssqSeven.setText(bean.getBlue_num());
-        // 显示内容
-        layoutContent.setVisibility(View.VISIBLE);
-    }
-
     private void getFCSDData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("lottery_no_number", "1");
@@ -261,30 +234,28 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
                     final FCSDRecordResponse.DataBean.HistoryFCSdListBean bean = data.getData().getHistoryFCSdList().get(0);
                     if (!TextUtils.isEmpty(bean.getIssueNum())) {
                         // 开启线程，
-                        new Thread(new Runnable() {
+//                        new Thread(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                Message msg = handler.obtainMessage();
+//                                msg.what = 1;
+//                                msg.obj = bean;
+//                                handler.sendMessage(msg);
+//                            }
+//                        }).start();
+                        if (bean != null){
+                            fc3dDate.setText("第" +bean.getIssueNum() + "期");
+                            fc3dTime.setText(bean.getOpenTime());
+                            fc3dOne.setText(bean.getNumOne());
+                            fc3dTwo.setText(bean.getNumTwo());
+                            fc3dThree.setText(bean.getNumThree());
+                            // 显示内容
+                            layoutContent.setVisibility(View.VISIBLE);
+                        }
 
-                            @Override
-                            public void run() {
-                                Message msg = handler.obtainMessage();
-                                msg.what = 1;
-                                msg.obj = bean;
-                                handler.sendMessage(msg);
-                            }
-                        }).start();
-//                        Message msg = handler.obtainMessage();
-//                        msg.what = 1;
-//                        msg.obj=bean;
-//                        handler.sendMessage(msg);
-//                        msg.arg1 = Integer.parseInt(bean.getIssueNum());
-//                        handler.sendMessage(msg);
-//                        fc3dDate.setText("第" + bean.getIssueNum() + "期");
                     }
-//                    fc3dTime.setText(bean.getOpenTime());
-//                    fc3dOne.setText(bean.getNumOne());
-//                    fc3dTwo.setText(bean.getNumTwo());
-//                    fc3dThree.setText(bean.getNumThree());
-//                    // 显示内容
-//                    layoutContent.setVisibility(View.VISIBLE);
+
                     } catch (Exception e) {
 
                     }
@@ -309,7 +280,6 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
 
             @Override
             public void onSuccess(Response response, KSRecordResponse data) {
-                System.out.println("快3");
                 if (null != refreshView)
                     refreshView.refreshFinish(PullToRefreshLayout.SUCCEED);
                 if (null != data.getData().getHitoryQS() && data.getData().getHitoryQS().size() != 0) {
@@ -317,25 +287,27 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
                     final KSRecordResponse.DataBean.HitoryQSBean bean = data.getData().getHitoryQS().get(0);
                     if (!StringUtils.isEmpty(bean.getIssueNum())) {
                         // 开启线程，
-                        new Thread(new Runnable() {
+//                        new Thread(new Runnable() {
+//
+//                            @Override
+//                            public void run() {
+//                                Message msg = handler.obtainMessage();
+//                                msg.what = 2;
+//                                msg.obj = bean;
+//                                handler.sendMessage(msg);
+//                            }
+//                        }).start();
+                        if (bean != null){
+                            k3Date.setText("第" + bean.getIssueNum() + "期");
+                            k3Time.setText(bean.getOpenTime());
+                            k3One.setText(bean.getNumOne());
+                            k3Two.setText(bean.getNumTwo());
+                            k3Three.setText(bean.getNumThree());
+                            // 显示内容
+                            layoutContent.setVisibility(View.VISIBLE);
+                        }
 
-                            @Override
-                            public void run() {
-                                Message msg = handler.obtainMessage();
-                                msg.what = 2;
-//                        msg.arg1 = Integer.parseInt(bean.getIssueNum());
-                                msg.obj = bean;
-                                handler.sendMessage(msg);
-//                        k3Date.setText("第" + bean.getIssueNum() + "期");
-                            }
-                        }).start();
                     }
-//                    k3Time.setText(bean.getOpenTime());
-//                    k3One.setText(bean.getNumOne());
-//                    k3Two.setText(bean.getNumTwo());
-//                    k3Three.setText(bean.getNumThree());
-//                    // 显示内容
-//                    layoutContent.setVisibility(View.VISIBLE);
                 } catch (Exception e) {
 
                 }
@@ -346,7 +318,7 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
 
             @Override
             public void onError(Response response, int code, Exception e) {
-                System.out.println("快3失败");
+                System.out.println("获取快3失败");
                 if (null != refreshView)
                     refreshView.refreshFinish(PullToRefreshLayout.FAIL);
                 Log.i(TAG, response.toString());
@@ -381,6 +353,7 @@ public class CartFragment extends BaseFragment implements PullToRefreshLayout.On
     public void onDestroy() {
         super.onDestroy();
         mOkHttpHelper.cancelTag(TAG);
+        handler.removeCallbacksAndMessages(null);
     }
 
     @Override

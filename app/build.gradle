@@ -55,12 +55,11 @@ android {
 
     //签名
     signingConfigs {
-//        debug {
-//            storeFile file("D:\\androidwork||debug.keystore")
-//        }
         release {
-            //这样写就得把demo.jk文件放在项目目录
-
+            keyAlias 'cs'
+            keyPassword '111111'
+            storeFile file('D:/androidwork/BaseApplication/trunk/app/cs.jks')
+            storePassword '111111'
         }
     }
 

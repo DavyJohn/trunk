@@ -124,7 +124,6 @@ public class SelectChongzhiTypeActivity extends BaseActivity {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         System.out.println(PreferencesUtils.getString(mContext, Constant.USER.USERID));
-//        map.put("orderId", orderId);
         map.put("total_fee", amount);
         System.out.println(amount);
         map.put("pay_way", payWay);
@@ -144,7 +143,6 @@ public class SelectChongzhiTypeActivity extends BaseActivity {
 
             @Override
             public void onSuccess(Response response, BaseResponse res) {
-                System.out.println("充值成功");
                 showToast("充值成功");
                 MyApplication.getInstance().finishAllExceptHome();
                 startActivity(new Intent(SelectChongzhiTypeActivity.this, HomeActivity.class));

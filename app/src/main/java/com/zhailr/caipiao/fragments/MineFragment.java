@@ -42,6 +42,7 @@ import com.zhailr.caipiao.widget.pullableview.PullableScrollView;
 import java.util.LinkedHashMap;
 
 import butterknife.Bind;
+import butterknife.BindInt;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
@@ -49,7 +50,9 @@ import okhttp3.Response;
 /**
  * Created by zhailiangrong on 16/7/5.
  */
+
 public class MineFragment extends BaseFragment implements View.OnClickListener, PullToRefreshLayout.OnRefreshListener {
+
     private static final String TAG = "MineFragment";
     @Bind(R.id.no_login)
     ViewStub noLogin;
@@ -69,21 +72,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
     TextView accountKeyong;
     @Bind(R.id.content_layout)
     LinearLayout contentLayout;
+
     private View mNoLoginView;
     private View rootView;//缓存Fragment view
-//    private Handler handler = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//            if(msg.what == 0){
-//                accountYue.setText("账户余额:" + (msg.arg1+"") + "元");
-//            }else if (msg.what == 1){
-//                accountJinBi.setText("金币余额:" + (msg.arg1+"") + "元");
-//            }else if (msg.what == 2){
-//                accountKeyong.setText("可用余额:" + (msg.arg1+"") + "元");
-//            }
-//        }
-//    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,51 +103,30 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
             if (intent.getAction().equals(Constant.USERINFORECEIVER)) {
                 getUserData();
             } else if (intent.getAction().equals(Constant.ACCOUNTRECEIVER)) {
-                getAccountData();
+//                getAccountData();
             }
         };
     };
 
     private void changeView() {
         // 判断是否登录
+        String id = PreferencesUtils.getString(mContext, Constant.USER.USERID);
         if (StringUtils.isEmpty(PreferencesUtils.getString(mContext, Constant.USER.USERID))) {
             showNoLoginView();
-            TextView rightLogin = (TextView) mNoLoginView.findViewById(R.id.right_register);
-            rightLogin.setOnClickListener(this);
-            Button login = (Button) mNoLoginView.findViewById(R.id.login_btn);
-            login.setOnClickListener(this);
+
         } else {
             showLoginView();
-            String username = PreferencesUtils.getString(mContext, Constant.USER.USERNAME);
-            if (StringUtils.isNotEmpty(username)) {
-                userName.setText(username);
-                PreferencesUtils.putString(mContext.getApplicationContext(),Constant.USER.USERNAME,username);
-            }
-            String balance = PreferencesUtils.getString(mContext, Constant.USER.BALANCE);
-            if (StringUtils.isNotEmpty(balance)) {
-                accountYue.setText("账户余额:" + balance + "元");
-            }
-            String jinbi = PreferencesUtils.getString(mContext, Constant.USER.GOLD);
-            if (StringUtils.isNotEmpty(jinbi)) {
-                accountJinBi.setText("金币余额:" + jinbi + "元");
-            }
-            String keyong = PreferencesUtils.getString(mContext, Constant.USER.USABLE);
-            if (StringUtils.isNotEmpty(keyong)) {
-                accountKeyong.setText("可用余额:" + keyong + "元");
-            }
-            scrollView.setCanPullDown(true);
-            scrollView.setCanPullUp(false);
-            refreshView.setTAG(TAG);
-            refreshView.setOnRefreshListener(this);
-            getUserData();
-            getAccountData();
+
         }
     }
 
     public void showNoLoginView() {
         contentLayout.setVisibility(View.GONE);
         mNoLoginView.setVisibility(View.VISIBLE);
-
+        TextView rightLogin = (TextView) mNoLoginView.findViewById(R.id.right_register);
+        rightLogin.setOnClickListener(this);
+        Button login = (Button) mNoLoginView.findViewById(R.id.login_btn);
+        login.setOnClickListener(this);
     }
 
     public void showLoginView() {
@@ -164,11 +134,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
             mNoLoginView.setVisibility(View.GONE);
         }
         contentLayout.setVisibility(View.VISIBLE);
+
+        String username = PreferencesUtils.getString(mContext, Constant.USER.USERNAME);
+        if (StringUtils.isNotEmpty(username)) {
+            userName.setText(username);
+            PreferencesUtils.putString(mContext.getApplicationContext(),Constant.USER.USERNAME,username);
+        }
+        String balance = PreferencesUtils.getString(mContext, Constant.USER.BALANCE);
+        if (StringUtils.isNotEmpty(balance)) {
+            accountYue.setText("账户余额:" + balance + "元");
+        }
+        String jinbi = PreferencesUtils.getString(mContext, Constant.USER.GOLD);
+        if (StringUtils.isNotEmpty(jinbi)) {
+            accountJinBi.setText("金币余额:" + jinbi + "元");
+        }
+        String keyong = PreferencesUtils.getString(mContext, Constant.USER.USABLE);
+        if (StringUtils.isNotEmpty(keyong)) {
+            accountKeyong.setText("可用余额:" + keyong + "元");
+        }
+        scrollView.setCanPullDown(true);
+        scrollView.setCanPullUp(false);
+        refreshView.setTAG(TAG);
+        refreshView.setOnRefreshListener(this);
+        getUserData();
+        getAccountData();
     }
 
     private void getUserData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        String user = PreferencesUtils.getString(mContext, Constant.USER.USERID);
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FINDUSERSETTINGINFO, map, TAG, new SpotsCallBack<UserInfoResponse>(mContext, false) {
 
@@ -200,31 +193,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
             @Override
             public void onSuccess(Response response, AccountInfoResponse res) {
                 if (res.getCode().equals("200")) {
-                    PreferencesUtils.putString(mContext, Constant.USER.BALANCE, res.getData().getCash_balance());
-                    PreferencesUtils.putString(mContext, Constant.USER.GOLD, res.getData().getGold_balance());
-                    PreferencesUtils.putString(mContext, Constant.USER.USABLE, res.getData().getAvailable_fee());
+                    PreferencesUtils.putString(mContext, Constant.USER.BALANCE, res.getData().getCash_balance()+"");
+                    PreferencesUtils.putString(mContext, Constant.USER.GOLD, res.getData().getGold_balance()+"");
+                    PreferencesUtils.putString(mContext, Constant.USER.USABLE, res.getData().getAvailable_fee()+"");
                     String balance = res.getData().getCash_balance();
                     if (StringUtils.isNotEmpty(balance)) {
-//                        Message msg = handler.obtainMessage();
-//                        msg.what = 0;
-//                        msg.arg1 = Integer.parseInt(balance);
-//                        handler.sendMessage(msg);
                         accountYue.setText("账户余额:" + balance + "元");
                     }
                     String jinbi = res.getData().getGold_balance();
                     if (StringUtils.isNotEmpty(jinbi)) {
-//                        Message msg = handler.obtainMessage();
-//                        msg.what = 1;
-//                        msg.arg1 = Integer.parseInt(jinbi);
-//                        handler.sendMessage(msg);
                         accountJinBi.setText("金币余额:" + jinbi + "元");
                     }
                     String keyong = res.getData().getAvailable_fee();
                     if (StringUtils.isNotEmpty(keyong)) {
-//                        Message msg = handler.obtainMessage();
-//                        msg.what = 2;
-//                        msg.arg1 = Integer.parseInt(keyong);
-//                        handler.sendMessage(msg);
                         accountKeyong.setText("可用余额:" + keyong + "元");
                     }
                 } else {
@@ -285,9 +266,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
             case R.id.layout_accout:
-//                startActivity(new Intent(mContext, AccountActivity.class));
                 startActivity(new Intent(mContext, NewAccountActivity.class));
-
                 break;
             case R.id.layout_setting:
                 startActivity(new Intent(mContext, SettingActivity.class));

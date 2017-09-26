@@ -5,17 +5,9 @@ package com.zhailr.caipiao.model.response;
  */
 public class AccountInfoResponse {
 
-    /**
-     * code : 200
-     * data : {"cash_balance":"100000","gold_balance":"99978"}
-     * message : 成功
-     */
 
     private String code;
-    /**
-     * cash_balance : 100000
-     * gold_balance : 99978
-     */
+
 
     private DataBean data;
     private String message;
@@ -48,6 +40,25 @@ public class AccountInfoResponse {
         private String cash_balance;
         private String gold_balance;
         private String available_fee;
+        private String recharge_fee;
+        private String total_bonus;
+
+        public String getRecharge_fee() {
+            return recharge_fee;
+        }
+
+        public void setRecharge_fee(String recharge_fee) {
+            this.recharge_fee = recharge_fee;
+        }
+
+        public String getTotal_bonus() {
+            return total_bonus;
+        }
+
+        public void setTotal_bonus(String total_bonus) {
+            this.total_bonus = total_bonus;
+        }
+
         public String getCash_balance() {
             return cash_balance;
         }

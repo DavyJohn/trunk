@@ -56,10 +56,8 @@ public class MyApplication extends Application {
 
 		OkHttpUtils.initClient(okHttpClient);
 
-		CrashHandler crashHandler = CrashHandler.getInstance();
-		crashHandler.init(getApplicationContext());
-
-
+//		CrashHandler crashHandler = CrashHandler.getInstance();
+//		crashHandler.init(getApplicationContext());
 	 	JPushInterface.setDebugMode(true);
 		JPushInterface.init(this);
 		//test
@@ -100,7 +98,7 @@ public class MyApplication extends Application {
 
 	/**
 	 * 获取网络类型
-	 * 
+	 *
 	 * @return
 	 */
 	public void getConnType() {

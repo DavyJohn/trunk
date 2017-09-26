@@ -66,15 +66,12 @@ public class K3RecordListActivity extends BaseActivity {
     }
 
     private void getData() {
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.KSRECORD, null, TAG, new SpotsCallBack<KSRecordResponse>(mContext, false) {
-
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.KSRECORD, null, TAG, new SpotsCallBack<KSRecordResponse>(mContext, true) {
             @Override
             public void onSuccess(Response response, KSRecordResponse data) {
                 if (null != data.getData()) {
                     mList = (ArrayList<KSRecordResponse.DataBean.HitoryQSBean>) data.getData().getHitoryQS();
                     mAdapter.setData(mList);
-                } else {
-
                 }
             }
 

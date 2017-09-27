@@ -17,6 +17,7 @@ import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.widget.pullableview.PullableRecyclerView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,8 +71,9 @@ public class FC3DRecordListActivity extends BaseActivity {
     }
 
     private void getData() {
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FCSDRECORD, null, TAG, new SpotsCallBack<FCSDRecordResponse>(mContext, false) {
-
+        LinkedHashMap<String,String> map = new LinkedHashMap<>();
+        map.put("lottery_no_number","30");
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.FCSDRECORD, map, TAG, new SpotsCallBack<FCSDRecordResponse>(mContext, false) {
             @Override
             public void onSuccess(Response response, FCSDRecordResponse data) {
                 if (null != data.getData()) {

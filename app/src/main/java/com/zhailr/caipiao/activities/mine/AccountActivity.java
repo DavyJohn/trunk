@@ -46,13 +46,11 @@ public class AccountActivity extends BaseActivity implements PullToRefreshLayout
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
         getToolBar().setTitle("账户明细");
-
         type = getIntent().getStringExtra("type");
         initUI();
     }
 
     private void initUI() {
-
         recycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         recycleView.setLayoutManager(mLayoutManager);

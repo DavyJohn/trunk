@@ -16,6 +16,7 @@ import com.zhailr.caipiao.utils.Constant;
 import com.zhailr.caipiao.widget.pullableview.PullableRecyclerView;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,7 +66,9 @@ public class SSQRecordListActivity extends BaseActivity {
     }
 
     private void getData() {
-        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.SSQRECORD, null, TAG, new SpotsCallBack<SSQRecordResponse>(mContext, false) {
+        LinkedHashMap<String,String> map = new LinkedHashMap<>();
+        map.put("lottery_no_number","30");
+        mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.SSQRECORD, map, TAG, new SpotsCallBack<SSQRecordResponse>(mContext, false) {
 
             @Override
             public void onSuccess(Response response, SSQRecordResponse data) {

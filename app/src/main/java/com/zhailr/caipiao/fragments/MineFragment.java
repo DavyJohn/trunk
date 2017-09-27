@@ -279,6 +279,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener, 
                 startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
             case R.id.layout_accout:
+                //账号明细
                 startActivity(new Intent(mContext, NewAccountActivity.class));
                 break;
             case R.id.layout_setting:

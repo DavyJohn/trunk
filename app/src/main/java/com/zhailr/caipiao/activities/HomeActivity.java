@@ -1,13 +1,18 @@
 package com.zhailr.caipiao.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v7.app.AlertDialog;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.pgyersdk.javabean.AppBean;
+import com.pgyersdk.update.PgyUpdateManager;
+import com.pgyersdk.update.UpdateManagerListener;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.MyApplication;
@@ -47,6 +52,34 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         MyApplication.getInstance().add(this);
+        //更新
+        PgyUpdateManager.register(this, "com.zzh.mt.fileprovider", new UpdateManagerListener() {
+            @Override
+            public void onNoUpdateAvailable() {
+            }
+            @Override
+            public void onUpdateAvailable(String result) {
+                // 将新版本信息封装到AppBean中
+                final AppBean appBean = getAppBeanFromString(result);
+                new AlertDialog.Builder(HomeActivity.this)
+                        .setTitle("更新")
+                        .setMessage("检测到新的版本")
+                        .setNegativeButton(
+                                "确定",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(
+                                            DialogInterface dialog,
+                                            int which) {
+                                        startDownloadTask(
+                                                HomeActivity.this,
+                                                appBean.getDownloadURL());
+                                    }
+                                }).show();
+            }
+        });
+        //end
         init();
     }
 
@@ -71,7 +104,6 @@ public class HomeActivity extends BaseActivity {
                         hasToolBar(true);
                         tabHost.setCurrentTab(1);
                         getToolBar().setTitle(R.string.oneyuan).setDisplayHomeAsUpEnabled(false);
-//                        Toast.makeText(HomeActivity.this, "敬请期待！", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.rbCart:
                         hasToolBar(true);

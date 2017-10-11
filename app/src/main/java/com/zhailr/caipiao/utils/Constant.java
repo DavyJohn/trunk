@@ -16,7 +16,7 @@ public class Constant {
 //    public static final String COMMONURL = "http://121.40.100.15:8807/gateway/";
     //Mysql 正式环境
     public static final String COMMONURL = "http://ttgcp.cn:5000/gateway/";
-    //
+    //更新地址
     public static final String UPDATEURL = "http://122.194.107.210:8880/update/update.xml";
     // 登录成功刷新数据广播
     public static final String LOGINRECEIVER = "com.zhailr.caipiao.loginreceiver";

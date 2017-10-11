@@ -24,10 +24,11 @@ import java.util.List;
  */
 public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
+    private String styp;
     private List<OrderDetailResponse.DataBean.TicketinfoBean> mData;
-
-    public MycaipiaoAdapter(Context context) {
+    public MycaipiaoAdapter(Context context,String s) {
         this.mContext = context;
+        this.styp = s;
     }
 
     public void setData(List<OrderDetailResponse.DataBean.TicketinfoBean> data) {
@@ -70,10 +71,13 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }else {
                 ((ItemViewHolder)holder).mLayout.setVisibility(View.VISIBLE);
             }
+            if (styp.equals("已开奖")){
+                ((ItemViewHolder) holder).mLayout.setEnabled(false);
+                ((ItemViewHolder) holder).mChange.setBackground(ContextCompat.getDrawable(mContext,R.color.dark_gray));
+            }
             ((ItemViewHolder)holder).mBetnum.setText(TicketinfoBean.getContent());//彩票号码
             ((ItemViewHolder)holder).mPlaytype.setText(TicketinfoBean.getPlay_way());//玩法类型
             ((ItemViewHolder)holder).mNum.setText(TicketinfoBean.getIssue_num());//彩票骑术
-//            ((ItemViewHolder)holder).mLotterystation.setText(TicketinfoBean.getStatus());//彩票状态
             ((ItemViewHolder)holder).mNode.setText(TicketinfoBean.getNode());//彩票注数
             ((ItemViewHolder)holder).mMultiple.setText(TicketinfoBean.getMultiple());//彩票倍数
             switch (Integer.parseInt(TicketinfoBean.getTake_ticket_way())){
@@ -95,8 +99,6 @@ public class MycaipiaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             }
 
-//            ((ItemViewHolder) holder).mBetnum.setText(TicketinfoBean.getNode());
-//            ((ItemViewHolder) holder).mLotterynum.setText(TicketinfoBean.getContent());
             //彩票状态
             switch (Integer.valueOf(StringUtils.getStringNotNULL(TicketinfoBean.getStatus()).equals("") ? "0" : TicketinfoBean.getStatus())) {
                 case 0:

@@ -86,7 +86,7 @@ public class OrderListRightAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }
             ((OrderListRightAdapter.ItemViewHolder) holder).price.setText("投注" + StringUtils.Double2String(Double.valueOf(bean.getBet_amount())) + "元");
             int len = bean.getBet_time().length();
-            ((OrderListRightAdapter.ItemViewHolder) holder).time.setText(bean.getBet_time().substring(5, 10) + "  " + bean.getBet_time().substring(len - 8, len - 3));
+            ((OrderListRightAdapter.ItemViewHolder) holder).time.setText(bean.getBet_time());
 
         }
     }

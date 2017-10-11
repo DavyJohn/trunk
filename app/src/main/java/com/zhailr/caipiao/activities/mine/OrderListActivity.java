@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
  * Created by zhailiangrong on 16/7/18.
  */
 public class OrderListActivity extends BaseActivity  {
+
     private static final String TAG = "OrderListActivity";
 
     @Bind(R.id.ac_order_list_vp)
@@ -35,6 +36,7 @@ public class OrderListActivity extends BaseActivity  {
 
     private List<Fragment> mFragments =  new ArrayList<>();
     private MyPagerAdapter pagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,6 @@ public class OrderListActivity extends BaseActivity  {
             }
         });
         initView();
-
     }
 
     private void initView(){

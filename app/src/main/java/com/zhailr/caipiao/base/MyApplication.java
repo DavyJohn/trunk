@@ -58,9 +58,6 @@ public class MyApplication extends Application {
 		crashHandler.init(getApplicationContext());
 	 	JPushInterface.setDebugMode(true);
 		JPushInterface.init(this);
-		//test
-
-
 	}
 
 	public static Handler getHandler()

@@ -91,44 +91,32 @@ public class SelectPayTypeActivity extends BaseActivity {
         tvPayTotal.setText("￥" + tvPrice);
         orderId = getIntent().getStringExtra("orderId");
         getAccountData();
-//        String balance = PreferencesUtils.getString(mContext, Constant.USER.BALANCE);
-//        String gold = PreferencesUtils.getString(mContext, Constant.USER.GOLD);
-//        datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
-//        datalist.add(new PayType("0", "现金支付", "可用余额：" + balance, 1));
-//        datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
         adapter = new PayTypeListAdapter(this, datalist,
                 R.layout.adapter_pay_type_choose_item);
         payTypeListView.setAdapter(adapter);
-//        getAccountData();
         payTypeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    if (datalist.size() == 3){
+                    if (datalist.size() == 4){
+                        payType = "3";
                         payFromZFB();
                     }else {
-                        payType = "2";
+                        payType = "2";//金币
                         payFromAccount();
                     }
-
                 } else if (position == 1) {
-                    payType = "1";
+                    payType = "1";//现金
                     payFromAccount();
-
                 } else if (position == 2) {
                     payType = "2";
                     payFromAccount();
-
+                }else if (position == 3){
+                    payType = "4";
+                    showToast("微信");
                 }
-
-
             }
-
-
         });
-//        if (StringUtils.isEmpty(balance) || StringUtils.isEmpty(gold)) {
-//            getAccountData();
-//        }
     }
 
     private void getAccountData() {
@@ -142,24 +130,18 @@ public class SelectPayTypeActivity extends BaseActivity {
                     PreferencesUtils.putString(mContext, Constant.USER.BALANCE, res.getData().getCash_balance());
                     PreferencesUtils.putString(mContext, Constant.USER.GOLD, res.getData().getGold_balance());
                     PreferencesUtils.putString(mContext, Constant.USER.USABLE, res.getData().getAvailable_fee());
-                    String balance = res.getData().getCash_balance();
                     String gold = res.getData().getGold_balance();
                     String keyong = res.getData().getAvailable_fee();
                     datalist.clear();
-//                    datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
-//                    datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
-//                    datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
                     if (type.equals("true")){
                         datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
                     }else {
                         datalist.add(new PayType("0", "支付宝支付", "支付宝安全支付", 1));
                         datalist.add(new PayType("0", "现金支付", "可用余额：" + keyong, 1));
                         datalist.add(new PayType("0", "金币支付", "金币余额：" + gold, 1));
+                        datalist.add(new PayType("0", "微信支付", "微信安全支付：" , 1));
                     }
-
-
                     adapter.setData(datalist);
-
                 } else {
                     Toast.makeText(mContext, res.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -247,7 +229,6 @@ public class SelectPayTypeActivity extends BaseActivity {
                     showToast(res.getMessage());
                 }
             }
-
             @Override
             public void onError(Response response, int code, Exception e) {
                 dimissDialog();
@@ -261,7 +242,6 @@ public class SelectPayTypeActivity extends BaseActivity {
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("orderId", orderId);
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.GETNETPAYMENT, map, TAG, new SpotsCallBack<NetPaymentResponse>(mContext) {
-
             @Override
             public void onSuccess(Response response, final NetPaymentResponse res) {
                 if (res.getCode().equals("200")) {
@@ -276,7 +256,7 @@ public class SelectPayTypeActivity extends BaseActivity {
                         @Override
                         public void paySuccess() {
                             super.paySuccess();
-                            getSuccessCallBack(res.getData().getAmount(), orderId, "3", res.getData().getBillNo(), "body", "seller_id", "subject", "out_trade_no");
+                            getSuccessCallBack(res.getData().getAmount(), orderId, payType, res.getData().getBillNo(), "body", "seller_id", "subject", "out_trade_no");
 
                         }
 
@@ -304,9 +284,7 @@ public class SelectPayTypeActivity extends BaseActivity {
                 Log.i(TAG, response.toString());
                 showToast(getString(R.string.request_error));
             }
-
         });
-
     }
 
     private void getSuccessCallBack(String amount, String orderId, String payWay,String billNo,String desc,String sellerId,String subject,String tradeNo) {
@@ -336,7 +314,6 @@ public class SelectPayTypeActivity extends BaseActivity {
             @Override
             public void onSuccess(Response response, BaseResponse res) {
                 if (res.getCode().equals("200")) {
-                    System.out.println("支付成功");
                     showToast("支付成功");
                     MyApplication.getInstance().finishAllExceptHome();
                     startActivity(new Intent(SelectPayTypeActivity.this, OrderListActivity.class));

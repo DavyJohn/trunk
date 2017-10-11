@@ -91,7 +91,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                         Log.d("AppUpdater", s + Boolean.toString(isUpdateAvailable));
                     }
 
-
                     @Override
                     public void onFailed(AppUpdaterError appUpdaterError) {
                         Log.d("AppUpdater", "Something went wrong");

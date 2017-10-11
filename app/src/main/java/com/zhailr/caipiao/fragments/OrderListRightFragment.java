@@ -47,7 +47,6 @@ public class OrderListRightFragment extends BaseFragment implements PullToRefres
     @Bind(R.id.refresh_view)
     TZCPPullRefresh refreshView;
     private LinearLayoutManager mLayoutManager;
-//    private OrderAdapter mAdapter;
     private OrderListRightAdapter mAdapter;
     private List<OrderListResponse.DataBean.LotteryordersBean> mData = new ArrayList<>();
     private int mPage = 1;
@@ -62,7 +61,6 @@ public class OrderListRightFragment extends BaseFragment implements PullToRefres
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         initUI();
-//        registerReceiver();
         getAccountData();
     }
 
@@ -137,19 +135,6 @@ public class OrderListRightFragment extends BaseFragment implements PullToRefres
         });
     }
 
-//    private void registerReceiver() {
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(Constant.ORDERLISTRECEIVER);
-//        registerReceiver(receiver, filter);
-//    }
-//
-//    private BroadcastReceiver receiver = new BroadcastReceiver() {
-//        public void onReceive(Context context, Intent intent) {
-//            if (intent.getAction().equals(Constant.ORDERLISTRECEIVER)) {
-//                refreshView.autoRefresh();
-//            }
-//        };
-//    };
 
     @Override
     public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {

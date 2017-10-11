@@ -51,9 +51,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (OrderInfoBean == null) {
                 return;
             }
-//            ((ItemViewHolder) holder).mPlayway.setText(OrderInfoBean.getPlay_way());
-//            ((ItemViewHolder) holder).mContent.setText(OrderInfoBean.getContent());
-//            ((ItemViewHolder) holder).mMultiple.setText(OrderInfoBean.getMultiple()+"倍");
             //期号
             ((ItemViewHolder)holder).mIssue.setText(OrderInfoBean.getIssue_num());
             //玩法类型

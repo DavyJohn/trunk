@@ -109,57 +109,16 @@ public class OrderDetailActivity extends BaseActivity {
         startActivity(intent);
 
     }
-  //end注释的基本都是上代的 方便后来的恢复
-//    @Bind(R.id.icon)
-//    ImageView icon;
-//    @Bind(R.id.tv_icon)
-//    TextView tvIcon;
-//    @Bind(R.id.num)
-//    TextView num;
-//    @Bind(R.id.amount)
-//    TextView amount;
-//    @Bind(R.id.win_amount)
-//    TextView winAmount;
-//    @Bind(R.id.multiple)
-//    TextView multiple;
-//    @Bind(R.id.count)
-//    TextView count;
-////    @Bind(R.id.u_num)
-//    TextView content;
-//    @Bind(R.id.win_content)
-//    TextView winContent;
-//    @Bind(R.id.order_id)
-//    TextView orderId;
-//    @Bind(R.id.status)
-//    TextView status;
-//    @Bind(R.id.pay_way)
-//    TextView payWay;
-//    @Bind(R.id.pay_time)
-//    TextView payTime;
-//    @Bind(R.id.del)
-//    TextView del;
-//    @Bind(R.id.ok)
-//    TextView ok;
-//    @Bind(R.id.play_type)
-//    TextView playType;
-//    @Bind(R.id.order_type)
-//    TextView orderType;
-//    @Bind(R.id.recycle_view)
-//    RecyclerView recycleView;
-//    @Bind(R.id.recycle_view_order)
-//    RecyclerView recycleVieworder;
     private String mOrderId;
     private String mPrice;
     private String mTypeCode;
     private int tag = 0;
-    private LinearLayoutManager mLayoutManager;
     private String mSiteId ;
     private AlertDialog dialog;
     private MycaipiaoAdapter mAdapter;
     private MyOrderAdapter myOrderAdapter;//这个是追号Adapter
 
     private List<OrderDetailResponse.DataBean.TicketinfoBean> mData= new ArrayList<>();
-//    private List<OrderDetailResponse.DataBean.OrderInfoBean> MData= new ArrayList<>();
     private List<OrderDetailResponse.DataBean.ChaseInfo> MData= new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,14 +138,10 @@ public class OrderDetailActivity extends BaseActivity {
         mOrderId = getIntent().getStringExtra("orderId");
         showNoContent();
         getData();
-        //获取站点信息
-
     }
 
     private void getData() {
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        String id = PreferencesUtils.getString(mContext, Constant.USER.USERID);
-        String orderid = mOrderId;
         map.put("userId", PreferencesUtils.getString(mContext, Constant.USER.USERID));
         map.put("orderId", mOrderId);
         mOkHttpHelper.post(mContext, Constant.COMMONURL + Constant.ORDERDETAIL, map, TAG, new SpotsCallBack<OrderDetailResponse>(mContext, false) {
@@ -197,17 +152,12 @@ public class OrderDetailActivity extends BaseActivity {
                     mSiteId = res.getData().getSiteId();
                     getSiteData(mSiteId);
                     OrderDetailResponse.DataBean bean = res.getData();
-//                    OrderDetailResponse.DataBean.TicketinfoBean TicketinfoBean = res.getData().getTicketinfo();
-//                    OrderDetailResponse.DataBean.OrderInfoBean OrderInfoBean = res.getData().getOrderInfo();
                     mTypeCode = res.getData().getType_code();
                     if (null != mTypeCode) {
                         mTextType.setText(mTypeCode);
                         if (mTypeCode.equals("双色球")) {
-//                            icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.logo_ssq));
                         } else if (mTypeCode.equals("福彩3D")) {
-//                            icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.logo_3dfc));
                         } else if (mTypeCode.equals("快3")) {
-//                            icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.logo_k3));
                         }
                     }
 
@@ -223,7 +173,6 @@ public class OrderDetailActivity extends BaseActivity {
                             break;
                     }
                     mTextBonus.setText(bean.getWin_amount().equals("") ? "" : "￥" + bean.getWin_amount());
-//                    winContent.setText(bean.getBall_num().equals("") ? "等待开奖" : bean.getBall_num());
                     switch (Integer.valueOf(bean.getPay_way().equals("")?"-1":bean.getPay_way())) {
                         case 0:
 //                            payWay.setText("快捷支付");
@@ -246,15 +195,11 @@ public class OrderDetailActivity extends BaseActivity {
                     }
                     //order id
                     mTextZY.setText("订单摘要（订单编号："+bean.getOrderId()+")");
-//                    tvIcon.setText(StringUtils.getStringNotNULL(bean.getType_code()));
                     mPrice = bean.getBet_amount();
                     String tvPrice = StringUtils.Double2String(Double.parseDouble(mPrice));
                     mTextMoneyOrder.setText("￥" + tvPrice);
                     //期号
                     mTextIssue.setText("第" + StringUtils.getStringNotNULL(bean.getIssue_num()) + "期");
-                    int len = bean.getCreate_time().length();
-//                    payTime.setText(StringUtils.getStringNotNULL(bean.getCreate_time().substring(5, 10) + "  " + bean.getCreate_time().substring(len - 8, len - 3)));
-//                    count.setText(StringUtils.getStringNotNULL(bean.getNode_count()) + "注");
                     mTextMul.setText(StringUtils.getStringNotNULL(bean.getMultiple()) + "倍");
                     switch (Integer.valueOf(StringUtils.getStringNotNULL(bean.getStatus()).equals("") ? "0" : bean.getStatus())) {
                         case 0:
@@ -325,7 +270,7 @@ public class OrderDetailActivity extends BaseActivity {
                 List<OrderDetailResponse.DataBean.TicketinfoBean> newsList = res.getData().getTicketinfo();
                         if (null != newsList) {
                             mData.addAll(newsList);
-                            mAdapter = new MycaipiaoAdapter(mContext);
+                            mAdapter = new MycaipiaoAdapter(mContext,mTextStation.getText().toString());
                             mAdapter.setData(mData);
                             mRecyclerview.setAdapter(mAdapter);
                             mAdapter.setOnClickItemListener(new MycaipiaoAdapter.OnClickItemListener() {

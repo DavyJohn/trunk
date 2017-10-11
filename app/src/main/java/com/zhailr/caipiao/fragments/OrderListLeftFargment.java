@@ -1,9 +1,6 @@
 package com.zhailr.caipiao.fragments;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,9 +14,7 @@ import android.widget.Toast;
 import com.zhailr.caipiao.R;
 import com.zhailr.caipiao.activities.mine.OrderDetailActivity;
 import com.zhailr.caipiao.adapter.OrderAdapter;
-import com.zhailr.caipiao.base.BaseActivity;
 import com.zhailr.caipiao.base.BaseFragment;
-import com.zhailr.caipiao.base.MyApplication;
 import com.zhailr.caipiao.http.SpotsCallBack;
 import com.zhailr.caipiao.model.response.AccountInfoResponse;
 import com.zhailr.caipiao.model.response.OrderListResponse;
@@ -136,20 +131,6 @@ public class OrderListLeftFargment extends BaseFragment implements PullToRefresh
         });
     }
 
-//    private void registerReceiver() {
-//        IntentFilter filter = new IntentFilter();
-//        filter.addAction(Constant.ORDERLISTRECEIVER);
-//        registerReceiver(receiver, filter);
-//    }
-//
-//    private BroadcastReceiver receiver = new BroadcastReceiver() {
-//        public void onReceive(Context context, Intent intent) {
-//            if (intent.getAction().equals(Constant.ORDERLISTRECEIVER)) {
-//                refreshView.autoRefresh();
-//            }
-//        };
-//    };
-
     @Override
     public void onRefresh(PullToRefreshLayout pullToRefreshLayout) {
         mPage = 1;
@@ -162,10 +143,4 @@ public class OrderListLeftFargment extends BaseFragment implements PullToRefresh
         mPage++;
         getData(mPage);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        MyApplication.getInstance().finishAllExceptHome();
-//    }
 }

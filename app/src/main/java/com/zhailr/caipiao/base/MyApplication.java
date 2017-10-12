@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.pgyersdk.crash.PgyCrashManager;
 import com.zhailr.caipiao.activities.HomeActivity;
 import com.zhailr.caipiao.utils.NetworkUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -36,7 +37,6 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		mcontext = this;
-
 		// handler,用来子线程和主线程通讯
 		mHandler = new Handler();
 		// 主线程
